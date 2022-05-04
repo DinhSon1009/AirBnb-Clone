@@ -1,0 +1,20 @@
+/* .header_link p:after{
+    position: absolute;
+    content: '';
+    left:50%;
+    transform: translateX(-50%);
+    bottom: -5px;
+    width: 0;
+    height: 0.125rem;
+    transition: all 0.3s;
+}
+
+.header_link .active:after{
+    width: 100%;
+    background: #ef4444;
+}
+
+.header_link:hover p::after{
+    width: 100%;
+    background-color: #ef4444;
+} */

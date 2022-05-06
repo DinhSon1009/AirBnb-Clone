@@ -1,6 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Link } from "react-router-dom";
+import { StyledLink } from "../../styles/customStyle";
 
 export default function Footer() {
   return (
@@ -9,86 +8,86 @@ export default function Footer() {
         <div className=" space-y-4 text-sm text-gray-800 pb-5  border-b  border-gray-300 lg:border-none">
           <h5 className="font-bold">Hỗ trợ</h5>
           <div className="space-y-4 md:space-y-0 block md:grid grid-cols-3 md:gap-4 lg:space-y-4 lg:block  ">
-            <Link className="block" to={"/"}>
+            <StyledLink className="block" to={"/"}>
               Trung tâm trợ giúp
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Thông tin an toàn
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Hỗ trợ người khuyết tật
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Các tùy chọn hủy
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Biện pháp ứng phó với đại dịch COVID-19 của chúng tôi
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Báo cáo lo ngại của hàng xóm
-            </Link>
+            </StyledLink>
           </div>
         </div>
         <div className="space-y-4 text-sm text-gray-800 border-b  border-gray-300 lg:border-none pb-5 ">
           <h5 className="font-bold">Cộng đồng</h5>
           <div className="block space-y-4 md:space-y-0 md:grid grid-cols-3 md:gap-4 lg:space-y-4 lg:block">
-            <Link className="block" to={"/"}>
+            <StyledLink className="block" to={"/"}>
               Airbnb.org: nhà ở cứu trợ
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Hỗ trợ dân tị nạn Afghanistan
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Chống phân biệt đối xử
-            </Link>
+            </StyledLink>
           </div>
         </div>
         <div className="space-y-4 text-sm text-gray-800 border-b  border-gray-300 lg:border-none pb-5 ">
           <h5 className="font-bold">Đón tiếp khách</h5>
           <div className="block  md:grid grid-cols-3 space-y-4 md:space-y-0 md:gap-4 lg:space-y-4 lg:block">
-            <Link className="block" to={"/"}>
+            <StyledLink className="block" to={"/"}>
               Thử đón tiếp khách
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               AirCover cho Chủ nhà
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Xem tài nguyên đón tiếp khách
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Truy cập diễn đàn cộng đồng
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Đón tiếp khách có trách nhiệm
-            </Link>
+            </StyledLink>
           </div>
         </div>
         <div className="space-y-4 text-sm text-gray-800 pb-5 ">
           <h5 className="font-bold">Giới thiệu</h5>
           <div className="block lg:block md:grid md:grid-cols-3 gap-4 space-y-4 md:space-y-0 lg:space-y-4  ">
-            <Link className="block" to={"/"}>
+            <StyledLink className="block" to={"/"}>
               Trang tin tức
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Tìm hiểu các tính năng mới
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Thư ngỏ từ các nhà sáng lập
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Cơ hội nghề nghiệp
-            </Link>
-            <Link className="block" to={"/"}>
+            </StyledLink>
+            <StyledLink className="block" to={"/"}>
               Nhà đầu tư
-            </Link>
+            </StyledLink>
           </div>
         </div>
       </div>
       <div className="flex space-x-4 text-sm border-t border-gray-300 w-full dscontainer p-5">
         <p>© 2022 Airbnb, Inc.</p>
-        <Link to={"/"}>Quyền riêng tư</Link>
-        <Link to={"/"}>Điều khoản</Link>
-        <Link to={"/"}>Sơ đồ trang web</Link>
+        <StyledLink to={"/"}>Quyền riêng tư</StyledLink>
+        <StyledLink to={"/"}>Điều khoản</StyledLink>
+        <StyledLink to={"/"}>Sơ đồ trang web</StyledLink>
       </div>
     </div>
   );

@@ -1,14 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 @layer base {
     html {
-      font-family: Proxima Nova, system-ui, sans-serif;
+      font-family: 'Open Sans', sans-serif ;
     }
+  }
+
+  
+  .fontbase{
+    font-family: 'Cormorant Upright', serif;
+  }
+  
+ 
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
   }
 
 
 .dscontainer {
-    @apply max-w-[1535px] px-3 md:px-10 w-full
+    @apply max-w-[1535px] px-3 md:px-10 w-full 
+}
+
+.glass{
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
 }

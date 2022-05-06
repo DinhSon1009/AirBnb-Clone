@@ -1,10 +1,15 @@
 import { SearchIcon } from "@heroicons/react/solid";
 import React from "react";
 
-export default function Search() {
+export default function Search({ input, setInput }) {
   return (
-    <div className="w-2/6 mx-8 flex items-center  border-2 rounded-full py-2 md:shadow-sm lg:w-1/3 bg-white">
+    <div className="w-3/6 mx-8 flex items-center  border-2 rounded-full py-2 md:shadow-sm lg:basis-1/3 bg-white">
       <input
+        value={input}
+        onChange={(e) => {
+          setInput(e.target.value);
+          console.log(e.target.value);
+        }}
         className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400 "
         type="text"
         placeholder="Bắt đầu tìm kiếm"

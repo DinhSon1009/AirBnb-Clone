@@ -8,6 +8,10 @@ class HttpRequestService {
   //   const uri = "/api/QuanLyPhim/LayDanhSachPhim";
   //   return AxiosServ.getMethod(uri, false);
   // };
+  layDiaDiem = (params) => {
+    const uri = `/api/locations?limit=4&location=${params}`;
+    return AxiosServ.getMethod(uri, false);
+  };
 
   dangNhap = (data) => {
     const uri = "/api/auth/login";

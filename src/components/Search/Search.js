@@ -1,57 +1,78 @@
-import { SearchIcon } from "@heroicons/react/solid";
-import React from "react";
+import { LocationMarkerIcon, SearchIcon } from "@heroicons/react/solid";
+import React, { useState } from "react";
+import httpServ from "../../services/http.service";
 
-export default function Search({ input, setInput }) {
+export default function Search() {
   return (
-    <div className="w-3/6 mx-8 flex items-center  border-2 rounded-full py-2 md:shadow-sm lg:basis-1/3 bg-white">
-      <input
-        value={input}
-        onChange={(e) => {
-          setInput(e.target.value);
-          console.log(e.target.value);
-        }}
-        className="flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400 "
-        type="text"
-        placeholder="Bắt đầu tìm kiếm"
-      />
+    <div className="w-full max-w-[300px] mx-5 lg:mx-auto  flex items-center   border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white relative ">
+      <div className="flex-grow pl-5 cursor-pointer bg-transparent outline-none text-sm text-gray-600 text-left font-semibold whitespace-nowrap py-3">
+        Bắt đầu tìm kiếm
+      </div>
       <SearchIcon className="hidden  md:inline-flex h-8 bg-[#ff385c] text-white rounded-full md:p-2 cursor-pointer md:mx-2 " />
     </div>
   );
 }
 
 Search.NoScroll = function SearchNoScroll() {
+  const [suggestion, setSuggestion] = useState("");
+  const [input, setInput] = useState("");
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    httpServ
+      .layDiaDiem(e.target.value)
+      .then((res) => {
+        console.log(res);
+        setSuggestion(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
-    <div className="flex justify-center  ">
-      <ul className="w-1/2 m-auto rounded-full border-2 flex ">
-        <li className="relative w-1/4 text-sm cursor-pointer hover:bg-gray-300 rounded-full">
-          <div className="px-5 py-2">
-            <p className="font-semibold">Địa điểm</p>
+    <div className="hidden md:flex md:flex-col text-center w-full  transition transform ease-out  duration-150 ">
+      <h1 className="mt-16">Place to stay</h1>
+      <ul className="w-full m-auto rounded-full border-2 flex bg-[#f7f7f7] text-left">
+        <li className="flex items-center lg:basis-[30%] basis-1/4  text-sm whitespace-nowrap cursor-pointer hover:bg-[#EBEBEB] rounded-full ">
+          <div className="px-3 lg:px-8 py-3.5  relative ">
+            <p className="font-semibold m-0">Địa điểm</p>
             <input
+              value={input}
+              onChange={handleChange}
               type="text"
               placeholder="Bạn sắp đi đâu?"
-              className="outline-none placeholder-gray-400 py-2 bg-transparent"
+              className="outline-none placeholder-gray-400 bg-transparent"
             />
+            <div className="absolute left-0 mt-6 bg-white rounded-xl px-2 ">
+              {input &&
+                suggestion &&
+                suggestion.map((suggest, index) => (
+                  <button
+                    className={` relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2  
+                    `}
+                    key={index}
+                  >
+                    <LocationMarkerIcon className="h-12 p-2 w-12 min-w-[3rem] bg-gray-300 mr-5 " />{" "}
+                    {suggest.name}, {suggest.province}
+                  </button>
+                ))}
+            </div>
           </div>
-          <div className="absolute right-0 bottom-0 h-1/2 w-0.5 bg-gray-200 transform -translate-y-1/2"></div>
         </li>
-        <li className="relative  text-sm w-1/4 cursor-pointer hover:bg-gray-300 rounded-full">
-          <div className="px-5 py-2">
-            <p className="font-semibold">Nhận phòng</p>
-            <p className="text-gray-400 py-2">Thêm ngày</p>
+        <li className="flex relative  items-center basis-1/4 lg:basis-[20%] whitespace-nowrap text-sm cursor-pointer rounded-full hover:bg-[#EBEBEB]">
+          <div className="py-3.5 px-6">
+            <p className="font-semibold m-0">Nhận phòng</p>
+            <p className="text-gray-400 m-0">Thêm ngày</p>
           </div>
-          <div className="absolute right-0 bottom-0 h-1/2 w-0.5 bg-gray-200 transform -translate-y-1/2"></div>
         </li>
-        <li className="relative  text-sm w-1/4 cursor-pointer hover:bg-gray-300 rounded-full">
-          <div className="px-5 py-2">
-            <p className="font-semibold">Trả phòng</p>
-            <p className="text-gray-400 py-2">Thêm ngày</p>
+        <li className=" text-sm flex basis-1/4 lg:basis-[20%] whitespace-nowrap items-center cursor-pointer rounded-full hover:bg-[#EBEBEB]">
+          <div className="py-3.5 px-6">
+            <p className="font-semibold m-0">Trả phòng</p>
+            <p className="text-gray-400 m-0">Thêm ngày</p>
           </div>
-          <div className="absolute right-0 bottom-0 h-1/2 w-0.5 bg-gray-200 transform -translate-y-1/2"></div>
         </li>
-        <li className="flex  text-sm items-center justify-between w-1/4 px-2 cursor-pointer hover:bg-gray-300 rounded-full">
-          <div className="px-5 py-2">
-            <p className="font-semibold">Khách</p>
-            <p className="text-gray-400 py-2">Thêm khách</p>
+        <li className="flex text-sm basis-1/4 lg:basis-[30%] whitespace-nowrap items-center cursor-pointer hover:bg-[#EBEBEB] rounded-full pr-3.5 pl-6 py-3/5">
+          <div className="flex-grow">
+            <p className="font-semibold m-0">Khách</p>
+            <p className="text-gray-400 m-0">Thêm khách</p>
           </div>
           <SearchIcon className="h-12 p-2 bg-red-400 rounded-full text-white" />
         </li>

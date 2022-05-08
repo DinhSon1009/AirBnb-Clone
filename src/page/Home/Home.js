@@ -8,10 +8,12 @@ import exploreData from "../../fixtures/explore.json";
 import BigCard from "../../components/Card/BigCard";
 import Footer from "../../components/Footer/Footer";
 export default function Home() {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setOffset(window.pageYOffset);
+    const onScroll = () => {
+      window.pageYOffset > 0 ? setOffset(true) : setOffset(false);
+    };
     // clean up code
     window.removeEventListener("scroll", onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });

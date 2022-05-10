@@ -1,0 +1,43 @@
+import { HeartIcon } from "@heroicons/react/outline";
+import React from "react";
+
+export default function InforCard({
+  img,
+  location,
+  title,
+  description,
+  star,
+  price,
+  total,
+  bath,
+  bedRoom,
+  guests,
+}) {
+  return (
+    <div className="flex py-7 px-2 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
+      <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
+        <img
+          src={img}
+          alt={`ảnh ${location}`}
+          className="object-cover rounded-2xl"
+        />
+      </div>
+      <div className="flex flex-col flex-grow pl-5 ">
+        <div className="flex justify-between ">
+          <p>{location}</p>
+          <HeartIcon className="h-7 cursor-pointer" />
+        </div>
+        <h4 className="text-xl">{title}</h4>
+        <div className="border-b w-10 pt-2"></div>
+        <p className="pt-2 text-sm text-gray-500 flex-grow">
+          {guests} guests - {bedRoom} bedrooms - {bath} baths
+        </p>
+        <div>
+          <p className="text-lg lg:text-2xl font-semibold ">
+            {price.toLocaleString()} đ/ngày
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

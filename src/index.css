@@ -28,12 +28,7 @@
     @apply max-w-[1535px] px-3 md:px-10 w-full 
 }
 
-
-
-
-
 @layer utilities{
-  @variants after{
     .ds_transition{
       box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px !important;
       transform-origin: 50% 0% !important;
@@ -65,7 +60,6 @@
       transition: -ms-transform 250ms ease 0s, -webkit-transform 250ms ease 0s, transform 250ms ease 0s, opacity 250ms ease 0s !important;
       opacity: 1;
     }
-  }
 }
 
 .glass{

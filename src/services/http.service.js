@@ -4,10 +4,6 @@ import AxiosServ from "./axios.service";
 class HttpRequestService {
   constructor() {}
 
-  // layDanhSachPhim = () => {
-  //   const uri = "/api/QuanLyPhim/LayDanhSachPhim";
-  //   return AxiosServ.getMethod(uri, false);
-  // };
   layDiaDiem = (params) => {
     const uri = `/api/locations?limit=4&location=${params}`;
     return AxiosServ.getMethod(uri, false);
@@ -31,6 +27,14 @@ class HttpRequestService {
   layDanhSachNguoiDung = () => {
     let uri = "/api/QuanLyNguoiDung/LayDanhSachNguoiDung";
 
+    return AxiosServ.getMethod(uri);
+  };
+  layDanhSachPhongChoThueTheoViTri = (id) => {
+    let uri = `/api/rooms?locationId=${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+  layThongTinChiTietViTri = (id) => {
+    let uri = `/api/locations/${id}`;
     return AxiosServ.getMethod(uri);
   };
 }

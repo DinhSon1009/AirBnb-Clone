@@ -1,10 +1,13 @@
 import { LocationMarkerIcon, SearchIcon } from "@heroicons/react/solid";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { setLocationID, setSuggestion } from "../../redux/searchSlice";
 import httpServ from "../../services/http.service";
 
 export default function Search() {
   return (
-    <div className="w-full max-w-[300px] mx-5 lg:mx-auto  flex items-center   border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white relative ">
+    <div className="w-full mx-5 lg:mx-auto  flex items-center   border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white relative ">
       <div className="flex-grow pl-5 cursor-pointer bg-transparent outline-none text-sm text-gray-600 text-left font-semibold whitespace-nowrap py-3">
         Bắt đầu tìm kiếm
       </div>
@@ -14,18 +17,27 @@ export default function Search() {
 }
 
 Search.NoScroll = function SearchNoScroll() {
-  const [suggestion, setSuggestion] = useState("");
+  const dispatch = useDispatch();
+  const searchState = useSelector((state) => state.searchReducer);
+  const navigate = useNavigate();
+  const [suggestions, setSuggestions] = useState("");
   const [input, setInput] = useState("");
-
+  const [select, setSelect] = useState("");
   const handleChange = (e) => {
     setInput(e.target.value);
     httpServ
       .layDiaDiem(e.target.value)
       .then((res) => {
-        console.log(res);
-        setSuggestion(res.data);
+        setSuggestions(res.data);
       })
       .catch((err) => console.log(err));
+  };
+  const handleSearch = () => {
+    dispatch(setLocationID(select._id));
+    navigate({
+      pathname: "/search",
+      search: `?id=${select._id}&&location=${input}`,
+    });
   };
   return (
     <div className="hidden md:flex md:flex-col text-center w-full  transition transform ease-out  duration-150 ">
@@ -42,12 +54,17 @@ Search.NoScroll = function SearchNoScroll() {
               className="outline-none placeholder-gray-400 bg-transparent"
             />
             <div className="absolute left-0 mt-6 bg-white rounded-xl px-2 ">
-              {input &&
-                suggestion &&
-                suggestion.map((suggest, index) => (
+              {suggestions &&
+                suggestions.map((suggest, index) => (
                   <button
                     className={` relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2  
                     `}
+                    onClick={() => {
+                      setInput(suggest.province);
+                      dispatch(setSuggestion(true));
+                      setSuggestions("");
+                      setSelect(suggest);
+                    }}
                     key={index}
                   >
                     <LocationMarkerIcon className="h-12 p-2 w-12 min-w-[3rem] bg-gray-300 mr-5 " />{" "}
@@ -74,7 +91,9 @@ Search.NoScroll = function SearchNoScroll() {
             <p className="font-semibold m-0">Khách</p>
             <p className="text-gray-400 m-0">Thêm khách</p>
           </div>
-          <SearchIcon className="h-12 p-2 bg-red-400 rounded-full text-white" />
+          <button onClick={handleSearch}>
+            <SearchIcon className="h-12 p-2 bg-red-400 rounded-full text-white" />
+          </button>
         </li>
       </ul>
     </div>

@@ -38,6 +38,8 @@ Search.NoScroll = function SearchNoScroll() {
       pathname: "/search",
       search: `?id=${select._id}&&location=${input}`,
     });
+    dispatch(setSuggestion(false));
+    setSuggestions("");
   };
   return (
     <div className="hidden md:flex md:flex-col text-center w-full  transition transform ease-out  duration-150 ">
@@ -53,7 +55,11 @@ Search.NoScroll = function SearchNoScroll() {
               placeholder="Bạn sắp đi đâu?"
               className="outline-none placeholder-gray-400 bg-transparent"
             />
-            <div className="absolute left-0 mt-6 bg-white rounded-xl px-2 ">
+            <div
+              className={`absolute left-0 mt-6 bg-white rounded-xl px-2 ${
+                searchState.suggestion ? "invisible" : "visible"
+              } `}
+            >
               {suggestions &&
                 suggestions.map((suggest, index) => (
                   <button
@@ -62,7 +68,6 @@ Search.NoScroll = function SearchNoScroll() {
                     onClick={() => {
                       setInput(suggest.province);
                       dispatch(setSuggestion(true));
-                      setSuggestions("");
                       setSelect(suggest);
                     }}
                     key={index}

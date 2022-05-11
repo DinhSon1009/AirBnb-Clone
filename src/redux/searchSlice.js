@@ -16,6 +16,7 @@ const searchSlice = createSlice({
     suggestion: false,
     button: false,
     locationID: null,
+    addressData: null,
   },
   reducers: {
     setSuggestion: (state, action) => {
@@ -27,6 +28,9 @@ const searchSlice = createSlice({
     setLocationID: (state, action) => {
       state.locationID = action.payload;
     },
+    setAddressData: (state, action) => {
+      state.addressData = action.payload;
+    },
   },
   extraReducers: {
     [getRoomListAction.fulfilled]: (state, action) => {
@@ -35,5 +39,6 @@ const searchSlice = createSlice({
   },
 });
 const { reducer, actions } = searchSlice;
-export const { setSuggestion, setRoomList, setLocationID } = actions;
+export const { setSuggestion, setRoomList, setLocationID, setAddressData } =
+  actions;
 export default reducer;

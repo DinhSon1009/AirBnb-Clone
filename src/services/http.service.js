@@ -1,3 +1,4 @@
+import { MAP_API_TOKEN } from "../constants/constants";
 import AxiosServ from "./axios.service";
 
 /* eslint-disable no-useless-constructor */
@@ -35,6 +36,16 @@ class HttpRequestService {
   };
   layThongTinChiTietViTri = (id) => {
     let uri = `/api/locations/${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+  layThongTinChiTietPhong = (id) => {
+    let uri = `/api/rooms/${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+
+  // map
+  layViTriBanDo = (diachi) => {
+    let uri = `https://api.mapbox.com/geocoding/v5/mapbox.places/${diachi}.json?access_token=${MAP_API_TOKEN}`;
     return AxiosServ.getMethod(uri);
   };
 }

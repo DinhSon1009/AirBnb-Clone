@@ -8,13 +8,11 @@
       font-family: 'Open Sans', sans-serif ;
     }
   }
-
   
   .fontbase{
     font-family: 'Cormorant Upright', serif;
   }
   
- 
 
   * {
     box-sizing: border-box;
@@ -25,7 +23,7 @@
 
 
 .dscontainer {
-    @apply max-w-[1535px] px-3 md:px-10 w-full 
+    @apply max-w-[1535px] px-3 md:px-10 w-11/12 mx-auto 
 }
 
 @layer utilities{

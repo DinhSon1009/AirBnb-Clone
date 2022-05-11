@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import InforCard from "../../components/Card/InforCard";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import { setRoomList } from "../../redux/searchSlice";
+// import Map from "../../components/Map/Map";
 import httpServ from "../../services/http.service";
 import { Button } from "../../styles/customStyle";
 
 export default function SearchPage() {
-  let roomList = useSelector((state) => state.searchReducer.roomList);
-  var urlParams = new URLSearchParams(window.location.search);
+  let urlParams = new URLSearchParams(window.location.search);
   let id = urlParams.get("id");
   let locationID = useSelector((state) => state.searchReducer.locationID);
   const [location, setLocation] = useState("");
@@ -28,7 +27,6 @@ export default function SearchPage() {
       .layThongTinChiTietViTri(id)
       .then((res) => {
         setLocation(res.data.province);
-        console.log(res.data.province);
       })
       .catch((err) => console.log(err));
   }, [locationID]);
@@ -36,8 +34,8 @@ export default function SearchPage() {
   return (
     <div className="">
       <Header />
-      <main className="dscontainer flex pt-14 px-6">
-        <section className="flex-grow">
+      <main className="dscontainer flex pt-5">
+        <section className="flex-grow ">
           <p className="text-xs">300+ Stays for 5 numbers of guests</p>
           <h1 className="text-3xl font-semibold mt-2 mb-6">
             Stays in {location}
@@ -53,6 +51,7 @@ export default function SearchPage() {
             {room?.map((item) => (
               <InforCard
                 key={item._id}
+                id={item._id}
                 img={item.image}
                 location={`${item.locationId.name}, ${item.locationId.province}`}
                 title={item.name}
@@ -64,6 +63,9 @@ export default function SearchPage() {
             ))}
           </div>
         </section>
+        {/* <section className="min-w-[600px] ">
+          <Map />
+        </section> */}
       </main>
       <Footer />
     </div>

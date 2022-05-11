@@ -1,5 +1,6 @@
 import { HeartIcon } from "@heroicons/react/outline";
 import React from "react";
+import { useNavigate } from "react-router";
 
 export default function InforCard({
   img,
@@ -12,9 +13,15 @@ export default function InforCard({
   bath,
   bedRoom,
   guests,
+  id,
 }) {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex py-7 px-2 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
+    <div
+      onClick={() => navigate(`/RoomDetail/${id}`)}
+      className="flex py-7 px-2 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t"
+    >
       <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
         <img
           src={img}
@@ -34,7 +41,7 @@ export default function InforCard({
         </p>
         <div>
           <p className="text-lg lg:text-2xl font-semibold ">
-            {price.toLocaleString()} đ/ngày
+            {price.toLocaleString()} đ/đêm
           </p>
         </div>
       </div>

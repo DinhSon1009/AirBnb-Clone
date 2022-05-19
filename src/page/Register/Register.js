@@ -10,6 +10,7 @@ export default function Register() {
       .dangKy(values)
       .then((res) => {
         message.success("Đăng ký thành công");
+        // console.log(res.data);
         setTimeout(() => {
           navigation("/login");
         }, 3000);

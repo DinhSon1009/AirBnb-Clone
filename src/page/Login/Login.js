@@ -4,16 +4,21 @@ import { Link } from "react-router-dom";
 import httpServ from "../../services/http.service";
 import { useNavigate } from "react-router";
 import localStorageServ from "../../services/localStorage.service";
+import { useDispatch } from "react-redux";
+import { setUserToStorage } from "../../redux/userSlice";
 
 export default function Login() {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+
   const onFinish = (values) => {
-    console.log(values);
     httpServ
       .dangNhap(values)
       .then((res) => {
-        message.success("Đăng nhập thành công");
-        // localStorageServ.userInfor.set(res.data.content);
+        message.success("Đăng nhập thành công !");
+        localStorageServ.accessToken.set(res.data.token);
+        dispatch(setUserToStorage(res.data.user));
+        console.log(res.data);
         setTimeout(() => {
           navigation("/");
         }, 3000);

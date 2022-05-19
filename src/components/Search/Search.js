@@ -1,29 +1,24 @@
 import { LocationMarkerIcon, SearchIcon } from "@heroicons/react/solid";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { setLocationID, setSuggestion } from "../../redux/searchSlice";
+import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
+import { setLocationID } from "../../redux/searchSlice";
 import httpServ from "../../services/http.service";
 
 export default function Search() {
-  return (
-    <div className="w-full mx-5 lg:mx-auto  flex items-center   border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white relative ">
-      <div className="flex-grow pl-5 cursor-pointer bg-transparent outline-none text-sm text-gray-600 text-left font-semibold whitespace-nowrap py-3">
-        Bắt đầu tìm kiếm
-      </div>
-      <SearchIcon className="hidden  md:inline-flex h-8 bg-[#ff385c] text-white rounded-full md:p-2 cursor-pointer md:mx-2 " />
-    </div>
-  );
-}
-
-Search.NoScroll = function SearchNoScroll() {
+  const suggestionRef = useRef();
   const dispatch = useDispatch();
-  const searchState = useSelector((state) => state.searchReducer);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
   const [suggestions, setSuggestions] = useState("");
   const [input, setInput] = useState("");
   const [select, setSelect] = useState("");
+  useClickOutside(suggestionRef, () => {
+    setSuggestions("");
+  });
   const handleChange = (e) => {
+    setShowSuggestions(false);
     setInput(e.target.value);
     httpServ
       .layDiaDiem(e.target.value)
@@ -38,13 +33,84 @@ Search.NoScroll = function SearchNoScroll() {
       pathname: "/search",
       search: `?id=${select._id}&&location=${input}`,
     });
-    dispatch(setSuggestion(false));
+    setShowSuggestions(false);
     setSuggestions("");
   };
   return (
-    <div className="hidden md:flex md:flex-col text-center w-full  transition transform ease-out  duration-150 ">
-      <h1 className="mt-16">Place to stay</h1>
-      <ul className="w-full m-auto rounded-full border-2 flex bg-[#f7f7f7] text-left">
+    <div className="w-full mx-5 lg:mx-auto  flex items-center border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white relative ">
+      <div className="hidden md:inline-flex flex-grow pl-5 cursor-pointer bg-transparent outline-none text-sm text-gray-600 text-left font-semibold whitespace-nowrap py-3">
+        Bắt đầu tìm kiếm
+      </div>
+      <input
+        value={input}
+        onChange={handleChange}
+        className="inline-flex md:hidden w-full outline-none rounded-full pl-5 py-3 bg-white text-gray-600 flex-grow z-50"
+        type="text"
+        placeholder="Bắt đầu tìm kiếm"
+      />
+      <SearchIcon
+        onClick={handleSearch}
+        className="inline-flex h-8 w-8 bg-[#ff385c] text-white rounded-full p-2 cursor-pointer mx-2 
+      flex-shrink-0 "
+      />
+      <div
+        ref={suggestionRef}
+        className={`absolute left-0 top-full mt-6 bg-white rounded-xl px-2 ${
+          showSuggestions ? "invisible" : "visible"
+        } `}
+      >
+        {suggestions &&
+          suggestions.map((suggest, index) => (
+            <button
+              className="relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2 "
+              onClick={() => {
+                setInput(suggest.province);
+                setShowSuggestions(true);
+                setSelect(suggest);
+              }}
+              key={index}
+            >
+              <LocationMarkerIcon className="h-12 p-2 w-12 min-w-[3rem] bg-gray-300 mr-5 " />{" "}
+              {suggest.name}, {suggest.province}
+            </button>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+Search.NoScroll = function SearchNoScroll() {
+  const dispatch = useDispatch();
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const navigate = useNavigate();
+  const [suggestions, setSuggestions] = useState("");
+  const [input, setInput] = useState("");
+  const [select, setSelect] = useState("");
+  const handleChange = (e) => {
+    setShowSuggestions(false);
+    setInput(e.target.value);
+    httpServ
+      .layDiaDiem(e.target.value)
+      .then((res) => {
+        setSuggestions(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  const handleSearch = () => {
+    dispatch(setLocationID(select._id));
+    navigate({
+      pathname: "/search",
+      search: `?id=${select._id}&&location=${input}`,
+    });
+    setShowSuggestions(false);
+    setSuggestions("");
+  };
+  return (
+    <div className="hidden md:flex md:flex-col text-center w-full transition transform ease-out duration-150 ">
+      <h1 className="mt-8 relative after:absolute after:-bottom-1 after:left-1/2 after:w-24 after:-translate-x-1/2 after:h-[1px] after:bg-gray-500">
+        Places to stay
+      </h1>
+      <ul className="w-full m-auto rounded-full border-2 flex bg-[#f7f7f7] text-left mt-4 ">
         <li className="flex items-center lg:basis-[30%] basis-1/4  text-sm whitespace-nowrap cursor-pointer hover:bg-[#EBEBEB] rounded-full ">
           <div className="px-3 lg:px-8 py-3.5  relative ">
             <p className="font-semibold m-0">Địa điểm</p>
@@ -56,8 +122,8 @@ Search.NoScroll = function SearchNoScroll() {
               className="outline-none placeholder-gray-400 bg-transparent"
             />
             <div
-              className={`absolute left-0 mt-6 bg-white rounded-xl px-2 ${
-                searchState.suggestion ? "invisible" : "visible"
+              className={`absolute left-0 top-full mt-6 bg-white rounded-xl px-2 ${
+                showSuggestions ? "invisible" : "visible"
               } `}
             >
               {suggestions &&
@@ -67,7 +133,7 @@ Search.NoScroll = function SearchNoScroll() {
                     `}
                     onClick={() => {
                       setInput(suggest.province);
-                      dispatch(setSuggestion(true));
+                      setShowSuggestions(true);
                       setSelect(suggest);
                     }}
                     key={index}

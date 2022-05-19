@@ -13,9 +13,8 @@ import {
 } from "../../redux/roomSlice";
 export default function DatePicker() {
   let dispatch = useDispatch();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [noOfGuests, setNoOfGuests] = useState(1);
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -34,12 +33,13 @@ export default function DatePicker() {
   };
 
   return (
-    <div className=" flex-col mx-auto w-full max-w-[600px] bg-white pb-4 !hidden phone:!flex z-50">
+    <div className=" flex-col mx-auto w-full max-w-[600px] bg-white pb-4 flex z-50">
       <DateRangePicker
         className=""
         ranges={[selectionRange]}
         rangeColors={["#ff385c"]}
         onChange={handleSelect}
+        minDate={new Date()}
       />
       {/* <div className="flex ml-4 items-center border-b mb-4">
         <h2 className="text-2xl flex-grow font-semibold">Số lượng :</h2>

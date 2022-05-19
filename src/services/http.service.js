@@ -26,26 +26,42 @@ class HttpRequestService {
     return AxiosServ.postMethod(uri, data);
   };
   layDanhSachNguoiDung = () => {
-    let uri = "/api/QuanLyNguoiDung/LayDanhSachNguoiDung";
+    const uri = "/api/QuanLyNguoiDung/LayDanhSachNguoiDung";
 
     return AxiosServ.getMethod(uri);
   };
   layDanhSachPhongChoThueTheoViTri = (id) => {
-    let uri = `/api/rooms?locationId=${id}`;
+    const uri = `/api/rooms?locationId=${id}`;
     return AxiosServ.getMethod(uri);
   };
   layThongTinChiTietViTri = (id) => {
-    let uri = `/api/locations/${id}`;
+    const uri = `/api/locations/${id}`;
     return AxiosServ.getMethod(uri);
   };
   layThongTinChiTietPhong = (id) => {
-    let uri = `/api/rooms/${id}`;
+    const uri = `/api/rooms/${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+  layDanhGia = (id) => {
+    const uri = `/api/reviews/byRoom?roomId=${id}`;
+    return AxiosServ.getMethod(uri);
+  };
+  // map
+  layViTriBanDo = (diachi) => {
+    const uri = `https://api.mapbox.com/geocoding/v5/mapbox.places/${diachi}.json?access_token=${MAP_API_TOKEN}`;
     return AxiosServ.getMethod(uri);
   };
 
-  // map
-  layViTriBanDo = (diachi) => {
-    let uri = `https://api.mapbox.com/geocoding/v5/mapbox.places/${diachi}.json?access_token=${MAP_API_TOKEN}`;
+  capNhatAnhDaiDien = (data) => {
+    const uri = "/api/users/upload-avatar";
+    return AxiosServ.postMethod(uri, data);
+  };
+  datPhongChoThue = (data) => {
+    const uri = "/api/rooms/booking";
+    return AxiosServ.postMethod(uri, data);
+  };
+  layThongTinChiTietTicket = (id) => {
+    const uri = `/api/tickets/${id}`;
     return AxiosServ.getMethod(uri);
   };
 }

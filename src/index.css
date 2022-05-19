@@ -23,14 +23,14 @@
 
 
 .dscontainer {
-    @apply max-w-[1535px] px-3 md:px-10 w-11/12 mx-auto 
+    @apply max-w-[1535px] px-3 md:px-10 w-full md:w-11/12 mx-auto 
 }
 
 @layer utilities{
     .ds_transition{
       box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px !important;
       transform-origin: 50% 0% !important;
-      background: #ffffff !important;
+      background: #ffffff;
       content: "" !important;
       left: 0px !important;
       position: absolute !important;
@@ -39,14 +39,14 @@
       z-index: 0 !important;
       height: 100% !important;
       opacity: 0 ;
-      transform: scaleY(2.5) ;
-      transition: -ms-transform 250ms ease 0s, -webkit-transform 250ms ease 0s, transform 250ms ease 0s, opacity 250ms ease 0s !important;
+      transform: scaleY(2.25) ;
+      transition: -ms-transform 250ms ease 0s, -webkit-transform 250ms ease 0s, transform 250ms ease 0s, opacity 250ms ease 0s ;
     }
     
     .ds_scrollTransition {
       box-shadow: rgb(0 0 0 / 8%) 0px 1px 1px !important;
       transform-origin: 50% 0% !important;
-      background: #ffffff !important;
+      background: #ffffff;
       content: "" !important;
       left: 0px !important;
       position: absolute !important;
@@ -55,8 +55,21 @@
       z-index: 0 !important;
       height: 100% !important;
       transform: initial ;
-      transition: -ms-transform 250ms ease 0s, -webkit-transform 250ms ease 0s, transform 250ms ease 0s, opacity 250ms ease 0s !important;
+      transition: -ms-transform 250ms ease 0s, -webkit-transform 250ms ease 0s, transform 250ms ease 0s, opacity 0ms ease 0s ;
       opacity: 1;
+    }
+    .ds_header_before{
+    background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0)) !important;
+    content: "" !important;
+    height: 140% !important;
+    left: 0px !important;
+    opacity: 0.4 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    top: 0px !important;
+    width: 100% !important;
+    z-index: 0 !important;
+    transition: opacity 150ms ease 0s !important;
     }
 }
 

@@ -13,15 +13,11 @@ const searchSlice = createSlice({
   name: "search",
   initialState: {
     roomList: [],
-    suggestion: false,
     button: false,
     locationID: null,
     addressData: null,
   },
   reducers: {
-    setSuggestion: (state, action) => {
-      state.suggestion = action.payload;
-    },
     setRoomList: (state, action) => {
       state.roomList = action.payload;
     },
@@ -39,6 +35,5 @@ const searchSlice = createSlice({
   },
 });
 const { reducer, actions } = searchSlice;
-export const { setSuggestion, setRoomList, setLocationID, setAddressData } =
-  actions;
+export const { setRoomList, setLocationID, setAddressData } = actions;
 export default reducer;

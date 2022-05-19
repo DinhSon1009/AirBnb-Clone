@@ -7,9 +7,9 @@ import nearByData from "../../fixtures/nearby.json";
 import exploreData from "../../fixtures/explore.json";
 import BigCard from "../../components/Card/BigCard";
 import Footer from "../../components/Footer/Footer";
+import localStorageServ from "../../services/localStorage.service";
 export default function Home() {
   const [offset, setOffset] = useState(false);
-
   useEffect(() => {
     const onScroll = () => {
       window.pageYOffset > 0 ? setOffset(true) : setOffset(false);

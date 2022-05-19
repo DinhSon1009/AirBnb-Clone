@@ -3,12 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import httpServ from "../../services/http.service";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import Rating from "../../components/Rating/Rating";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
 import { message } from "antd";
 import { useParams } from "react-router";
+import { setUserToStorage } from "../../redux/userSlice";
+import { setEndDateBooking, setStartDateBooking } from "../../redux/roomSlice";
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
@@ -25,7 +27,8 @@ export default function RoomDetail() {
   const startDate = useSelector((state) => state.roomReducer.startDate);
   const endDate = useSelector((state) => state.roomReducer.endDate);
   const [guests, setGuests] = useState(1);
-  console.log(startDate);
+  const dispatch = useDispatch();
+  // console.log(startDate);
   useEffect(() => {
     httpServ
       .layThongTinChiTietPhong(id)
@@ -56,6 +59,9 @@ export default function RoomDetail() {
         httpServ
           .datPhongChoThue(data)
           .then((res) => {
+            dispatch(setUserToStorage(res.data.userDetail));
+            dispatch(setStartDateBooking(null));
+            dispatch(setEndDateBooking(null));
             message.success("Đặt phòng thành công !");
           })
           .catch((err) => message.error("Đặt phòng thất bại !"));

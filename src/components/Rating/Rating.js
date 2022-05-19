@@ -9,7 +9,7 @@ export default function Rating({ roomID }) {
       httpServ
         .layDanhGia(roomID)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setData(res.data);
         })
         .catch((err) => console.log(err));
@@ -19,10 +19,10 @@ export default function Rating({ roomID }) {
       {data?.map((item, index) => (
         <CommentCard
           key={index}
-          img={item.userId.avatar}
+          img={item.userId?.avatar}
           content={item.content}
           time={item.updatedAt}
-          name={item.userId.name}
+          name={item.userId?.name}
         />
       ))}
     </div>

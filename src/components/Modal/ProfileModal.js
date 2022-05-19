@@ -69,8 +69,8 @@ export default function ProfileModal({
             name="file"
             onChange={handleChange}
           />
-          {avatar && <img src={avatar.preview} alt="avatar" />}
         </div>
+        {avatar && <img src={avatar.preview} alt="avatar" />}
       </Modal>
     </>
   );

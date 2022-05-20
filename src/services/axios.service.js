@@ -28,8 +28,8 @@ class AxiosService {
     this.axiosConfig = {
       headers: {
         tokenByClass: TOKEN_CYBERSOFT,
-        token: localStorageServ?.accessToken.get(),
-        Authorization: "bearer " + localStorageServ.userInfor?.get(),
+        token: localStorageServ.accessToken?.get(),
+        // Authorization: "bearer " + localStorageServ.accessToken?.get(),
       },
     };
   };

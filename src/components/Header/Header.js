@@ -65,6 +65,7 @@ export default function Header({ offset }) {
   };
   const handleLogout = () => {
     dispatch(removeUserFromStorage());
+    window.location.reload();
   };
   const showModal = () => {
     setIsModalVisible(true);
@@ -153,7 +154,7 @@ export default function Header({ offset }) {
                     alt="avatar"
                   />
                 ) : (
-                  <UserCircleIcon className="h-6" />
+                  <UserCircleIcon className="h-full w-full rounded-full" />
                 )}
               </div>
             ) : (

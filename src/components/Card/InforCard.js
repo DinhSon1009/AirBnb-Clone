@@ -20,30 +20,24 @@ export default function InforCard({
   return (
     <div
       onClick={() => navigate(`/RoomDetail/${id}`)}
-      className="flex py-7 px-2 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t"
+      className="border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0"
     >
-      <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
+      <div className=" w-full ">
         <img
           src={img}
           alt={`ảnh ${location}`}
-          className="object-cover rounded-2xl"
+          className="object-cover rounded-xl w-full"
         />
       </div>
-      <div className="flex flex-col flex-grow pl-5 ">
-        <div className="flex justify-between ">
-          <p>{location}</p>
-          <HeartIcon className="h-7 cursor-pointer" />
-        </div>
-        <h4 className="text-xl">{title}</h4>
-        <div className="border-b w-10 pt-2"></div>
-        <p className="pt-2 text-sm text-gray-500 flex-grow">
+      <div className="space-y-1 px-2">
+        <h4 className="text-lg font-medium mt-2">{title}</h4>
+        <p className="m-0">{location}</p>
+        <p className="text-sm text-gray-500 flex-grow m-0">
           {guests} guests - {bedRoom} bedrooms - {bath} baths
         </p>
-        <div>
-          <p className="text-lg lg:text-2xl font-semibold ">
-            {price.toLocaleString()} đ/đêm
-          </p>
-        </div>
+        <p className="text-lg lg:text-lg font-semibold">
+          {price.toLocaleString()}đ/đêm
+        </p>
       </div>
     </div>
   );

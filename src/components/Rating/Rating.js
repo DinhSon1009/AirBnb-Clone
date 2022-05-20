@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import httpServ from "../../services/http.service";
 import CommentCard from "../Card/CommentCard";
 
-export default function Rating({ roomID }) {
+export default function Rating({ roomID, danhGia }) {
   const [data, setData] = useState();
   useEffect(() => {
     roomID !== false &&
@@ -13,7 +13,7 @@ export default function Rating({ roomID }) {
           setData(res.data);
         })
         .catch((err) => console.log(err));
-  }, [roomID]);
+  }, [roomID, danhGia]);
   return (
     <div className="flex flex-wrap flex-col md:flex-row space-y-2">
       {data?.map((item, index) => (

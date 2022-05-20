@@ -8,6 +8,7 @@ import exploreData from "../../fixtures/explore.json";
 import BigCard from "../../components/Card/BigCard";
 import Footer from "../../components/Footer/Footer";
 import localStorageServ from "../../services/localStorage.service";
+import { useTitle } from "../../Hooks/useTitle/useTitle";
 export default function Home() {
   const [offset, setOffset] = useState(false);
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
+  useTitle("Airbnb homepage");
   return (
     <div className="">
       <Header offset={offset} />

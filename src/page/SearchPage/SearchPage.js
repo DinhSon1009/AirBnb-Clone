@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import InforCard from "../../components/Card/InforCard";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
+import { useTitle } from "../../Hooks/useTitle/useTitle";
 // import Map from "../../components/Map/Map";
 import httpServ from "../../services/http.service";
 import { Button } from "../../styles/customStyle";
@@ -10,9 +11,10 @@ import { Button } from "../../styles/customStyle";
 export default function SearchPage() {
   let urlParams = new URLSearchParams(window.location.search);
   let id = urlParams.get("id");
-  let locationID = useSelector((state) => state.searchReducer.locationID);
   const [location, setLocation] = useState("");
+  let locationID = useSelector((state) => state.searchReducer.locationID);
   const [room, setRoom] = useState([]);
+  useTitle("Kết quả tìm kiếm");
   useEffect(() => {
     httpServ
       .layDanhSachPhongChoThueTheoViTri(id)
@@ -47,7 +49,7 @@ export default function SearchPage() {
             <Button> Rooms and Beds</Button>
             <Button> More filters</Button>
           </div>
-          <div className="flex flex-col">
+          <div className="grid  grid-col-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
             {room?.map((item) => (
               <InforCard
                 key={item._id}

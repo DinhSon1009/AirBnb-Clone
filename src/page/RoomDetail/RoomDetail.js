@@ -5,12 +5,15 @@ import Header from "../../components/Header/Header";
 import httpServ from "../../services/http.service";
 import { useDispatch, useSelector } from "react-redux";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/outline";
+import { UserCircleIcon } from "@heroicons/react/solid";
 import Rating from "../../components/Rating/Rating";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
 import { message } from "antd";
 import { useParams } from "react-router";
 import { setUserToStorage } from "../../redux/userSlice";
 import { setEndDateBooking, setStartDateBooking } from "../../redux/roomSlice";
+import { Kitchen, Pool, Tv, Wifi } from "@mui/icons-material";
+import { useTitle } from "../../Hooks/useTitle/useTitle";
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
@@ -27,13 +30,40 @@ export default function RoomDetail() {
   const startDate = useSelector((state) => state.roomReducer.startDate);
   const endDate = useSelector((state) => state.roomReducer.endDate);
   const [guests, setGuests] = useState(1);
+  const [roomServices, setRoomSerVices] = useState();
+  const [danhGia, setDanhGia] = useState();
+  const [textInput, setTextInput] = useState("");
   const dispatch = useDispatch();
   // console.log(startDate);
+
+  useTitle("Chi tiết phòng");
   useEffect(() => {
     httpServ
       .layThongTinChiTietPhong(id)
       .then((res) => {
         setRoom(res.data);
+        setRoomSerVices([
+          {
+            isTrue: res.data.wifi,
+            icon: <Wifi />,
+            name: "Wifi",
+          },
+          {
+            isTrue: res.data.cableTV,
+            icon: <Tv />,
+            name: "Tv",
+          },
+          {
+            isTrue: res.data.pool,
+            icon: <Pool />,
+            name: "Hồ bơi",
+          },
+          {
+            isTrue: res.data.kitchen,
+            icon: <Kitchen />,
+            name: "Nhà bếp",
+          },
+        ]);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -69,13 +99,26 @@ export default function RoomDetail() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      let comment = { content: e.target.value };
+      httpServ
+        .taoDanhGia(id, comment)
+        .then((res) => {
+          setDanhGia(res.data.content);
+          setTextInput("");
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <>
       <Header />
       <main className="dscontainer pt-5">
         <h4 className="text-xl">{room?.name}</h4>
         <section className="grid grid-cols-1 md:grid-cols-2 ">
-          <div className="basis-1/2 flex-shrink-0">
+          <div className="basis-1/2 flex-shrink-0 ">
             <img
               className="w-full object-cover rounded-2xl "
               src={room?.image}
@@ -91,10 +134,18 @@ export default function RoomDetail() {
               {room?.guests} guests - {room?.bedRoom} bedrooms - {room?.bath}{" "}
               baths
             </p>
-            <p className="pt-2 text-sm text-gray-600 flex-grow">
-              {room?.wifi && "wifi"} - {room?.pool && "hồ bơi"} -{" "}
-              {room?.kitchen && "nhà bếp"} - {room?.cableTV && "Tivi"}
-            </p>
+            <div className="flex pt-2 text-sm text-gray-600 space-x-2 items-center">
+              {roomServices?.map((service, index) => (
+                <React.Fragment key={index}>
+                  {service.isTrue && (
+                    <div className="flex space-x-1">
+                      {service.icon}
+                      <span className="font-semibold">{service.name}</span>
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
           <div
             ref={checkoutRef}
@@ -168,11 +219,38 @@ export default function RoomDetail() {
             </div>
           </div>
         </section>
-        <section className="pt-10 border-t border-gray-300">
-          <h4 className="mb-5 text-xl">Nhận xét từ người dùng :</h4>
-          <Rating roomID={id} />
-        </section>
       </main>
+      <section className="py-4 bg-gray-100">
+        <div className=" p-6 shadow-sm dscontainer">
+          <h4 className="mb-5 text-xl">Nhận xét từ người dùng :</h4>
+          {user && (
+            <div className="flex mb-4">
+              <div className="w-16">
+                {user.avatar ? (
+                  <img
+                    className="rounded-full w-12 h-12 object-cover"
+                    src={user?.avatar}
+                    alt=""
+                  />
+                ) : (
+                  <UserCircleIcon className="rounded-full w-12 h-12" />
+                )}
+              </div>
+              <div className="flex-grow">
+                <h4>{user?.name || user?.email.split("@")[0]}</h4>
+                <textarea
+                  onKeyDown={handleKeyDown}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  value={textInput}
+                  className="w-full h-28 border-2 outline-1 outline-blue-300 p-4"
+                  placeholder="Leave a comment here"
+                ></textarea>
+              </div>
+            </div>
+          )}
+          <Rating roomID={id} danhGia={danhGia} />
+        </div>
+      </section>
       <Footer />
     </>
   );

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import localStorageServ from "../../services/localStorage.service";
 import { useDispatch } from "react-redux";
 import { setUserToStorage } from "../../redux/userSlice";
+import { useTitle } from "../../Hooks/useTitle/useTitle";
 
 export default function Login() {
   const navigation = useNavigate();
@@ -21,7 +22,8 @@ export default function Login() {
         console.log(res.data);
         setTimeout(() => {
           navigation("/");
-        }, 3000);
+          window.location.reload();
+        }, 2000);
       })
       .catch((err) => message.error("Đăng nhập không thành công"));
   };
@@ -29,6 +31,7 @@ export default function Login() {
   const onFinishFailed = (errorInfo) => {
     // console.log("Failed:", errorInfo);
   };
+  useTitle("Đăng nhập");
 
   return (
     <div className="flex items-center justify-center h-screen  ">

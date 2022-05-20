@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 export default function SpinnerLoading() {
   let { spinner } = useSelector((state) => state.spinnerReducer);
-  console.log(spinner);
   return spinner ? (
     <div className=" fixed w-screen h-screen bg-black flex justify-center items-center bg-opacity-50 z-10">
       <ReactLoading

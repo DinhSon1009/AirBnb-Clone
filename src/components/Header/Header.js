@@ -105,7 +105,7 @@ export default function Header({ offset, searchInfo }) {
         >
           <div className="absolute inset-0  w-full h-full m-auto  flex items-center ">
             <div className="w-full invisible md:visible max-w-[850px] absolute inset-0 m-auto ">
-              <Search.NoScroll />
+              <Search LargeScreen />
             </div>
           </div>
         </div>

@@ -9,9 +9,11 @@ import RoomDetail from "./page/RoomDetail/RoomDetail";
 import SearchPage from "./page/SearchPage/SearchPage";
 function App() {
   const isLoading = useSelector((state) => state.spinnerReducer.spinner);
+  const flag = useSelector((state) => state.spinnerReducer.flag);
+
   return (
     <BrowserRouter>
-      {isLoading && <SpinnerLoading />}
+      {isLoading && flag && <SpinnerLoading />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />

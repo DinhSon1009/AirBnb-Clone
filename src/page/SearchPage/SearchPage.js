@@ -14,6 +14,8 @@ export default function SearchPage() {
   const [location, setLocation] = useState("");
   let locationID = useSelector((state) => state.searchReducer.locationID);
   const [room, setRoom] = useState([]);
+  const searchInfo = useSelector((state) => state.searchReducer.searchInfo);
+
   useTitle("Kết quả tìm kiếm");
   useEffect(() => {
     httpServ
@@ -36,7 +38,7 @@ export default function SearchPage() {
 
   return (
     <div className="">
-      <Header />
+      <Header searchInfo={searchInfo} />
       <main className="dscontainer flex pt-5">
         <section className="flex-grow ">
           <p className="text-xs">300+ Stays for 5 numbers of guests</p>

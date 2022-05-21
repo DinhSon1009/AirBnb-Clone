@@ -16,6 +16,7 @@ const searchSlice = createSlice({
     button: false,
     locationID: null,
     addressData: null,
+    searchInfo: null,
   },
   reducers: {
     setRoomList: (state, action) => {
@@ -27,6 +28,9 @@ const searchSlice = createSlice({
     setAddressData: (state, action) => {
       state.addressData = action.payload;
     },
+    setSearchInfo: (state, action) => {
+      state.searchInfo = action.payload;
+    },
   },
   extraReducers: {
     [getRoomListAction.fulfilled]: (state, action) => {
@@ -35,5 +39,6 @@ const searchSlice = createSlice({
   },
 });
 const { reducer, actions } = searchSlice;
-export const { setRoomList, setLocationID, setAddressData } = actions;
+export const { setRoomList, setLocationID, setAddressData, setSearchInfo } =
+  actions;
 export default reducer;

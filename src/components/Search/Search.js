@@ -1,12 +1,13 @@
 import { LocationMarkerIcon, SearchIcon } from "@heroicons/react/solid";
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
-import { setLocationID } from "../../redux/searchSlice";
+import { setLocationID, setSearchInfo } from "../../redux/searchSlice";
+import { setFlag } from "../../redux/spinnerSlice";
 import httpServ from "../../services/http.service";
 
-export default function Search() {
+export default function Search({ searchInfo }) {
   const suggestionRef = useRef();
   const dispatch = useDispatch();
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -38,15 +39,15 @@ export default function Search() {
   };
   return (
     <div className="w-full mx-5 lg:mx-auto  flex items-center border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white relative ">
-      <div className="hidden md:inline-flex flex-grow pl-5 cursor-pointer bg-transparent outline-none text-sm text-gray-600 text-left font-semibold whitespace-nowrap py-3">
-        Bắt đầu tìm kiếm
+      <div className="hidden md:inline-flex flex-grow pl-5 cursor-pointer bg-transparent outline-none text-sm text-gray-600 text-left font-semibold whitespace-nowrap overflow-hidden py-3">
+        {searchInfo || "Bắt đầu tìm kiếm"}
       </div>
       <input
         value={input}
         onChange={handleChange}
         className="inline-flex md:hidden w-full outline-none rounded-full pl-5 py-3 bg-white text-gray-600 flex-grow z-50"
         type="text"
-        placeholder="Bắt đầu tìm kiếm"
+        placeholder={input || "Bắt đầu tìm kiếm"}
       />
       <SearchIcon
         onClick={handleSearch}
@@ -64,7 +65,7 @@ export default function Search() {
             <button
               className="relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2 "
               onClick={() => {
-                setInput(suggest.province);
+                setInput(`${suggest.name}, ${suggest.province}`);
                 setShowSuggestions(true);
                 setSelect(suggest);
               }}
@@ -89,6 +90,7 @@ Search.NoScroll = function SearchNoScroll() {
   const inputRef = useRef();
 
   const handleChange = (e) => {
+    dispatch(setFlag(false));
     setShowSuggestions(false);
     setInput(e.target.value);
     httpServ
@@ -106,6 +108,7 @@ Search.NoScroll = function SearchNoScroll() {
     });
     setShowSuggestions(false);
     setSuggestions("");
+    dispatch(setFlag(true));
   };
   return (
     <div className="hidden md:flex md:flex-col text-center w-full transition transform ease-out duration-150 ">
@@ -139,6 +142,9 @@ Search.NoScroll = function SearchNoScroll() {
                     `}
                     onClick={() => {
                       setInput(`${suggest.name},${suggest.province}`);
+                      dispatch(
+                        setSearchInfo(`${suggest.name},${suggest.province}`)
+                      );
                       setShowSuggestions(true);
                       setSelect(suggest);
                     }}

@@ -14,7 +14,7 @@ import Cart from "../Cart/Cart";
 import { LoginIcon, LogoutIcon, UploadIcon } from "@heroicons/react/outline";
 import CartModal from "../Modal/CartModal";
 
-export default function Header({ offset }) {
+export default function Header({ offset, searchInfo }) {
   const [searchClick, setSearchClick] = useState(false);
   const searchRef = useRef();
   const toggleRef = useRef();
@@ -118,7 +118,7 @@ export default function Header({ offset }) {
               setSearchClick(!searchClick);
             }}
           >
-            <Search />
+            <Search searchInfo={searchInfo} />
           </button>
 
           <div className="block md:hidden relative w-full max-w-[300px] mx-3 ">

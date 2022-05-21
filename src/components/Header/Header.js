@@ -105,12 +105,12 @@ export default function Header({ offset, searchInfo }) {
         >
           <div className="absolute inset-0  w-full h-full m-auto  flex items-center ">
             <div className="w-full invisible md:visible max-w-[850px] absolute inset-0 m-auto ">
-              <Search LargeScreen />
+              <Search searchInfo={searchInfo} LargeScreen />
             </div>
           </div>
         </div>
         <div className="w-full flex justify-center items-center">
-          <button
+          <div
             className={`hidden md:block relative w-full max-w-[300px] mx-3 ${
               searchClick && "md:hidden"
             }`}
@@ -119,10 +119,10 @@ export default function Header({ offset, searchInfo }) {
             }}
           >
             <Search searchInfo={searchInfo} />
-          </button>
+          </div>
 
           <div className="block md:hidden relative w-full max-w-[300px] mx-3 ">
-            <Search searchClick={searchClick} />
+            <Search searchInfo={searchInfo} />
           </div>
         </div>
 

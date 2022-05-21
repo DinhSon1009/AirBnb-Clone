@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import InforCard from "../../components/Card/InforCard";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
@@ -15,7 +16,7 @@ export default function SearchPage() {
   let locationID = useSelector((state) => state.searchReducer.locationID);
   const [room, setRoom] = useState([]);
   const searchInfo = useSelector((state) => state.searchReducer.searchInfo);
-
+  const navigate = useNavigate();
   useTitle("Kết quả tìm kiếm");
   useEffect(() => {
     httpServ
@@ -23,7 +24,7 @@ export default function SearchPage() {
       .then((res) => {
         setRoom(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => navigate("/notfound"));
     return () => window.scrollTo(0, 0);
   }, [locationID]);
 

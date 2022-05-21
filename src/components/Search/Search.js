@@ -1,6 +1,6 @@
 import { LocationMarkerIcon, SearchIcon } from "@heroicons/react/solid";
-import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
 import { setLocationID, setSearchInfo } from "../../redux/searchSlice";
@@ -12,25 +12,38 @@ export default function Search({ searchInfo, LargeScreen }) {
   const dispatch = useDispatch();
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
-  const [suggestions, setSuggestions] = useState("");
+  const [suggestions, setSuggestions] = useState(null);
   const [input, setInput] = useState("");
   const [select, setSelect] = useState("");
   const searchLargeScreenRef = useRef();
-
+  const suggestLargeScreenRef = useRef();
+  const smallScreenInputRef = useRef();
   useClickOutside(suggestionRef, () => {
-    setSuggestions("");
-  });
-  const handleChange = (e) => {
-    dispatch(setFlag(false));
+    setSuggestions(null);
     setShowSuggestions(false);
-    setInput(e.target.value);
-    httpServ
-      .layDiaDiem(e.target.value)
-      .then((res) => {
-        setSuggestions(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
+    setInput("");
+  });
+  useClickOutside(suggestLargeScreenRef, () => {
+    setSuggestions(null);
+    setShowSuggestions(false);
+    setInput("");
+  });
+
+  useEffect(() => {
+    if (!input.trim()) {
+      return;
+    } else {
+      setShowSuggestions(true);
+      dispatch(setFlag(false));
+      httpServ
+        .layDiaDiem(input)
+        .then((res) => {
+          setSuggestions(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [input]);
+
   const handleSearch = () => {
     dispatch(setLocationID(select._id));
     dispatch(setSearchInfo(input));
@@ -40,9 +53,10 @@ export default function Search({ searchInfo, LargeScreen }) {
     });
     setShowSuggestions(false);
     dispatch(setFlag(true));
-    setSuggestions("");
+    setSuggestions(null);
     setInput("");
   };
+  console.log(searchInfo);
   return (
     <>
       {!LargeScreen ? (
@@ -51,8 +65,9 @@ export default function Search({ searchInfo, LargeScreen }) {
             {searchInfo || "Bắt đầu tìm kiếm"}
           </div>
           <input
+            ref={smallScreenInputRef}
             value={input}
-            onChange={handleChange}
+            onChange={(e) => setInput(e.target.value)}
             className="inline-flex md:hidden w-full outline-none rounded-full pl-5 py-3 bg-white text-gray-600 flex-grow z-50"
             type="text"
             placeholder={searchInfo || "Bắt đầu tìm kiếm"}
@@ -65,7 +80,7 @@ export default function Search({ searchInfo, LargeScreen }) {
           <div
             ref={suggestionRef}
             className={`absolute left-0 top-full mt-6 bg-white rounded-xl px-2 ${
-              showSuggestions ? "invisible" : "visible"
+              showSuggestions ? "visible" : "invisible"
             } `}
           >
             {suggestions &&
@@ -100,14 +115,15 @@ export default function Search({ searchInfo, LargeScreen }) {
                 <input
                   ref={searchLargeScreenRef}
                   value={input}
-                  onChange={handleChange}
+                  onChange={(e) => setInput(e.target.value)}
                   type="text"
                   placeholder="Bạn sắp đi đâu?"
                   className="outline-none placeholder-gray-400 bg-transparent"
                 />
                 <div
+                  ref={suggestLargeScreenRef}
                   className={`absolute left-0 top-full mt-6 bg-white rounded-xl px-2 ${
-                    showSuggestions ? "invisible" : "visible"
+                    showSuggestions ? "visible" : "invisible"
                   } `}
                 >
                   {suggestions &&
@@ -117,9 +133,6 @@ export default function Search({ searchInfo, LargeScreen }) {
                     `}
                         onClick={() => {
                           setInput(`${suggest.name},${suggest.province}`);
-                          dispatch(
-                            setSearchInfo(`${suggest.name},${suggest.province}`)
-                          );
                           setShowSuggestions(true);
                           setSelect(suggest);
                         }}

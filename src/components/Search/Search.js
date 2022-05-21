@@ -86,6 +86,8 @@ Search.NoScroll = function SearchNoScroll() {
   const [suggestions, setSuggestions] = useState("");
   const [input, setInput] = useState("");
   const [select, setSelect] = useState("");
+  const inputRef = useRef();
+
   const handleChange = (e) => {
     setShowSuggestions(false);
     setInput(e.target.value);
@@ -111,10 +113,14 @@ Search.NoScroll = function SearchNoScroll() {
         Places to stay
       </h1>
       <ul className="w-full m-auto rounded-full border-2 flex bg-[#f7f7f7] text-left mt-4 ">
-        <li className="flex items-center lg:basis-[30%] basis-1/4  text-sm whitespace-nowrap cursor-pointer hover:bg-[#EBEBEB] rounded-full ">
+        <li
+          onClick={() => inputRef.current.focus()}
+          className="flex items-center lg:basis-[30%] basis-1/4  text-sm whitespace-nowrap cursor-pointer hover:bg-[#EBEBEB] rounded-full "
+        >
           <div className="px-3 lg:px-8 py-3.5  relative ">
             <p className="font-semibold m-0">Địa điểm</p>
             <input
+              ref={inputRef}
               value={input}
               onChange={handleChange}
               type="text"
@@ -132,7 +138,7 @@ Search.NoScroll = function SearchNoScroll() {
                     className={` relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2  
                     `}
                     onClick={() => {
-                      setInput(suggest.province);
+                      setInput(`${suggest.name},${suggest.province}`);
                       setShowSuggestions(true);
                       setSelect(suggest);
                     }}

@@ -12,8 +12,8 @@ export default function Banner() {
         <p className="text-[1rem] md:text-[2rem] lg:text-[3rem] text-center">
           Hãy để trí tò mò của bạn dẫn lối
         </p>
-        <button className="bg-white rounded-full mt-4 py-4 px-8">
-          <span className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-sm   lg:text-lg  font-semibold">
+        <button className="bg-white rounded-full mt-4 px-5 py-3 lg:py-4 lg:px-8">
+          <span className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-sm lg:text-lg font-semibold whitespace-nowrap">
             Tìm kiếm linh hoạt
           </span>
         </button>

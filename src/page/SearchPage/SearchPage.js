@@ -22,13 +22,14 @@ export default function SearchPage() {
         setRoom(res.data);
       })
       .catch((err) => console.log(err));
+    return () => window.scrollTo(0, 0);
   }, [locationID]);
 
   useEffect(() => {
     httpServ
       .layThongTinChiTietViTri(id)
       .then((res) => {
-        setLocation(res.data.province);
+        setLocation(`${res.data.name},${res.data.province}`);
       })
       .catch((err) => console.log(err));
   }, [locationID]);

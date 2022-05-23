@@ -1,21 +1,22 @@
 import React from "react";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button } from "antd";
 import { Link } from "react-router-dom";
 import httpServ from "../../services/http.service";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 export default function Register() {
   const navigation = useNavigate();
   const onFinish = (values) => {
     httpServ
       .dangKy(values)
       .then((res) => {
-        message.success("Đăng ký thành công");
+        toast.success("Đăng ký thành công");
         // console.log(res.data);
         setTimeout(() => {
           navigation("/login");
         }, 3000);
       })
-      .catch((err) => message.error("Đăng ký không thành công"));
+      .catch((err) => toast.error("Đăng ký không thành công"));
   };
 
   const onFinishFailed = (errorInfo) => {

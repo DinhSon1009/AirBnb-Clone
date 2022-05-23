@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button } from "antd";
 import { Link } from "react-router-dom";
 import httpServ from "../../services/http.service";
 import { useNavigate } from "react-router";
@@ -7,6 +7,7 @@ import localStorageServ from "../../services/localStorage.service";
 import { useDispatch } from "react-redux";
 import { setUserToStorage } from "../../redux/userSlice";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigation = useNavigate();
@@ -16,7 +17,7 @@ export default function Login() {
     httpServ
       .dangNhap(values)
       .then((res) => {
-        message.success("Đăng nhập thành công !");
+        toast.success("Đăng nhập thành công !");
         localStorageServ.accessToken.set(res.data.token);
         dispatch(setUserToStorage(res.data.user));
         console.log(res.data);
@@ -25,7 +26,7 @@ export default function Login() {
           window.location.reload();
         }, 2000);
       })
-      .catch((err) => message.error("Đăng nhập không thành công"));
+      .catch((err) => toast.error("Tài khoản hoặc mật khẩu không đúng !"));
   };
 
   const onFinishFailed = (errorInfo) => {

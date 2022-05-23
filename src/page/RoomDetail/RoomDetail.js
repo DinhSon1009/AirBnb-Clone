@@ -8,13 +8,13 @@ import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import { UserCircleIcon } from "@heroicons/react/solid";
 import Rating from "../../components/Rating/Rating";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
-import { message } from "antd";
 import { useParams } from "react-router";
 import { setUserToStorage } from "../../redux/userSlice";
 import { setEndDateBooking, setStartDateBooking } from "../../redux/roomSlice";
 import { Kitchen, Pool, Tv, Wifi } from "@mui/icons-material";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import Skeleton from "react-loading-skeleton";
+import { toast } from "react-toastify";
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
@@ -77,10 +77,10 @@ export default function RoomDetail() {
   });
   const handleBooking = () => {
     if (!user) {
-      message.info("Vui lòng đăng nhập !");
+      toast.info("Vui lòng đăng nhập !");
     } else {
       if (!startDate || !endDate) {
-        message.info("Chọn ngày để đặt vé !");
+        toast.info("Chọn ngày để đặt vé !");
         return;
       } else {
         const data = {
@@ -94,9 +94,9 @@ export default function RoomDetail() {
             dispatch(setUserToStorage(res.data.userDetail));
             dispatch(setStartDateBooking(null));
             dispatch(setEndDateBooking(null));
-            message.success("Đặt phòng thành công !");
+            toast.success("Đặt phòng thành công !");
           })
-          .catch((err) => message.error("Đặt phòng thất bại !"));
+          .catch((err) => toast.error("Đặt phòng thất bại !"));
       }
     }
   };

@@ -17,7 +17,9 @@ export default function SearchPage() {
   let locationID = useSelector((state) => state.searchReducer.locationID);
   const [room, setRoom] = useState([]);
   const searchInfo = useSelector((state) => state.searchReducer.searchInfo);
-  const isLoading = useSelector((state) => state.spinnerReducer.spinner);
+  const isLoading = useSelector(
+    (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
+  );
   const navigate = useNavigate();
 
   useTitle("Kết quả tìm kiếm");

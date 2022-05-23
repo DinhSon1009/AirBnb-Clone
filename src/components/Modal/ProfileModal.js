@@ -4,6 +4,8 @@ import httpServ from "../../services/http.service";
 import { useDispatch } from "react-redux";
 import { setUserToStorage } from "../../redux/userSlice";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { toast } from "react-toastify";
+
 export default function ProfileModal({
   isModalVisible,
   setIsModalVisible,
@@ -17,12 +19,12 @@ export default function ProfileModal({
       httpServ
         .capNhatAnhDaiDien(file)
         .then((res) => {
-          message.success("Cập nhật thành công !");
+          toast.success("Cập nhật thành công !");
           dispatch(setUserToStorage(res.data));
           setIsModalVisible(false);
         })
         .catch((err) => {
-          message.error("Cập nhật thất bại !");
+          toast.error("Cập nhật không thành công !");
           setIsModalVisible(false);
         });
   };

@@ -14,6 +14,7 @@ import { setUserToStorage } from "../../redux/userSlice";
 import { setEndDateBooking, setStartDateBooking } from "../../redux/roomSlice";
 import { Kitchen, Pool, Tv, Wifi } from "@mui/icons-material";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
+import Skeleton from "react-loading-skeleton";
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
@@ -33,6 +34,7 @@ export default function RoomDetail() {
   const [roomServices, setRoomSerVices] = useState();
   const [danhGia, setDanhGia] = useState();
   const [textInput, setTextInput] = useState("");
+  const isLoading = useSelector((state) => state.spinnerReducer.spinner);
   const dispatch = useDispatch();
   // console.log(startDate);
 
@@ -116,37 +118,62 @@ export default function RoomDetail() {
     <>
       <Header />
       <main className="dscontainer pt-5">
-        <h4 className="text-xl">{room?.name}</h4>
+        <h4 className="text-xl w-full lg:w-96">
+          {isLoading ? <Skeleton /> : room?.name}
+        </h4>
         <section className="grid grid-cols-1 md:grid-cols-2 ">
-          <div className="basis-1/2 flex-shrink-0 ">
-            <img
-              className="w-full object-cover rounded-2xl "
-              src={room?.image}
-              alt="room"
-            />
+          <div className="basis-1/2 flex-shrink-0 max-h-[500px] h-[300px] md:h-[350px] lg:h-[400px]">
+            {isLoading ? (
+              <Skeleton
+                height="100%"
+                className="!rounded-2xl"
+                containerClassName="w-full h-full"
+              />
+            ) : (
+              <img
+                className="w-full object-cover rounded-2xl h-full object-center "
+                src={room?.image}
+                alt="room"
+              />
+            )}
           </div>
-          <div className="md:pt-0 md:pl-5">
-            <h4 className="text-xl m-0">Nhận xét từ khách hàng</h4>
-            <p className="border rounded-md p-5 mt-2 text-gray-600">
-              {room?.description}
-            </p>
-            <p className="pt-2 text-sm text-gray-600 flex-grow">
-              {room?.guests} guests - {room?.bedRoom} bedrooms - {room?.bath}{" "}
-              baths
-            </p>
-            <div className="flex pt-2 text-sm text-gray-600 space-x-2 items-center">
-              {roomServices?.map((service, index) => (
-                <React.Fragment key={index}>
-                  {service.isTrue && (
-                    <div className="flex space-x-1">
-                      {service.icon}
-                      <span className="font-semibold">{service.name}</span>
-                    </div>
-                  )}
-                </React.Fragment>
-              ))}
+          {isLoading ? (
+            <div className="md:pt-0 md:pl-5">
+              <h4 className="text-xl m-0">
+                <Skeleton />
+              </h4>
+              <p className="rounded-md mt-2 texl-lg ">
+                <Skeleton width="100%" height="100%" />
+              </p>
+              <p className="pt-2 text-sm flex-grow">
+                <Skeleton count={2} />
+              </p>
             </div>
-          </div>
+          ) : (
+            <div className="md:pt-0 md:pl-5">
+              <h4 className="text-xl m-0">Đánh giá tiêu biểu</h4>
+              <p className="border rounded-md p-5 mt-2 text-gray-600">
+                {room?.description}
+              </p>
+              <p className="pt-2 text-sm text-gray-600 flex-grow">
+                {room?.guests} guests - {room?.bedRoom} bedrooms - {room?.bath}{" "}
+                baths
+              </p>
+              <div className="flex pt-2 text-sm text-gray-600 space-x-2 items-center">
+                {roomServices?.map((service, index) => (
+                  <React.Fragment key={index}>
+                    {service.isTrue && (
+                      <div className="flex space-x-1">
+                        {service.icon}
+                        <span className="font-semibold">{service.name}</span>
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div
             ref={checkoutRef}
             className="flex my-5 overflow-x-scroll md:pt-0 md:col-span-2 max-w-[600px] scrollbar-hide "

@@ -29,13 +29,13 @@ export default function InforCard({
           className="object-cover rounded-xl w-full"
         />
       </div>
-      <div className="space-y-1 px-2">
+      <div className="flex flex-col space-y-1 px-2">
         <h4 className="text-lg font-medium mt-2">{title}</h4>
         <p className="m-0">{location}</p>
         <p className="text-sm text-gray-500 flex-grow m-0">
           {guests} guests - {bedRoom} bedrooms - {bath} baths
         </p>
-        <p className="text-lg lg:text-lg font-semibold">
+        <p className="text-lg lg:text-lg font-semibold ">
           {price.toLocaleString()}đ/đêm
         </p>
       </div>

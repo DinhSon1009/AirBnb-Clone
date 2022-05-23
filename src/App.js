@@ -14,7 +14,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isLoading && flag && <SpinnerLoading />}
+      {/* {isLoading && flag && <SpinnerLoading />} */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />

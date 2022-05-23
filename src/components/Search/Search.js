@@ -56,7 +56,6 @@ export default function Search({ searchInfo, LargeScreen }) {
     setSuggestions(null);
     setInput("");
   };
-  console.log(searchInfo);
   return (
     <>
       {!LargeScreen ? (

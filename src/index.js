@@ -12,13 +12,14 @@ import searchReducer from "./redux/searchSlice";
 import roomReducer from "./redux/roomSlice";
 import spinnerReducer from "./redux/spinnerSlice";
 import userReducer from "./redux/userSlice";
-
+import cartReducer from "./redux/CartSlice";
 export const store = configureStore({
   reducer: {
     searchReducer,
     roomReducer,
     spinnerReducer,
     userReducer,
+    cartReducer,
   },
   devTools: true,
 });

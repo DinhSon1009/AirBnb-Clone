@@ -5,6 +5,9 @@ module.exports = {
       screens: {
         phone: "400px",
       },
+      colors: {
+        primary: "#ff385c",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

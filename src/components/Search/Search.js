@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
+import useDebounce from "../../Hooks/useDebounce/useDebounce";
 import { setLocationID, setSearchInfo } from "../../redux/searchSlice";
 import { setFlag } from "../../redux/spinnerSlice";
 import httpServ from "../../services/http.service";
@@ -18,15 +19,19 @@ export default function Search({ searchInfo, LargeScreen }) {
   const searchLargeScreenRef = useRef();
   const suggestLargeScreenRef = useRef();
   const smallScreenInputRef = useRef();
+  const debounced = useDebounce(input, 300);
+  const [chooseInput, setChooseInput] = useState(undefined);
   useClickOutside(suggestionRef, () => {
     setSuggestions(null);
     setShowSuggestions(false);
     setInput("");
+    setChooseInput("");
   });
   useClickOutside(suggestLargeScreenRef, () => {
     setSuggestions(null);
     setShowSuggestions(false);
     setInput("");
+    setChooseInput("");
   });
 
   useEffect(() => {
@@ -42,14 +47,14 @@ export default function Search({ searchInfo, LargeScreen }) {
         })
         .catch((err) => console.log(err));
     }
-  }, [input]);
+  }, [debounced]);
 
   const handleSearch = () => {
     dispatch(setLocationID(select._id));
-    dispatch(setSearchInfo(input));
+    dispatch(setSearchInfo(chooseInput));
     navigate({
       pathname: "/search",
-      search: `?id=${select._id}&&location=${input}`,
+      search: `?id=${select._id}&&location=${chooseInput}`,
     });
     setShowSuggestions(false);
     dispatch(setFlag(true));
@@ -65,7 +70,7 @@ export default function Search({ searchInfo, LargeScreen }) {
           </div>
           <input
             ref={smallScreenInputRef}
-            value={input}
+            value={chooseInput || input}
             onChange={(e) => setInput(e.target.value)}
             className="inline-flex md:hidden w-full outline-none rounded-full pl-5 py-3 bg-white text-gray-600 flex-grow z-50"
             type="text"
@@ -87,8 +92,8 @@ export default function Search({ searchInfo, LargeScreen }) {
                 <button
                   className="relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2 "
                   onClick={() => {
-                    setInput(`${suggest.name}, ${suggest.province}`);
-                    setShowSuggestions(true);
+                    setChooseInput(`${suggest.name}, ${suggest.province}`);
+                    setShowSuggestions(false);
                     setSelect(suggest);
                   }}
                   key={index}
@@ -113,7 +118,7 @@ export default function Search({ searchInfo, LargeScreen }) {
                 <p className="font-semibold m-0">Địa điểm</p>
                 <input
                   ref={searchLargeScreenRef}
-                  value={input}
+                  value={chooseInput || input}
                   onChange={(e) => setInput(e.target.value)}
                   type="text"
                   placeholder="Bạn sắp đi đâu?"
@@ -131,8 +136,8 @@ export default function Search({ searchInfo, LargeScreen }) {
                         className={` relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2
                     `}
                         onClick={() => {
-                          setInput(`${suggest.name},${suggest.province}`);
-                          setShowSuggestions(true);
+                          setChooseInput(`${suggest.name},${suggest.province}`);
+                          setShowSuggestions(false);
                           setSelect(suggest);
                         }}
                         key={index}

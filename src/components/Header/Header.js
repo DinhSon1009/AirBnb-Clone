@@ -12,7 +12,7 @@ import useEventListener from "../../Hooks/useEventListener/useEventListener";
 import ProfileModal from "../Modal/ProfileModal";
 import Cart from "../Cart/Cart";
 import { LoginIcon, LogoutIcon, UploadIcon } from "@heroicons/react/outline";
-import CartModal from "../Modal/CartModal";
+// import CartModal from "../Modal/CartModal";
 
 export default function Header({ offset, searchInfo }) {
   const [searchClick, setSearchClick] = useState(false);
@@ -23,7 +23,9 @@ export default function Header({ offset, searchInfo }) {
   const user = useSelector((state) => state.userReducer.user);
   const [toggle, setToggle] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isCartModalVisible, setIsCartModalVisible] = useState(false);
+
+  // const [isCartModalVisible, setIsCartModalVisible] = useState(false);
+
   useClickOutside(searchRef, () => {
     setSearchClick(false);
   });
@@ -133,8 +135,8 @@ export default function Header({ offset, searchInfo }) {
             Trở thành chủ nhà
           </p>
           {user ? (
-            <button onClick={() => setIsCartModalVisible(!isCartModalVisible)}>
-              <Cart user={user} />
+            <button onClick={() => navigation("/CartDetail")}>
+              <Cart userId={user._id} />
             </button>
           ) : (
             <></>
@@ -216,13 +218,13 @@ export default function Header({ offset, searchInfo }) {
           setIsModalVisible={setIsModalVisible}
         />
       )}
-      {isCartModalVisible && (
+      {/* {isCartModalVisible && (
         <CartModal
           tickets={user.tickets}
           isCartModalVisible={isCartModalVisible}
           setIsCartModalVisible={setIsCartModalVisible}
         />
-      )}
+      )} */}
     </header>
   );
 }

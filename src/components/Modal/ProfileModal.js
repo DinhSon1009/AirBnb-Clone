@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, message } from "antd";
+import { Modal } from "antd";
 import httpServ from "../../services/http.service";
 import { useDispatch } from "react-redux";
 import { setUserToStorage } from "../../redux/userSlice";

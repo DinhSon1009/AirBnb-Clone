@@ -11,10 +11,8 @@ import NotFound from "./page/NotFound/NotFound";
 import Register from "./page/Register/Register";
 import RoomDetail from "./page/RoomDetail/RoomDetail";
 import SearchPage from "./page/SearchPage/SearchPage";
+import CartInfo from "./page/CartInfo/CartInfo";
 function App() {
-  const isLoading = useSelector((state) => state.spinnerReducer.spinner);
-  const flag = useSelector((state) => state.spinnerReducer.flag);
-
   return (
     <BrowserRouter>
       {/* {isLoading && flag && <SpinnerLoading />} */}
@@ -25,8 +23,10 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="RoomDetail/:id" element={<RoomDetail />} />
         <Route path="/notfound" element={<NotFound />} />
+        <Route path="/CartDetail" element={<CartInfo />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      <ToastContainer autoClose={2000} pauseOnHover={false} />
+      <ToastContainer autoClose={2000} pauseOnHover={false} draggable />
     </BrowserRouter>
   );
 }

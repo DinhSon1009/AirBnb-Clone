@@ -15,6 +15,7 @@ import { Kitchen, Pool, Tv, Wifi } from "@mui/icons-material";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
+import { DEFAULT_IMAGE_PATH } from "../../constants/path";
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
@@ -34,7 +35,9 @@ export default function RoomDetail() {
   const [roomServices, setRoomSerVices] = useState();
   const [danhGia, setDanhGia] = useState();
   const [textInput, setTextInput] = useState("");
-  const isLoading = useSelector((state) => state.spinnerReducer.spinner);
+  const isLoading = useSelector(
+    (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
+  );
   const dispatch = useDispatch();
   // console.log(startDate);
 
@@ -132,7 +135,7 @@ export default function RoomDetail() {
             ) : (
               <img
                 className="w-full object-cover rounded-2xl h-full object-center "
-                src={room?.image}
+                src={room?.image || DEFAULT_IMAGE_PATH}
                 alt="room"
               />
             )}
@@ -173,78 +176,106 @@ export default function RoomDetail() {
               </div>
             </div>
           )}
-
-          <div
-            ref={checkoutRef}
-            className="flex my-5 overflow-x-scroll md:pt-0 md:col-span-2 max-w-[600px] scrollbar-hide "
-          >
-            <div className=" border rounded-md border-gray-300 shadow-xl p-5 w-full">
-              <p className="text-lg lg:text-2xl font-semibold px-5 ">
-                {room?.price.toLocaleString()} đ/đêm
-              </p>
-              <div className="flex flex-col glass relative pt-2">
-                <div className="flex">
-                  <button
-                    onClick={() => {
-                      setButton1(true);
-                      setCalendar(!calendar);
-                    }}
-                    className={`border-r basis-1/2 text-left px-5 ${
-                      button1 && "border-gray-500 border"
-                    }`}
-                  >
-                    <h4>CHECK-IN</h4>
-                    <p>{startDate === null ? "Add date" : startDate}</p>
-                  </button>
-                  <button
-                    disabled={!button1Selected}
-                    onClick={() => {
-                      setButton2(true);
-                      setCalendar(!calendar);
-                    }}
-                    className={`basis-1/2 border-l text-left px-5  ${
-                      button1Selected ? "cursor-pointer" : "cursor-not-allowed"
-                    } ${button2 && "border-gray-500 border"} `}
-                  >
-                    <h4>CHECK-OUT</h4>
-                    <p>{endDate === null ? "Add date" : endDate}</p>
-                  </button>
-                </div>
-                {calendar && <DatePicker />}
-              </div>
-              <div className="w-full relative z-0 ">
-                <div className="p-5 flex items-center justify-between w-full">
-                  <div className="">
-                    <h4>GUESTS</h4>
-                    <p>{guests} guest</p>
-                  </div>
+          {!isLoading ? (
+            <div
+              ref={checkoutRef}
+              className="flex my-5 overflow-x-scroll md:pt-0 md:col-span-2 max-w-[600px] scrollbar-hide  "
+            >
+              <div className=" border rounded-md border-gray-300 shadow-xl p-5 w-full">
+                <p className="text-lg lg:text-2xl font-semibold px-5 ">
+                  {room?.price.toLocaleString()} đ/đêm
+                </p>
+                <div className="flex flex-col glass relative pt-2">
                   <div className="flex">
-                    <MinusCircleIcon
-                      onClick={() =>
-                        guests > 1 && setGuests((guests) => guests - 1)
-                      }
-                      className="text-gray-500 h-8 w-8 cursor-pointer"
-                    />
-                    <PlusCircleIcon
-                      onClick={() =>
-                        guests < room.guests &&
-                        setGuests((guests) => guests + 1)
-                      }
-                      className="text-gray-500 h-8 w-8 cursor-pointer  "
-                    />
+                    <button
+                      onClick={() => {
+                        setButton1(true);
+                        setCalendar(!calendar);
+                      }}
+                      className={`border-r basis-1/2 text-left px-5 ${
+                        button1 && "border-gray-500 border"
+                      }`}
+                    >
+                      <h4>CHECK-IN</h4>
+                      <p>{startDate === null ? "Add date" : startDate}</p>
+                    </button>
+                    <button
+                      disabled={!button1Selected}
+                      onClick={() => {
+                        setButton2(true);
+                        setCalendar(!calendar);
+                      }}
+                      className={`basis-1/2 border-l text-left px-5  ${
+                        button1Selected
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed"
+                      } ${button2 && "border-gray-500 border"} `}
+                    >
+                      <h4>CHECK-OUT</h4>
+                      <p>{endDate === null ? "Add date" : endDate}</p>
+                    </button>
+                  </div>
+                  {calendar && <DatePicker />}
+                </div>
+                <div className="w-full relative z-0 ">
+                  <div className="p-5 flex items-center justify-between w-full">
+                    <div className="">
+                      <h4>GUESTS</h4>
+                      <p>{guests} guest</p>
+                    </div>
+                    <div className="flex">
+                      <MinusCircleIcon
+                        onClick={() =>
+                          guests > 1 && setGuests((guests) => guests - 1)
+                        }
+                        className="text-gray-500 h-8 w-8 cursor-pointer"
+                      />
+                      <PlusCircleIcon
+                        onClick={() =>
+                          guests < room.guests &&
+                          setGuests((guests) => guests + 1)
+                        }
+                        className="text-gray-500 h-8 w-8 cursor-pointer  "
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="text-center w-full">
-                <button
-                  onClick={handleBooking}
-                  className="w-3/4 bg-red-500 hover:bg-red-600 transition-all duration-150 py-4 px-6 rounded-full text-white text-xl"
-                >
-                  Book now
-                </button>
+                <div className="text-center w-full">
+                  <button
+                    onClick={handleBooking}
+                    className="w-3/4 bg-red-500 hover:bg-red-600 transition-all duration-150 py-4 px-6 rounded-full text-white text-xl"
+                  >
+                    Book now
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            // loading skeleton
+
+            <div className="h-[300px] rounded-md shadow-xl border my-5 p-5 max-w-[600px] ">
+              <h3 className="text-xl">
+                <Skeleton />
+              </h3>
+              <div className="text-xl grid grid-cols-2 gap-5">
+                <Skeleton height="50px" />
+                <Skeleton height="50px" />
+              </div>
+              <div className="grid grid-cols-2 gap-2 mt-5">
+                <Skeleton width="60%" />
+                <Skeleton width="60%" />
+                <Skeleton />
+                <Skeleton />
+              </div>
+              <div className="flex justify-center items-center mt-5">
+                <div className="w-3/4">
+                  <Skeleton height={50} width="100%" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* end loading skeleton  */}
         </section>
       </main>
       <section className="py-4 bg-gray-100">

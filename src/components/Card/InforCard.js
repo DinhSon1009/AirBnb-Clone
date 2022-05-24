@@ -1,6 +1,7 @@
 import { HeartIcon } from "@heroicons/react/outline";
 import React from "react";
 import { useNavigate } from "react-router";
+import { DEFAULT_IMAGE_PATH } from "../../constants/path";
 
 export default function InforCard({
   img,
@@ -24,7 +25,7 @@ export default function InforCard({
     >
       <div className=" w-full ">
         <img
-          src={img}
+          src={img || DEFAULT_IMAGE_PATH}
           alt={`ảnh ${location}`}
           className="object-cover rounded-xl w-full"
         />

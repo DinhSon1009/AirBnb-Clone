@@ -58,7 +58,7 @@ export default function SearchPage() {
             <Button> Rooms and Beds</Button>
             <Button> More filters</Button>
           </div>
-          <div className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
             {!isLoading
               ? room?.map((item) => (
                   <InforCard

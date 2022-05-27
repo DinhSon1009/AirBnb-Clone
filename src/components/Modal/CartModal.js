@@ -49,7 +49,7 @@ export default function CartModal({
         <Table
           dataSource={roomData !== null && [...roomData]}
           rowKey="id"
-          pagination={{ pageSize: 4 }}
+          pagination={{ pageSize: 6 }}
         >
           <Column
             title="Địa điểm"

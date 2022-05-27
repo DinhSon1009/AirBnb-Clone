@@ -75,8 +75,11 @@ export default function SearchPage() {
                 ))
               : Array(8)
                   .fill(0)
-                  .map((item) => (
-                    <div className="first:border-t sm:first:border-t-0 hover:shadow-lg cursor-pointer border-b hover:opacity-80 transition duration-200 py-7 ease-out">
+                  .map((item, index) => (
+                    <div
+                      key={index}
+                      className="first:border-t sm:first:border-t-0 hover:shadow-lg cursor-pointer border-b hover:opacity-80 transition duration-200 py-7 ease-out"
+                    >
                       <Skeleton count={1} height={210} />
                       <h4 className="text-lg font-medium mt-2">
                         <Skeleton count={1} />

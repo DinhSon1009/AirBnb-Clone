@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import { DateRangePicker } from "react-date-range";
+import { DateRange } from "react-date-range";
 import { UsersIcon } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
 import moment from "moment";
@@ -34,12 +34,14 @@ export default function DatePicker() {
 
   return (
     <div className=" flex-col mx-auto w-full max-w-[600px] bg-white pb-4 flex z-50">
-      <DateRangePicker
+      <DateRange
         className=""
         ranges={[selectionRange]}
         rangeColors={["#ff385c"]}
         onChange={handleSelect}
         minDate={new Date()}
+        months={2}
+        direction="horizontal"
       />
       {/* <div className="flex ml-4 items-center border-b mb-4">
         <h2 className="text-2xl flex-grow font-semibold">Số lượng :</h2>

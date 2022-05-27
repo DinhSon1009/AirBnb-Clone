@@ -16,6 +16,7 @@ import { useTitle } from "../../Hooks/useTitle/useTitle";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
+// import { setCartAction } from "../../redux/CartSlice";
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
@@ -42,6 +43,7 @@ export default function RoomDetail() {
   // console.log(startDate);
 
   useTitle("Chi tiết phòng");
+
   useEffect(() => {
     httpServ
       .layThongTinChiTietPhong(id)

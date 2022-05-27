@@ -1,12 +1,13 @@
 import { ShoppingCartIcon } from "@heroicons/react/outline";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { setCartAction } from "../../redux/CartSlice";
 import httpServ from "../../services/http.service";
 
 export default function Cart({ userId }) {
   const [cart, setCart] = useState(undefined);
+  const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
   useEffect(() => {
     httpServ
@@ -16,7 +17,7 @@ export default function Cart({ userId }) {
         dispatch(setCartAction(res.data));
       })
       .catch((err) => toast.error("Đã có lỗi xảy ra !"));
-  }, [userId]);
+  }, [userId, user]);
   return (
     <div className="w-8 h-8 cursor-pointer relative">
       <ShoppingCartIcon />

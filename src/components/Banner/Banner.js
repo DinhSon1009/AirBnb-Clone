@@ -9,7 +9,10 @@ export default function Banner() {
         className="object-cover w-full block h-full object-center "
       />
       <div className="absolute translate-y-3/4 bottom-1/2 lg:translate-y-0  lg:bottom-[3rem] left-1/2 -translate-x-1/2 transform text-white flex items-center justify-center flex-col font-semibold">
-        <p className="text-2xl md:text-[2rem] lg:text-[3rem] text-center">
+        <p
+          className="text-2xl md:text-3xl lg:text-5xl text-center border-r-4 border-solid animation-typewriter whitespace-nowrap overflow-hidden"
+          style={{ maxWidth: "max-content", width: "30ch" }}
+        >
           Hãy để trí tò mò của bạn dẫn lối
         </p>
         <button className="bg-white rounded-full mt-4 px-5 py-4 lg:px-8">

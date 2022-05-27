@@ -71,6 +71,28 @@
     z-index: 0 !important;
     transition: opacity 150ms ease 0s !important;
     }
+    .animation-typewriter {
+      animation: typewriter 6s steps(24) infinite  , blink 0.5s 2s step-end infinite ;
+    }
+    @keyframes typewriter{
+      0%{
+          @apply w-0
+      }
+      50%{
+        @apply w-full
+      }
+      80%{
+        @apply w-full
+      }
+      100%{
+        @apply w-0
+      }
+    }
+    @keyframes blink {
+      50% {
+        @apply border-transparent
+      }
+    }
 }
 
 .glass{

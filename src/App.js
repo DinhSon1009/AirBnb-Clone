@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import SpinnerLoading from "./components/SpinnerLoading/SpinnerLoading";
+// import SpinnerLoading from "./components/SpinnerLoading/SpinnerLoading";
 import Home from "./page/Home/Home";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";

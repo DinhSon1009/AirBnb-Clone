@@ -12,6 +12,10 @@ import Register from "./page/Register/Register";
 import RoomDetail from "./page/RoomDetail/RoomDetail";
 import SearchPage from "./page/SearchPage/SearchPage";
 import CartInfo from "./page/CartInfo/CartInfo";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 function App() {
   return (
     <BrowserRouter>

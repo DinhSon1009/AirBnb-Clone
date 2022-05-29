@@ -3,7 +3,10 @@ import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
-import images from "./fakeDataImage";
+import { fakeDataImages } from "./fakeDataImage";
+// import useEventListener from "../../Hooks/useEventListener/useEventListener";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper";
 
 export default function InforCard({
   img,
@@ -20,16 +23,12 @@ export default function InforCard({
 }) {
   const navigate = useNavigate();
   const scrollRef = useRef();
+  const navigationPrevRef = useRef();
+  const navigationNextRef = useRef();
   const [isShown, setIsShown] = useState(false);
 
-  const scroll = (direction) => {
-    const { current } = scrollRef;
-    direction === "left"
-      ? (current.scrollLeft -= current.clientWidth)
-      : (current.scrollLeft += current.clientWidth);
-  };
   return (
-    <div className="border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0">
+    <div className="border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0">
       <div
         onMouseEnter={() => setIsShown(true)}
         onMouseLeave={() => setIsShown(false)}
@@ -39,29 +38,49 @@ export default function InforCard({
           ref={scrollRef}
           className=" w-full overflow-y-hidden overflow-x-scroll scrollbar-hide flex"
         >
-          <img
-            src={img || DEFAULT_IMAGE_PATH}
-            onClick={() => navigate(`/RoomDetail/${id}`)}
-            alt={`ảnh ${location}`}
-            className="object-cover rounded-xl w-full  h-full transition-all duration-300"
-            style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
-          />
-          {Array(4)
-            .fill(0)
-            .map((item, index) => (
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            loop={true}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={
+              false || {
+                prevEl: navigationPrevRef.current,
+                nextEl: navigationNextRef.current,
+              }
+            }
+            onBeforeInit={(swiper) => {
+              swiper.params.navigation.prevEl = navigationPrevRef.current;
+              swiper.params.navigation.nextEl = navigationNextRef.current;
+            }}
+            modules={[Pagination, Navigation]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
               <img
+                src={img || DEFAULT_IMAGE_PATH}
                 onClick={() => navigate(`/RoomDetail/${id}`)}
-                className="object-cover rounded-xl w-full h-full transition-all duration-300 "
-                alt="hinh mo ta"
-                src={images[`hinh${index + 1}`]}
+                alt={`ảnh ${location}`}
+                className="object-cover rounded-xl w-full  transition-all duration-300 h-[300px]"
                 style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
               />
+            </SwiperSlide>
+            {fakeDataImages.map((item, index) => (
+              <SwiperSlide>
+                <img
+                  key={item.id}
+                  onClick={() => navigate(`/RoomDetail/${id}`)}
+                  className="object-cover rounded-xl w-full  transition-all duration-300 h-[300px]"
+                  alt="hinh mo ta"
+                  src={item.img}
+                  style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+                />
+              </SwiperSlide>
             ))}
-        </div>
-        {isShown && (
-          <div>
             <ArrowLeft
-              onClick={() => scroll("left")}
+              ref={navigationPrevRef}
               style={{
                 position: "absolute",
                 top: "50%",
@@ -70,10 +89,12 @@ export default function InforCard({
                 fontSize: "2rem",
                 left: 0,
               }}
-              className="absolute bg-slate-50 text-primary rounded-full"
+              className={`absolute bg-slate-50 text-primary rounded-full z-50 ${
+                isShown ? "opacity-100" : "opacity-0"
+              }`}
             />
             <ArrowRight
-              onClick={() => scroll("right")}
+              ref={navigationNextRef}
               style={{
                 position: "absolute",
                 top: "50%",
@@ -82,10 +103,12 @@ export default function InforCard({
                 fontSize: "2rem",
                 right: 0,
               }}
-              className="absolute bg-slate-50 text-primary rounded-full"
+              className={`absolute bg-slate-50 text-primary rounded-full z-50 ${
+                isShown ? "opacity-100" : "opacity-0"
+              }`}
             />
-          </div>
-        )}
+          </Swiper>
+        </div>
       </div>
 
       <div className="flex flex-col space-y-1 px-2">

@@ -1,4 +1,3 @@
-import { MenuIcon, UserCircleIcon } from "@heroicons/react/solid";
 import { useRef, useState } from "react";
 import { ReactComponent as SmallLogo } from "../../assets/images/airbnb_small.svg";
 import { ReactComponent as LargeLogo } from "../../assets/images/air_bnb_large.svg";
@@ -12,6 +11,7 @@ import useEventListener from "../../Hooks/useEventListener/useEventListener";
 import ProfileModal from "../Modal/ProfileModal";
 import Cart from "../Cart/Cart";
 import { LoginIcon, LogoutIcon, UploadIcon } from "@heroicons/react/outline";
+import { AlignIcon, UserIcon } from "../../assets/icons";
 // import CartModal from "../Modal/CartModal";
 
 export default function Header({ offset, searchInfo }) {
@@ -143,8 +143,8 @@ export default function Header({ offset, searchInfo }) {
           )}
           <div
             onClick={userHandler}
-            className={`flex items-center border-2 rounded-full cursor-pointer ${
-              user ? "p-0" : "p-2"
+            className={`flex items-center border rounded-full bg-white cursor-pointer outline-none ${
+              user ? "p-0" : "p-[5px] pl-3"
             }`}
           >
             {user ? (
@@ -156,13 +156,19 @@ export default function Header({ offset, searchInfo }) {
                     alt="avatar"
                   />
                 ) : (
-                  <UserCircleIcon className="h-full w-full rounded-full" />
+                  <div className="ml-3 text-[#717171]">
+                    <UserIcon />
+                  </div>
                 )}
               </div>
             ) : (
               <>
-                <MenuIcon className="h-6" />
-                <UserCircleIcon className="h-6" />
+                <div className="text-[#222222]">
+                  <AlignIcon className="h-6" />
+                </div>
+                <div className="ml-3 w-[30px] h-[30px] text-[#717171]">
+                  <UserIcon />
+                </div>
               </>
             )}
           </div>

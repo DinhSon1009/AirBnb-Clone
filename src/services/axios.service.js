@@ -77,7 +77,9 @@ class AxiosService {
     return new Promise((resolve, reject) => {
       method
         .then((res) => {
-          store.dispatch(setSpinnerEnd());
+          setTimeout(() => {
+            store.dispatch(setSpinnerEnd());
+          }, 2000);
           resolve({
             data: res.data,
             status: res.status,
@@ -85,7 +87,10 @@ class AxiosService {
           });
         })
         .catch((err) => {
-          store.dispatch(setSpinnerEnd());
+          setTimeout(() => {
+            store.dispatch(setSpinnerEnd());
+          }, 2000);
+          // store.dispatch(setSpinnerEnd());
           this.handleError(err);
           reject({
             err: err,

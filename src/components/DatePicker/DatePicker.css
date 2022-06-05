@@ -1,0 +1,159 @@
+.rdrMonths {
+   @apply flex-col sm:flex-row 
+}
+div.rdrMonths div:nth-child(2).rdrMonth{
+    @apply hidden sm:block
+}
+.rdrMonth{
+    @apply w-full sm:!w-[27,667em] 
+}
+.rdrMonths {
+    @apply mt-5
+}
+.rdrDays button{
+    @apply mb-1
+}
+
+.rdrWeekDay{
+    @apply text-base 
+}
+
+.rdrDayHovered .rdrDayNumber{
+    @apply border rounded-full border-black bg-white
+}
+
+.rdrDayPassive{
+    @apply opacity-0
+}
+
+.rdrStartEdge , .rdrEndEdge {
+    @apply bg-[rgb(247,247,247)]  h-[42px] inset-0 
+}
+.rdrEndEdge + span + .rdrDayNumber span{
+    @apply absolute inset-0 w-full h-full bg-black rounded-full !text-white flex items-center justify-center
+}
+
+.rdrStartEdge + span + .rdrDayNumber span{
+    @apply absolute inset-0 w-full h-full bg-black rounded-full !text-white flex items-center justify-center
+}
+
+.rdrEndEdge  + .rdrDayNumber span{
+    @apply absolute inset-0 w-full h-full bg-black rounded-full !text-white flex items-center justify-center
+}
+
+.rdrStartEdge  + .rdrDayNumber span{
+    @apply absolute inset-0 w-full h-full bg-black rounded-full !text-white flex items-center justify-center
+}
+
+
+.rdrStartEdge{
+    @apply rounded-tl-full rounded-bl-full
+}
+.rdrEndEdge{
+    @apply rounded-tr-full rounded-br-full bg-white
+}
+.rdrDay{
+    @apply h-[42px] 
+}
+.rdrStartEdge + .rdrDayNumber {
+    @apply rounded-full bg-black
+}
+
+.rdrEndEdge + .rdrDayNumber{
+    @apply  bg-[rgb(247,247,247)] rounded-tr-full rounded-br-full 
+}
+.rdrEndEdge +span + .rdrDayNumber{
+    @apply  bg-[rgb(247,247,247)] rounded-tr-full rounded-br-full 
+}
+.rdrDayNumber{
+    @apply w-[42px] h-[42px] inset-0 text-[#1d2429]
+}
+.rdrInRange {
+    @apply  h-[42px]  inset-0
+}
+
+.rdrDayToday:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span:after, .rdrDayToday:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span:after, .rdrDayToday:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span:after, .rdrDayToday:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span:after{
+    @apply bg-black
+}
+
+.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span, .rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span, .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span, .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+    @apply text-[#1d2429]
+}
+
+
+.rdrDayStartPreview, .rdrDayEndPreview{
+    @apply !border-none !bg-transparent
+}
+.rdrDayInPreview {
+  @apply bg-[rgb(247,247,247)]
+}
+.rdrDayNumber{
+    @apply z-10
+}
+
+.rdrStartEdge.rdrEndEdge + .rdrDayStartPreview + .rdrDayNumber {
+    @apply bg-white
+}
+.rdrStartEdge.rdrEndEdge + .rdrDayStartPreview + .rdrDayNumber {
+    @apply bg-white
+}
+.rdrStartEdge.rdrEndEdge + .rdrDayEndPreview + .rdrDayNumber {
+    @apply bg-white
+}
+
+/* edge weeks  */
+.rdrDayEndOfMonth .rdrInRange, .rdrDayEndOfMonth .rdrStartEdge, .rdrDayEndOfWeek .rdrInRange, .rdrDayEndOfWeek .rdrStartEdge {
+    @apply rounded-tr-none rounded-br-none
+}
+
+.rdrDayStartOfMonth .rdrInRange, .rdrDayStartOfMonth .rdrEndEdge, .rdrDayStartOfWeek .rdrInRange, .rdrDayStartOfWeek .rdrEndEdge {
+    @apply rounded-tl-none rounded-bl-none
+}
+
+
+/* disable day  */
+
+.rdrDayDisabled{
+    @apply bg-white
+}
+
+.rdrDayDisabled .rdrDayNumber span {
+    @apply line-through
+}
+.rdrDayNumber span{
+    @apply font-semibold text-base
+}
+
+
+.rdrMonthAndYearPickers{
+    display: none;
+}
+.rdrMonthAndYearWrapper{
+    @apply absolute w-full top-0 left-0 h-full 
+}
+.rdrCalendarWrapper{
+    @apply relative
+}
+.rdrNextPrevButton.rdrPprevButton{
+    @apply absolute top-0 left-0
+}
+.rdrNextPrevButton.rdrNextButton{
+    @apply absolute top-0 right-0
+}
+.rdrDateDisplayWrapper{
+    @apply bg-white
+}
+.rdrDateDisplayItem{
+    @apply shadow-none border-none
+}
+
+.rdrDateInput input {
+    @apply hidden
+}
+div.rdrMonths div:nth-child(1) .rdrMonthName{
+    @apply absolute top-0 sm:left-1/4 p-0 transform sm:-translate-x-1/2 text-base font-semibold text-[#1d2429] left-1/2 -translate-x-1/2
+}
+
+div.rdrMonths div:nth-child(2) .rdrMonthName{
+    @apply absolute top-0 right-1/4 p-0 transform translate-x-1/2 text-base font-semibold text-[#1d2429]
+}

@@ -4,19 +4,40 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import httpServ from "../../services/http.service";
 import { useDispatch, useSelector } from "react-redux";
-import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/outline";
-import { UserCircleIcon } from "@heroicons/react/solid";
+import {
+  MinusCircleIcon,
+  PlusCircleIcon,
+  HeartIcon,
+} from "@heroicons/react/outline";
+import { StarIcon, UserCircleIcon, UploadIcon } from "@heroicons/react/solid";
 import Rating from "../../components/Rating/Rating";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
 import { useParams } from "react-router";
 import { setUserToStorage } from "../../redux/userSlice";
 import { setEndDateBooking, setStartDateBooking } from "../../redux/roomSlice";
-import { Kitchen, Pool, Tv, Wifi } from "@mui/icons-material";
+import { ChevronRight } from "@mui/icons-material";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import Skeleton from "react-loading-skeleton";
 import { toast } from "react-toastify";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
-// import { setCartAction } from "../../redux/CartSlice";
+import { fakeDataImages } from "../../assets/images/fakeDataImage";
+import { Button } from "../../styles/customStyle";
+import DatVe from "../../components/DatVe/DatVe";
+import {
+  CableTvIcon,
+  CalendarIcon,
+  DryerIcon,
+  ElevatorIcon,
+  EntranceIcon,
+  GymIcon,
+  HeatingIcon,
+  HotTubIcon,
+  IndoorFirePlaceIcon,
+  KeyIcon,
+  KitchenIcon,
+  PoolIcon,
+  WifiIcon,
+} from "../../assets/icons";
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
@@ -40,7 +61,6 @@ export default function RoomDetail() {
     (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
   );
   const dispatch = useDispatch();
-  // console.log(startDate);
 
   useTitle("Chi tiết phòng");
 
@@ -52,23 +72,53 @@ export default function RoomDetail() {
         setRoomSerVices([
           {
             isTrue: res.data.wifi,
-            icon: <Wifi />,
+            icon: <WifiIcon className="w-5 h-5" />,
             name: "Wifi",
           },
           {
             isTrue: res.data.cableTV,
-            icon: <Tv />,
-            name: "Tv",
+            icon: <CableTvIcon className="w-5 h-5" />,
+            name: "CableTV",
           },
           {
             isTrue: res.data.pool,
-            icon: <Pool />,
-            name: "Hồ bơi",
+            icon: <PoolIcon className="w-5 h-5" />,
+            name: "Pool",
+          },
+          {
+            isTrue: res.data.elevator,
+            icon: <ElevatorIcon className="w-5 h-5" />,
+            name: "Elevator",
+          },
+          {
+            isTrue: res.data.hotTub,
+            icon: <HotTubIcon className="w-5 h-5" />,
+            name: "HotTub",
+          },
+          {
+            isTrue: res.data.heating,
+            icon: <HeatingIcon className="w-5 h-5" />,
+            name: "Heating",
+          },
+          {
+            isTrue: res.data.indoorFireplace,
+            icon: <IndoorFirePlaceIcon className="w-5 h-5" />,
+            name: "IndoorFireplace",
           },
           {
             isTrue: res.data.kitchen,
-            icon: <Kitchen />,
-            name: "Nhà bếp",
+            icon: <KitchenIcon className="w-5 h-5" />,
+            name: "Kitchen",
+          },
+          {
+            isTrue: res.data.dryer,
+            icon: <DryerIcon className="w-5 h-5" />,
+            name: "Dryer",
+          },
+          {
+            isTrue: res.data.gym,
+            icon: <GymIcon className="w-5 h-5" />,
+            name: "Gym",
           },
         ]);
       })
@@ -118,168 +168,222 @@ export default function RoomDetail() {
         .catch((err) => console.log(err));
     }
   };
+  console.log(room);
 
   return (
     <>
       <Header />
       <main className="dscontainer pt-5">
-        <h4 className="text-xl w-full lg:w-96">
-          {isLoading ? <Skeleton /> : room?.name}
-        </h4>
-        <section className="grid grid-cols-1 md:grid-cols-2 ">
-          <div className="basis-1/2 flex-shrink-0 max-h-[500px] h-[300px] md:h-[350px] lg:h-[400px]">
-            {isLoading ? (
-              <Skeleton
-                height="100%"
-                className="!rounded-2xl"
-                containerClassName="w-full h-full"
-              />
-            ) : (
-              <img
-                className="w-full object-cover rounded-2xl h-full object-center "
-                src={room?.image || DEFAULT_IMAGE_PATH}
-                alt="room"
-              />
-            )}
+        <section>
+          <h1 className="text-2xl text-title w-full font-semibold lg:w-96">
+            {isLoading ? <Skeleton /> : room?.name}
+          </h1>
+          <div className="flex flex-col md:flex-row justify-between  md:items-center">
+            <div className="flex items-center">
+              <StarIcon className="w-6 inline-flex " />
+              <span className="font-semibold">4.97 ·</span>
+              <span className="underline font-medium ml-1 p-2 cursor-pointer">
+                240 reviews
+              </span>
+              <span className="ml-2 mr-2">·</span>
+              <span className="underline font-medium p-2 cursor-pointer">
+                Việt Nam
+              </span>
+            </div>
+            <div className="flex items-center  ">
+              <div className="flex items-center p-2 cursor-pointer hover:bg-gray-200">
+                <UploadIcon className="w-6" />
+                <span className="underline font-medium p-2">Chia sẻ</span>
+              </div>
+              <div className="flex items-center p-2 cursor-pointer hover:bg-gray-200">
+                <HeartIcon className="w-6" />
+                <span className="underline font-medium p-2">Lưu</span>
+              </div>
+            </div>
           </div>
-          {isLoading ? (
-            <div className="md:pt-0 md:pl-5">
-              <h4 className="text-xl m-0">
-                <Skeleton />
-              </h4>
-              <p className="rounded-md mt-2 texl-lg ">
-                <Skeleton width="100%" height="100%" />
-              </p>
-              <p className="pt-2 text-sm flex-grow">
-                <Skeleton count={2} />
-              </p>
+
+          {/* photos grid  */}
+
+          <div className="md:grid block md:grid-cols-[1fr_0.5fr_0.5fr] h-[500px] max-h-[calc(60vh_-_64px)] grid-rows-2 gap-2 relative pt-6">
+            <div className="md:row-span-2 w-full h-full cursor-pointer relative after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(0,0,0,1)] after:opacity-0 hover:after:opacity-20 after:transition-all after:duration-300 rounded-lg md:rounded-l-lg md:rounded-r-none overflow-hidden ">
+              <img
+                className="w-full h-full object-cover "
+                src={room?.image || DEFAULT_IMAGE_PATH}
+                alt=""
+              />
             </div>
-          ) : (
-            <div className="md:pt-0 md:pl-5">
-              <h4 className="text-xl m-0">Đánh giá tiêu biểu</h4>
-              <p className="border rounded-md p-5 mt-2 text-gray-600">
-                {room?.description}
-              </p>
-              <p className="pt-2 text-sm text-gray-600 flex-grow">
-                {room?.guests} guests - {room?.bedRoom} bedrooms - {room?.bath}{" "}
-                baths
-              </p>
-              <div className="flex pt-2 text-sm text-gray-600 space-x-2 items-center">
-                {roomServices?.map((service, index) => (
-                  <React.Fragment key={index}>
-                    {service.isTrue && (
-                      <div className="flex space-x-1">
-                        {service.icon}
-                        <span className="font-semibold">{service.name}</span>
-                      </div>
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-          )}
-          {!isLoading ? (
-            <div
-              ref={checkoutRef}
-              className="flex my-5 overflow-x-scroll md:pt-0 md:col-span-2 max-w-[600px] scrollbar-hide  "
-            >
-              <div className=" border rounded-md border-gray-300 shadow-xl p-5 w-full">
-                <p className="text-lg lg:text-2xl font-semibold px-5 ">
-                  {room?.price.toLocaleString()} đ/đêm
-                </p>
-                <div className="flex flex-col glass relative pt-2">
-                  <div className="flex">
-                    <button
-                      onClick={() => {
-                        setButton1(true);
-                        setCalendar(!calendar);
-                      }}
-                      className={`border-r basis-1/2 text-left px-5 ${
-                        button1 && "border-gray-500 border"
-                      }`}
-                    >
-                      <h4>CHECK-IN</h4>
-                      <p>{startDate === null ? "Add date" : startDate}</p>
-                    </button>
-                    <button
-                      disabled={!button1Selected}
-                      onClick={() => {
-                        setButton2(true);
-                        setCalendar(!calendar);
-                      }}
-                      className={`basis-1/2 border-l text-left px-5  ${
-                        button1Selected
-                          ? "cursor-pointer"
-                          : "cursor-not-allowed"
-                      } ${button2 && "border-gray-500 border"} `}
-                    >
-                      <h4>CHECK-OUT</h4>
-                      <p>{endDate === null ? "Add date" : endDate}</p>
-                    </button>
-                  </div>
-                  {calendar && <DatePicker />}
-                </div>
-                <div className="w-full relative z-0 ">
-                  <div className="p-5 flex items-center justify-between w-full">
-                    <div className="">
-                      <h4>GUESTS</h4>
-                      <p>{guests} guest</p>
-                    </div>
-                    <div className="flex">
-                      <MinusCircleIcon
-                        onClick={() =>
-                          guests > 1 && setGuests((guests) => guests - 1)
-                        }
-                        className="text-gray-500 h-8 w-8 cursor-pointer"
-                      />
-                      <PlusCircleIcon
-                        onClick={() =>
-                          guests < room.guests &&
-                          setGuests((guests) => guests + 1)
-                        }
-                        className="text-gray-500 h-8 w-8 cursor-pointer  "
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="text-center w-full">
-                  <button
-                    onClick={handleBooking}
-                    className="w-3/4 bg-red-500 hover:bg-red-600 transition-all duration-150 py-4 px-6 rounded-full text-white text-xl"
+            {fakeDataImages.map(
+              (item, index) =>
+                index < 4 && (
+                  <div
+                    className={`invisible md:visible row-span-1 cursor-pointer relative after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(0,0,0,1)] after:opacity-0 hover:after:opacity-20 after:transition-all after:duration-300 overflow-hidden 
+                    ${index === 1 && "rounded-tr-lg"}
+                    ${index === 3 && "rounded-br-lg"}
+                    `}
+                    key={item.id}
                   >
-                    Book now
-                  </button>
+                    <img
+                      className="w-full h-full object-cover"
+                      src={item.img}
+                      alt="anh mo ta"
+                    />
+                  </div>
+                )
+            )}
+            {/* button show all photos  */}
+            <div className="absolute right-6 bottom-6 z-10">
+              <Button
+                className="flex items-center cursor-pointer font-semibold outline-none bg-white border border-gray-700 rounded-lg relative after:absolute after:inset-0 after:w-full after:h-full after:bg-gray-500 after:opacity-0 hover:after:opacity-10 after:transition-all after:duration-300 "
+                style={{ padding: "7px 15px" }}
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  role="presentation"
+                  focusable="false"
+                  style={{
+                    display: "block",
+                    height: "16px",
+                    width: "16px",
+                    fill: "currentcolor",
+                  }}
+                >
+                  <path
+                    d="m3 11.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-10-5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-10-5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+                <span className="ml-2">Show all photos</span>
+              </Button>
+            </div>
+
+            {/* end button show all photos  */}
+          </div>
+        </section>
+        <section className="pt-12 pb-6">
+          <div className="flex flex-col lg:flex-row">
+            <div className="w-full lg:w-3/5">
+              <div className="border-b">
+                <h2 className="text-base">Phòng riêng tại nhà. Chủ nhà Son</h2>
+                <ol className="">
+                  <li className="inline-block">
+                    <span className="text-base">{room?.guests} khách</span>
+                  </li>
+                  <li className="inline-block">
+                    <span className="text-base p-1">·</span>
+                  </li>
+                  <li className="inline-block">
+                    <span className="text-base">{room?.bedRoom} phòng ngủ</span>
+                  </li>
+                  <li className="inline-block">
+                    <span className="text-base p-1">·</span>
+                  </li>
+                  <li className="inline-block">
+                    <span className="text-base">1 giường</span>
+                  </li>
+                  <li className="inline-block">
+                    <span className="text-base p-1">·</span>
+                  </li>
+                  <li className="inline-block">
+                    <span className="text-base">
+                      {room?.bath} phòng tắm đầy đủ và 1 phòng vệ sinh cơ bản
+                    </span>
+                  </li>
+                </ol>
+              </div>
+
+              <div className="pt-8 pb-8 border-b">
+                <div className="flex mb-6">
+                  <div>
+                    <EntranceIcon />
+                  </div>
+                  <div className="ml-4">
+                    <h1 className="mb-1 text-base font-semibold">
+                      Tự nhận phòng
+                    </h1>
+                    <span>Tự nhận phòng bằng khóa thông minh.</span>
+                  </div>
+                </div>
+                <div className="flex mb-6">
+                  <div>
+                    <KeyIcon />
+                  </div>
+                  <div className="ml-4">
+                    <h1 className="mb-1 text-base font-semibold">
+                      Trải nghiệm nhận phòng tuyệt vời{" "}
+                    </h1>
+                    <span>
+                      100% khách gần đây đã xếp hạng 5 sao cho quy trình nhận
+                      phòng.
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex mb-6">
+                    <div>
+                      <CalendarIcon />
+                    </div>
+                    <div className="ml-4">
+                      <h1 className="mb-1 text-base font-semibold">
+                        Hủy miễn phí trước 3 thg 5.
+                      </h1>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            // loading skeleton
 
-            <div className="h-[300px] rounded-md shadow-xl border my-5 p-5 max-w-[600px] ">
-              <h3 className="text-xl">
-                <Skeleton />
-              </h3>
-              <div className="text-xl grid grid-cols-2 gap-5">
-                <Skeleton height="50px" />
-                <Skeleton height="50px" />
-              </div>
-              <div className="grid grid-cols-2 gap-2 mt-5">
-                <Skeleton width="60%" />
-                <Skeleton width="60%" />
-                <Skeleton />
-                <Skeleton />
-              </div>
-              <div className="flex justify-center items-center mt-5">
-                <div className="w-3/4">
-                  <Skeleton height={50} width="100%" />
+              <div className="pt-8 pb-12 ">
+                <span className="text-base">
+                  {room?.description ||
+                    " The hotel staff are amazing, helpful and friendly."}
+                </span>
+                <div className="flex cursor-pointer mt-4">
+                  <h1 className="underline text-base font-semibold">
+                    Hiển thị thêm
+                  </h1>
+                  <ChevronRight className="ml-1" />
                 </div>
               </div>
-            </div>
-          )}
 
-          {/* end loading skeleton  */}
+              {/* room equipment  */}
+              <div className="pt-12 pb-12 border-t">
+                <h1 className="text-2xl font-semibold pb-6">
+                  Nơi này có những gì cho bạn
+                </h1>
+                <div>
+                  {roomServices?.map((service, index) => (
+                    <React.Fragment key={index}>
+                      {service.isTrue && (
+                        <div className="w-1/3 inline-flex items-center pb-4">
+                          <div className="mr-4"> {service.icon}</div>
+                          <span className="text-base">{service.name}</span>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t pt-12 pb-12">
+                <h1 className="text-2xl font-semibold pb-6">
+                  5 đêm tại {room?.name}
+                </h1>
+                <div>
+                  <DatePicker />
+                </div>
+              </div>
+
+              {/* here is a left div container  */}
+            </div>
+            <div className="w-full lg:w-2/5 ml-0 lg:ml-[8.333333%] relative">
+              <DatVe room={room} />
+            </div>
+          </div>
         </section>
       </main>
+
+      {/* user comment  */}
       <section className="py-4 bg-gray-100">
         <div className=" p-6 shadow-sm dscontainer">
           <h4 className="mb-5 text-xl">Nhận xét từ người dùng :</h4>

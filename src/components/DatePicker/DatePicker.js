@@ -5,7 +5,8 @@ import { DateRange } from "react-date-range";
 import { UsersIcon } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
 import moment from "moment";
-
+import { addDays } from "date-fns";
+import "./DatePicker.css";
 import {
   setButton1Selected,
   setEndDateBooking,
@@ -13,8 +14,8 @@ import {
 } from "../../redux/roomSlice";
 export default function DatePicker() {
   let dispatch = useDispatch();
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(addDays(new Date(), 5));
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
@@ -31,33 +32,44 @@ export default function DatePicker() {
     );
     dispatch(setButton1Selected(true));
   };
+  const days = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+  const months = [
+    "Tháng 1 năm",
+    "Tháng 2 năm",
+    "Tháng 3 năm",
+    "Tháng 4 năm",
+    "Tháng 5 năm",
+    "Tháng 6 năm",
+    "Tháng 7 năm",
+    "Tháng 8 năm",
+    "Tháng 9 năm",
+    "Tháng 10 năm",
+    "Tháng 11 năm",
+    "Tháng 12 năm",
+  ];
+
+  const locale = {
+    localize: {
+      day: (n) => days[n],
+      month: (n) => months[n],
+    },
+    formatLong: {
+      date: () => "mm/dd/yyyy",
+    },
+  };
 
   return (
-    <div className=" flex-col mx-auto w-full max-w-[600px] bg-white pb-4 flex z-50">
+    <div className=" flex-col mx-auto w-full bg-white pb-4 flex z-50">
       <DateRange
-        className=""
         ranges={[selectionRange]}
-        rangeColors={["#ff385c"]}
+        rangeColors={["rgb(247,247,247)"]}
         onChange={handleSelect}
         minDate={new Date()}
         months={2}
         direction="horizontal"
+        locale={locale}
+        weekStartsOn="1"
       />
-      {/* <div className="flex ml-4 items-center border-b mb-4">
-        <h2 className="text-2xl flex-grow font-semibold">Số lượng :</h2>
-        <UsersIcon className="h-5" />
-        <input
-          type="number"
-          value={noOfGuests}
-          min={1}
-          onChange={(e) => setNoOfGuests(e.target.value)}
-          className="w-12 pl-2 text-lg outline-none text-red-400"
-        />
-      </div> */}
-      {/* <div className="flex">
-        <button className="flex-grow text-gray-500">Hủy</button>
-        <button className="flex-grow text-red-400">Tìm kiếm</button>
-      </div> */}
     </div>
   );
 }

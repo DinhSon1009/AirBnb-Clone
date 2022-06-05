@@ -2,10 +2,10 @@ import { ShoppingCartIcon } from "@heroicons/react/outline";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { setCartAction } from "../../redux/CartSlice";
+import { setCartAction } from "../../redux/cartSlice";
 import httpServ from "../../services/http.service";
 
-export default function Cart({ userId }) {
+function Cart({ userId }) {
   const [cart, setCart] = useState(undefined);
   const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
@@ -29,3 +29,5 @@ export default function Cart({ userId }) {
     </div>
   );
 }
+
+export default React.memo(Cart);

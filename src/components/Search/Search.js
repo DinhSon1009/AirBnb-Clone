@@ -167,7 +167,7 @@ export default function Search({ searchInfo, LargeScreen }) {
                 <p className="text-gray-400 m-0">Thêm khách</p>
               </div>
               <button onClick={handleSearch}>
-                <SearchIcon className="h-12 p-2 bg-red-400 rounded-full text-white" />
+                <SearchIcon className="h-12 p-2 bg-primary rounded-full text-white" />
               </button>
             </li>
           </ul>

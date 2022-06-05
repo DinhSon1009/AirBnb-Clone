@@ -7,7 +7,7 @@ export default function CommentCard({ img, time, content, name }) {
       <div className="flex items-center">
         {img ? (
           <img
-            className="w-20 h-20 rounded-full object-cover object-center"
+            className="w-14 h-14 rounded-full object-cover object-center"
             src={img}
             alt="avatar"
           />
@@ -16,7 +16,7 @@ export default function CommentCard({ img, time, content, name }) {
         )}
 
         <div className="pl-3 md:pl-5">
-          <h4>{name}</h4>
+          <h4>{name || "SomeBody"}</h4>
           <p>{moment(time).format("LLLL")}</p>
         </div>
       </div>

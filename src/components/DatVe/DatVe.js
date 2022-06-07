@@ -1,6 +1,24 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { Modal } from "antd";
+import "./DatVe.css";
+import DatePicker from "../DatePicker/DatePicker";
 export default function DatVe({ room }) {
+  const { startDatePick, endDatePick } = useSelector(
+    (state) => state.datePickerReducer
+  );
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const modalDatePicker = () => {
+    setIsModalVisible(true);
+  };
   return (
     <div className="border rounded-xl shadow-xl p-6 sticky top-32 z-10 ">
       <div className="flex justify-between">
@@ -13,14 +31,39 @@ export default function DatVe({ room }) {
       </div>
       <div className="rounded-lg bg-white">
         <div className="flex">
-          <div className="flex-1 pl-6 py-3 pr-3 rounded-tl-lg border cursor-pointer">
+          <button
+            onClick={modalDatePicker}
+            className="flex-1 pl-6 py-3 pr-3 rounded-tl-lg border cursor-pointer text-left"
+          >
             <div className="font-semibold">Check-In</div>
-            <div className="text-sm text-gray-400">Add date</div>
-          </div>
-          <div className="flex-1 pl-6 py-3 pr-3 border rounded-tr-lg border-l-0 cursor-pointer">
+            <div className="text-sm text-gray-400">
+              {moment(startDatePick).format("DD/MM/YYYY") || "Add date"}
+            </div>
+          </button>
+          <button
+            onClick={modalDatePicker}
+            className="flex-1 pl-6 py-3 pr-3 border rounded-tr-lg border-l-0 cursor-pointer text-left"
+          >
             <div className="font-semibold">Check-Out</div>
-            <div className="text-sm text-gray-400">Add date</div>
-          </div>
+            <div className="text-sm text-gray-400">
+              {moment(endDatePick).format("DD/MM/YYYY") || "Add date"}{" "}
+            </div>
+          </button>
+          <Modal
+            title="Basic Modal"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            width={800}
+          >
+            <div className="pb-6 ">
+              <h1 className="text-2xl font-semibold">Chọn ngày</h1>
+              <p className="text-sm font-normal text-gray-500">
+                Thêm ngày đi để biết giá chính xác
+              </p>
+            </div>
+            <DatePicker />
+          </Modal>
         </div>
         <div className="pl-6 py-3 pr-3 rounded-b-lg border border-t-0 cursor-pointer">
           <div className="font-semibold">Khách</div>

@@ -1,36 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
-import { UsersIcon } from "@heroicons/react/solid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { addDays } from "date-fns";
 import "./DatePicker.css";
 import {
-  setButton1Selected,
-  setEndDateBooking,
-  setStartDateBooking,
-} from "../../redux/roomSlice";
+  setEndDatePicker,
+  setStartDatePicker,
+} from "../../redux/datePickerSlice";
 export default function DatePicker() {
   let dispatch = useDispatch();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(addDays(new Date(), 5));
+  const { startDatePick, endDatePick } = useSelector(
+    (state) => state.datePickerReducer
+  );
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
     key: "selection",
   };
+
+  useEffect(() => {
+    setStartDate(new Date(startDatePick));
+    setEndDate(new Date(endDatePick));
+  }, [startDatePick, endDatePick]);
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
     dispatch(
-      setStartDateBooking(moment(ranges.selection.startDate).format("LLLL"))
+      setStartDatePicker(moment(ranges.selection.startDate).format("LLLL"))
     );
-    dispatch(
-      setEndDateBooking(moment(ranges.selection.endDate).format("LLLL"))
-    );
-    dispatch(setButton1Selected(true));
+    dispatch(setEndDatePicker(moment(ranges.selection.endDate).format("LLLL")));
   };
   const days = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
   const months = [
@@ -68,7 +70,7 @@ export default function DatePicker() {
         months={2}
         direction="horizontal"
         locale={locale}
-        weekStartsOn="1"
+        weekStartsOn={1}
       />
     </div>
   );

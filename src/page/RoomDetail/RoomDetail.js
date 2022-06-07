@@ -41,26 +41,23 @@ import {
 
 export default function RoomDetail() {
   // let id = window.location.pathname.replace("/RoomDetail/", "");
+  const dispatch = useDispatch();
   const { id } = useParams();
   const checkoutRef = useRef();
   const [room, setRoom] = useState();
   const [calendar, setCalendar] = useState(false);
   const [button1, setButton1] = useState(false);
   const [button2, setButton2] = useState(false);
-  const button1Selected = useSelector(
-    (state) => state.roomReducer.button1Selected
-  );
+
   const user = useSelector((state) => state.userReducer.user);
   const startDate = useSelector((state) => state.roomReducer.startDate);
   const endDate = useSelector((state) => state.roomReducer.endDate);
-  const [guests, setGuests] = useState(1);
   const [roomServices, setRoomSerVices] = useState();
   const [danhGia, setDanhGia] = useState();
   const [textInput, setTextInput] = useState("");
   const isLoading = useSelector(
     (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
   );
-  const dispatch = useDispatch();
 
   useTitle("Chi tiết phòng");
 
@@ -168,7 +165,6 @@ export default function RoomDetail() {
         .catch((err) => console.log(err));
     }
   };
-  console.log(room);
 
   return (
     <>

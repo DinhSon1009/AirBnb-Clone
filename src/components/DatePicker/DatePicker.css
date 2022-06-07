@@ -19,8 +19,12 @@ div.rdrMonths div:nth-child(2).rdrMonth{
 }
 
 .rdrDayHovered .rdrDayNumber{
-    @apply border rounded-full border-black bg-white
+    @apply rounded-full  bg-white overflow-hidden
 }
+.rdrDayHovered .rdrDayNumber span{
+    @apply border border-black absolute inset-0 w-full h-full rounded-full flex flex-1 items-center justify-center
+}
+
 
 .rdrDayPassive{
     @apply opacity-0
@@ -30,7 +34,7 @@ div.rdrMonths div:nth-child(2).rdrMonth{
     @apply bg-[rgb(247,247,247)]  h-[42px] inset-0 
 }
 .rdrEndEdge + span + .rdrDayNumber span{
-    @apply absolute inset-0 w-full h-full bg-black rounded-full !text-white flex items-center justify-center
+    @apply absolute inset-0 w-full h-full bg-black rounded-full !text-white flex items-center justify-center 
 }
 
 .rdrStartEdge + span + .rdrDayNumber span{
@@ -53,7 +57,7 @@ div.rdrMonths div:nth-child(2).rdrMonth{
     @apply rounded-tr-full rounded-br-full bg-white
 }
 .rdrDay{
-    @apply h-[42px] 
+    @apply h-[42px] relative
 }
 .rdrStartEdge + .rdrDayNumber {
     @apply rounded-full bg-black
@@ -101,6 +105,10 @@ div.rdrMonths div:nth-child(2).rdrMonth{
     @apply bg-white
 }
 
+.rdrDayHovered .rdrEndEdge +.rdrDayStartPreview.rdrDayEndPreview + .rdrDayNumber{
+    @apply border-none
+}
+
 /* edge weeks  */
 .rdrDayEndOfMonth .rdrInRange, .rdrDayEndOfMonth .rdrStartEdge, .rdrDayEndOfWeek .rdrInRange, .rdrDayEndOfWeek .rdrStartEdge {
     @apply rounded-tr-none rounded-br-none
@@ -126,7 +134,7 @@ div.rdrMonths div:nth-child(2).rdrMonth{
 
 
 .rdrMonthAndYearPickers{
-    display: none;
+    @apply hidden
 }
 .rdrMonthAndYearWrapper{
     @apply absolute w-full top-0 left-0 h-full 

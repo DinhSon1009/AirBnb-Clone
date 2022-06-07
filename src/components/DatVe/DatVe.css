@@ -1,0 +1,111 @@
+.ant-modal-footer,
+.ant-modal-header {
+  @apply !hidden;
+}
+
+.ant-modal-root .ant-modal {
+  @apply !w-full lg:!w-[800px];
+}
+.ant-modal-root .ant-modal-body {
+  box-shadow: rgb(215 217 226) 0px 2px 4px 0px;
+  @apply sm:min-w-[18rem] max-h-[80vh] min-h-[4rem] bg-white overflow-auto;
+}
+.ant-modal-root .ant-modal-content {
+  border-radius: 0.875rem;
+  overflow: hidden;
+}
+
+.ant-modal-root .ant-modal-wrap {
+  @apply top-0 left-0 sm:top-[15%] sm:left-[15%] overflow-hidden;
+}
+.ant-modal-root .ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0);
+}
+.ant-modal-root .rdrStartEdge + .rdrDayNumber{
+  @apply bg-transparent
+}
+.ant-modal-root .rdrDays button{
+  @apply mb-2
+}
+
+.ant-modal-root div.rdrMonths div:nth-child(2).rdrMonth{
+  @apply hidden md:block
+}
+.ant-modal-root div.rdrMonths div:nth-child(1) .rdrMonthName,
+.ant-modal-root div.rdrMonths div:nth-child(2) .rdrMonthName {
+  @apply text-xl font-normal
+}
+.ant-modal-root .rdrMonths {
+  @apply mt-8
+}
+
+.ant-modal-root .rdrMonths {
+  @apply flex-col md:flex-row;
+}
+.ant-modal-root .rdrStartEdge + span + .rdrDayNumber span,
+.ant-modal-root .rdrEndEdge + span + .rdrDayNumber span,
+.ant-modal-root .rdrDayHovered .rdrDayNumber {
+  @apply bg-primary;
+}
+.ant-modal-root .rdrDayHovered .rdrDayEndPreview + .rdrDayNumber span,
+.ant-modal-root .rdrDayHovered .rdrDayStartPreview + .rdrDayNumber span
+{
+  @apply text-white
+}
+.ant-modal-root .rdrDayHovered .rdrDayStartPreview.rdrDayEndPreview + .rdrDayNumber span{
+  @apply text-[#1d2429]
+}
+.rdrDayHovered  .rdrDayStartPreview.rdrDayEndPreview +.rdrDayNumber{
+  @apply bg-white 
+}
+.ant-modal-root .rdrEndEdge + .rdrDayNumber span,
+.ant-modal-root .rdrStartEdge + .rdrDayNumber span {
+  @apply bg-primary;
+}
+.ant-modal-root .rdrDayHovered .rdrDayNumber span {
+  @apply border-primary;
+}
+
+
+.ant-modal-root .rdrInRange,
+.ant-modal-root .rdrDayInPreview {
+  @apply !bg-[rgba(255,56,9,0.1)];
+}
+
+.ant-modal-root .rdrStartEdge.rdrEndEdge + .rdrDayEndPreview + .rdrDayNumber,
+.ant-modal-root .rdrStartEdge.rdrEndEdge + .rdrDayStartPreview + .rdrDayNumber,
+.ant-modal-root .rdrStartEdge.rdrEndEdge + .rdrDayEndPreview + .rdrDayNumberm,
+.ant-modal-root .rdrDateDisplayWrapper
+{
+  background: none;
+}
+.ant-modal-root .rdrEndEdge,
+.ant-modal-root .rdrDayEndPreview {
+  background: linear-gradient(
+    to right,
+    rgba(255, 56, 9, 0.1),
+    rgba(255, 56, 9, 0.1) 50%,
+    rgba(255, 56, 9, 0) 50%,
+    rgba(255, 56, 9, 0)
+  );
+}
+.ant-modal-root .rdrStartEdge,
+.ant-modal-root  .rdrDayStartPreview {
+  background: linear-gradient(
+    to left,
+    rgba(255, 56, 9, 0.1),
+    rgba(255, 56, 9, 0.1) 50%,
+    rgba(255, 56, 9, 0) 50%,
+    rgba(255, 56, 9, 0)
+  );
+}
+.ant-modal-root .rdrEndEdge + .rdrDayNumber,
+.ant-modal-root .rdrEndEdge +span + .rdrDayNumber{
+  background: none;
+}
+
+button.rdrDay span:nth-child(1).rdrStartEdge.rdrEndEdge,
+button.rdrDay.rdrDayHovered span:nth-child(1).rdrStartEdge.rdrEndEdge,
+button.rdrDay.rdrDayHovered .rdrDayStartPreview.rdrDayEndPreview{
+  background: none;
+}

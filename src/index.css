@@ -20,6 +20,10 @@
     margin: 0;
     scroll-behavior: smooth;
   }
+  body{
+    overflow-y: auto !important;
+    width: 100% !important;
+  }
 
 
 .dscontainer {

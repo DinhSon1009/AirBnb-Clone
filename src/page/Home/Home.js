@@ -7,7 +7,6 @@ import nearByData from "../../fixtures/nearby.json";
 import exploreData from "../../fixtures/explore.json";
 import BigCard from "../../components/Card/BigCard";
 import Footer from "../../components/Footer/Footer";
-import localStorageServ from "../../services/localStorage.service";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 export default function Home() {
   const [offset, setOffset] = useState(false);
@@ -20,6 +19,7 @@ export default function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   useTitle("Airbnb homepage");
   return (
     <div className="">
@@ -37,6 +37,7 @@ export default function Home() {
                 img={item.img}
                 distance={item.distance}
                 location={item.location}
+                locationId={item.locationId}
               />
             ))}
           </div>

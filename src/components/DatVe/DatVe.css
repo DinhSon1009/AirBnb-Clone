@@ -1,22 +1,27 @@
-.ant-modal-footer,
-.ant-modal-header {
+.datVe .ant-modal-footer,
+.datVe .ant-modal-header {
   @apply !hidden;
 }
 
-.ant-modal-root .ant-modal {
+.ant-modal-root .datVe {
   @apply !w-full lg:!w-[800px];
 }
-.ant-modal-root .ant-modal-body {
+.ant-modal-root .datVe .ant-modal-body {
   box-shadow: rgb(215 217 226) 0px 2px 4px 0px;
-  @apply sm:min-w-[18rem] max-h-[80vh] min-h-[4rem] bg-white overflow-auto;
+  @apply sm:min-w-[18rem] max-h-[80vh] min-h-[4rem] bg-white overflow-y-auto overflow-x-hidden p-6
 }
-.ant-modal-root .ant-modal-content {
+.ant-modal-root .datVe .ant-modal-content {
   border-radius: 0.875rem;
   overflow: hidden;
 }
-
-.ant-modal-root .ant-modal-wrap {
-  @apply top-0 left-0 sm:top-[15%] sm:left-[15%] overflow-hidden;
+.ant-modal-root .datVe .rdrWeekDays{
+  @apply mt-4
+}
+.ant-modal-root .datVe .ant-modal-wrap {
+  @apply overflow-hidden;
+}
+.ant-modal-root .ant-modal.datVe{
+  @apply top-0 left-0 sm:top-[15%] xl:left-[15%]  w-full
 }
 .ant-modal-root .ant-modal-mask {
   background-color: rgba(0, 0, 0, 0);
@@ -33,7 +38,7 @@
 }
 .ant-modal-root div.rdrMonths div:nth-child(1) .rdrMonthName,
 .ant-modal-root div.rdrMonths div:nth-child(2) .rdrMonthName {
-  @apply text-xl font-normal
+  @apply text-xl font-normal w-full
 }
 .ant-modal-root .rdrMonths {
   @apply mt-8
@@ -69,8 +74,10 @@
 
 .ant-modal-root .rdrInRange,
 .ant-modal-root .rdrDayInPreview {
-  @apply !bg-[rgba(255,56,9,0.1)];
+  background: rgba(255,56,9,0.2);
 }
+
+
 
 .ant-modal-root .rdrStartEdge.rdrEndEdge + .rdrDayEndPreview + .rdrDayNumber,
 .ant-modal-root .rdrStartEdge.rdrEndEdge + .rdrDayStartPreview + .rdrDayNumber,
@@ -83,9 +90,9 @@
 .ant-modal-root .rdrDayEndPreview {
   background: linear-gradient(
     to right,
-    rgba(255, 56, 9, 0.1),
-    rgba(255, 56, 9, 0.1) 50%,
-    rgba(255, 56, 9, 0) 50%,
+    rgba(255, 56, 9, 0.2),
+    rgba(255, 56, 9, 0.2) 10%,
+    rgba(255, 56, 9, 0)50% ,
     rgba(255, 56, 9, 0)
   );
 }
@@ -93,11 +100,17 @@
 .ant-modal-root  .rdrDayStartPreview {
   background: linear-gradient(
     to left,
-    rgba(255, 56, 9, 0.1),
-    rgba(255, 56, 9, 0.1) 50%,
-    rgba(255, 56, 9, 0) 50%,
+    rgba(255, 56, 9, 0.2),
+    rgba(255, 56, 9, 0.2) 50%,
+    rgba(255, 56, 9, 0) 90%,
     rgba(255, 56, 9, 0)
   );
+}
+.ant-modal-root .rdrDayEndOfWeek .rdrInRange{
+  background: linear-gradient(to right, rgba(255, 56, 9, 0.2), rgba(255, 56, 9, 0));
+}
+.ant-modal-root .rdrDayStartOfWeek .rdrInRange{
+  background: linear-gradient(to left, rgba(255, 56, 9, 0.2), rgba(255, 56, 9, 0));
 }
 .ant-modal-root .rdrEndEdge + .rdrDayNumber,
 .ant-modal-root .rdrEndEdge +span + .rdrDayNumber{

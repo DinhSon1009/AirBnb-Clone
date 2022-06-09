@@ -20,6 +20,7 @@ export default function Search({ searchInfo, LargeScreen }) {
   const suggestLargeScreenRef = useRef();
   const smallScreenInputRef = useRef();
   const debounced = useDebounce(input, 300);
+  const [focus, setFocus] = useState(false);
   const [chooseInput, setChooseInput] = useState(undefined);
   useClickOutside(suggestionRef, () => {
     setSuggestions(null);
@@ -109,20 +110,32 @@ export default function Search({ searchInfo, LargeScreen }) {
           <h1 className="mt-8 relative after:absolute after:-bottom-1 after:left-1/2 after:w-24 after:-translate-x-1/2 after:h-[1px] after:bg-gray-500">
             Places to stay
           </h1>
-          <ul className="w-full m-auto rounded-full border-2 flex bg-[#f7f7f7] text-left mt-4 ">
+          <ul
+            className={`w-full m-auto rounded-full border flex text-left mt-4 ${
+              focus ? "bg-[#f7f7f7]" : "bg-white"
+            } `}
+          >
             <li
               onClick={() => searchLargeScreenRef.current.focus()}
-              className="flex items-center lg:basis-[30%] basis-1/4  text-sm whitespace-nowrap cursor-pointer hover:bg-[#EBEBEB] rounded-full "
+              className={`flex items-center lg:basis-[30%] basis-1/4 text-sm whitespace-nowrap transition cursor-pointer rounded-full 
+              ${
+                focus
+                  ? "bg-white hover:bg-white shadow-xl outline-none border-none"
+                  : "hover:bg-[#EBEBEB] shadow-none"
+              }
+              `}
             >
-              <div className="px-3 lg:px-8 py-3.5  relative ">
-                <p className="font-semibold m-0">Địa điểm</p>
+              <div className="pl-8 pr-3 lg:pr-8 py-2 lg:py-3  relative ">
+                <p className="font-semibold text-xs lg:text-sm m-0">Location</p>
                 <input
                   ref={searchLargeScreenRef}
                   value={chooseInput || input}
                   onChange={(e) => setInput(e.target.value)}
+                  onFocus={() => setFocus(true)}
+                  onBlur={() => setFocus(false)}
                   type="text"
-                  placeholder="Bạn sắp đi đâu?"
-                  className="outline-none placeholder-gray-400 bg-transparent"
+                  placeholder="Where are you going?"
+                  className="outline-none placeholder-gray-400 bg-transparent text-sm lg:text-base"
                 />
                 <div
                   ref={suggestLargeScreenRef}
@@ -150,21 +163,29 @@ export default function Search({ searchInfo, LargeScreen }) {
               </div>
             </li>
             <li className="flex relative  items-center basis-1/4 lg:basis-[20%] whitespace-nowrap text-sm cursor-pointer rounded-full hover:bg-[#EBEBEB]">
-              <div className="py-3.5 px-6">
-                <p className="font-semibold m-0">Nhận phòng</p>
-                <p className="text-gray-400 m-0">Thêm ngày</p>
+              <div className="py-2 lg:py-3 px-6">
+                <p className="font-semibold text-xs lg:text-sm m-0">Check in</p>
+                <p className="text-gray-400 font-normal text-sm lg:text-base m-0">
+                  Add dates
+                </p>
               </div>
             </li>
             <li className=" text-sm flex basis-1/4 lg:basis-[20%] whitespace-nowrap items-center cursor-pointer rounded-full hover:bg-[#EBEBEB]">
-              <div className="py-3.5 px-6">
-                <p className="font-semibold m-0">Trả phòng</p>
-                <p className="text-gray-400 m-0">Thêm ngày</p>
+              <div className="py-2 lg:py-3 px-6">
+                <p className="font-semibold text-xs lg:text-sm m-0">
+                  Check out
+                </p>
+                <p className="text-gray-400 font-normal text-sm lg:text-base m-0">
+                  Add dates
+                </p>
               </div>
             </li>
-            <li className="flex text-sm basis-1/4 lg:basis-[30%] whitespace-nowrap items-center cursor-pointer hover:bg-[#EBEBEB] rounded-full pr-3.5 pl-6 py-3/5">
+            <li className="flex text-sm basis-1/4 lg:basis-[30%] whitespace-nowrap items-center cursor-pointer hover:bg-[#EBEBEB] rounded-full pl-6 pr-2 py-2 lg:py-3">
               <div className="flex-grow">
-                <p className="font-semibold m-0">Khách</p>
-                <p className="text-gray-400 m-0">Thêm khách</p>
+                <p className="font-semibold text-xs lg:text-sm m-0">Guests</p>
+                <p className="text-gray-400 font-normal text-sm lg:text-base m-0">
+                  Add guests
+                </p>
               </div>
               <button onClick={handleSearch}>
                 <SearchIcon className="h-12 p-2 bg-primary rounded-full text-white" />

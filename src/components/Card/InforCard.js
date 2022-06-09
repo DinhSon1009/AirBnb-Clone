@@ -78,7 +78,7 @@ export default function InforCard({
               />
             </SwiperSlide>
             {fakeDataImages.map((item, index) => (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <img
                   key={item.id}
                   onClick={() => navigate(`/RoomDetail/${id}`)}

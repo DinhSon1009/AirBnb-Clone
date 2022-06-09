@@ -1,0 +1,17 @@
+.ratingStyle .ant-modal-footer,
+.ratingStyle .ant-modal-header {
+  @apply !hidden;
+}
+.ant-modal-root  .ant-modal.ratingStyle {
+    @apply top-0 md:top-10  !w-full !h-full md:!w-3/5
+}
+.ant-modal-root .ratingStyle .ant-modal-body{
+    @apply pt-4 md:pt-8 pl-6 pb-6 h-[100vh] md:h-[80vh] overflow-y-scroll scrollbar-hide
+}
+.ant-modal-root .ant-modal-wrap{
+    @apply overflow-hidden
+}
+
+.ant-modal-root .ratingStyle .ant-modal-close{
+    @apply left-0 text-black text-xl sticky
+}

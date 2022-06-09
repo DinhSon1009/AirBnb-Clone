@@ -13,7 +13,12 @@ div.rdrMonths div:nth-child(2).rdrMonth{
 .rdrDays button{
     @apply mb-1
 }
-
+.rdrNextPrevButton{
+    z-index: 20;
+}
+.rdrWeekDays{
+    @apply mt-2
+}
 .rdrWeekDay{
     @apply text-base 
 }
@@ -58,9 +63,6 @@ div.rdrMonths div:nth-child(2).rdrMonth{
 }
 .rdrDay{
     @apply h-[42px] relative
-}
-.rdrStartEdge + .rdrDayNumber {
-    @apply rounded-full bg-black
 }
 
 .rdrEndEdge + .rdrDayNumber{
@@ -159,9 +161,19 @@ div.rdrMonths div:nth-child(2).rdrMonth{
     @apply hidden
 }
 div.rdrMonths div:nth-child(1) .rdrMonthName{
-    @apply absolute top-0 sm:left-1/4 p-0 transform sm:-translate-x-1/2 text-base font-semibold text-[#1d2429] left-1/2 -translate-x-1/2
+    @apply absolute top-0 sm:left-1/4 p-0 transform sm:-translate-x-1/2 text-base font-semibold text-[#1d2429] left-1/2 -translate-x-1/2 text-center
 }
 
 div.rdrMonths div:nth-child(2) .rdrMonthName{
-    @apply absolute top-0 right-1/4 p-0 transform translate-x-1/2 text-base font-semibold text-[#1d2429]
+    @apply absolute top-0 right-1/4 p-0 transform translate-x-1/2 text-base font-semibold text-[#1d2429] text-center
+}
+
+
+
+.rdrDayToday:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span:after, .rdrDayToday:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span:after, .rdrDayToday:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span:after, .rdrDayToday:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span:after{
+    @apply bg-white
+}
+
+.rdrDayToday .rdrDayNumber span:after{
+    @apply bg-primary
 }

@@ -32,7 +32,6 @@ export default function Header({ offset, searchInfo }) {
   useClickOutside(toggleRef, () => {
     toggle && setToggle(false);
   });
-  useClickOutside();
 
   useEventListener("scroll", (e) => {
     setSearchClick(false);
@@ -89,7 +88,10 @@ export default function Header({ offset, searchInfo }) {
           <LargeLogo
             className="hidden lg:block h-full object-contain object-left cursor-pointer z-50"
             fill={`${themes().color}`}
-            onClick={(e) => navigation("/")}
+            onClick={(e) => {
+              navigation("/");
+              window.scrollTo(0, 0);
+            }}
           />
           <SmallLogo
             className="block lg:hidden object-contain object-left h-full cursor-pointer z-50 "
@@ -142,6 +144,7 @@ export default function Header({ offset, searchInfo }) {
             <></>
           )}
           <div
+            ref={toggleRef}
             onClick={userHandler}
             className={`flex items-center border rounded-full bg-white cursor-pointer outline-none ${
               user ? "p-0" : "p-[5px] pl-3"
@@ -173,10 +176,7 @@ export default function Header({ offset, searchInfo }) {
             )}
           </div>
           {toggle && (
-            <div
-              ref={toggleRef}
-              className="absolute top-full p-3 rounded-xl bg-white text-gray-900 right-0 cursor-pointer shadow-md "
-            >
+            <div className="absolute top-full p-3 rounded-xl bg-white text-gray-900 right-0 cursor-pointer shadow-md ">
               {user ? (
                 <>
                   <button

@@ -1,24 +1,16 @@
 import DatePicker from "../../components/DatePicker/DatePicker";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import httpServ from "../../services/http.service";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  MinusCircleIcon,
-  PlusCircleIcon,
-  HeartIcon,
-} from "@heroicons/react/outline";
+import { useSelector } from "react-redux";
+import { HeartIcon } from "@heroicons/react/outline";
 import { StarIcon, UserCircleIcon, UploadIcon } from "@heroicons/react/solid";
 import Rating from "../../components/Rating/Rating";
-import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
 import { useParams } from "react-router";
-import { setUserToStorage } from "../../redux/userSlice";
-import { setEndDateBooking, setStartDateBooking } from "../../redux/roomSlice";
 import { ChevronRight } from "@mui/icons-material";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import Skeleton from "react-loading-skeleton";
-import { toast } from "react-toastify";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
 import { fakeDataImages } from "../../assets/images/fakeDataImage";
 import { Button } from "../../styles/customStyle";
@@ -40,24 +32,22 @@ import {
 } from "../../assets/icons";
 
 export default function RoomDetail() {
-  // let id = window.location.pathname.replace("/RoomDetail/", "");
-  const dispatch = useDispatch();
   const { id } = useParams();
-  const checkoutRef = useRef();
   const [room, setRoom] = useState();
-  const [calendar, setCalendar] = useState(false);
-  const [button1, setButton1] = useState(false);
-  const [button2, setButton2] = useState(false);
-
   const user = useSelector((state) => state.userReducer.user);
-  const startDate = useSelector((state) => state.roomReducer.startDate);
-  const endDate = useSelector((state) => state.roomReducer.endDate);
   const [roomServices, setRoomSerVices] = useState();
   const [danhGia, setDanhGia] = useState();
   const [textInput, setTextInput] = useState("");
   const isLoading = useSelector(
     (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
   );
+  const { startDatePick, endDatePick } = useSelector(
+    (state) => state.datePickerReducer
+  );
+  const dayCount =
+    new Date(endDatePick).getUTCDate() -
+    new Date(startDatePick).getUTCDate() +
+    1;
 
   useTitle("Chi tiết phòng");
 
@@ -121,37 +111,6 @@ export default function RoomDetail() {
       })
       .catch((err) => console.log(err));
   }, []);
-
-  useClickOutside(checkoutRef, () => {
-    setCalendar(false);
-    setButton1(false);
-    setButton2(false);
-  });
-  const handleBooking = () => {
-    if (!user) {
-      toast.info("Vui lòng đăng nhập !");
-    } else {
-      if (!startDate || !endDate) {
-        toast.info("Chọn ngày để đặt vé !");
-        return;
-      } else {
-        const data = {
-          roomID: room._id,
-          checkIn: startDate,
-          checkOut: endDate,
-        };
-        httpServ
-          .datPhongChoThue(data)
-          .then((res) => {
-            dispatch(setUserToStorage(res.data.userDetail));
-            dispatch(setStartDateBooking(null));
-            dispatch(setEndDateBooking(null));
-            toast.success("Đặt phòng thành công !");
-          })
-          .catch((err) => toast.error("Đặt phòng thất bại !"));
-      }
-    }
-  };
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -351,7 +310,7 @@ export default function RoomDetail() {
                   {roomServices?.map((service, index) => (
                     <React.Fragment key={index}>
                       {service.isTrue && (
-                        <div className="w-1/3 inline-flex items-center pb-4">
+                        <div className="w-1/2 md:w-1/3 inline-flex items-center pb-4">
                           <div className="mr-4"> {service.icon}</div>
                           <span className="text-base">{service.name}</span>
                         </div>
@@ -363,7 +322,7 @@ export default function RoomDetail() {
 
               <div className="border-t pt-12 pb-12">
                 <h1 className="text-2xl font-semibold pb-6">
-                  5 đêm tại {room?.name}
+                  {dayCount} đêm tại {room?.name}
                 </h1>
                 <div>
                   <DatePicker />

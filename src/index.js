@@ -20,7 +20,6 @@ import {
 export const store = configureStore({
   reducer: {
     searchReducer,
-    roomReducer,
     spinnerReducer,
     userReducer,
     cartReducer,

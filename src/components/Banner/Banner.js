@@ -1,6 +1,12 @@
 import React from "react";
+import nearByData from "../../fixtures/nearby.json";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { setSearchInfo } from "../../redux/searchSlice";
 
 export default function Banner() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <div className="relative h-screen max-h-[800px]   ">
       <img
@@ -15,7 +21,17 @@ export default function Banner() {
         >
           Hãy để trí tò mò của bạn dẫn lối
         </p>
-        <button className="bg-white rounded-full mt-4 px-5 py-4 lg:px-8">
+        <button
+          onClick={() => {
+            let index = Math.floor(Math.random() * 8);
+            dispatch(setSearchInfo(nearByData[index].location));
+            navigate({
+              pathname: "/search",
+              search: `?id=${nearByData[index].locationId}&&location=${nearByData[index].location}`,
+            });
+          }}
+          className="bg-white rounded-full mt-4 px-5 py-4 lg:px-8"
+        >
           <span className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent text-lg font-semibold whitespace-nowrap">
             Tìm kiếm linh hoạt
           </span>

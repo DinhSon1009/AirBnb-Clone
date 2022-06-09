@@ -72,6 +72,10 @@ class HttpRequestService {
     const uri = `/api/tickets/by-user?userId=${id}`;
     return AxiosServ.getMethod(uri);
   };
+  layDanhSachViTri = () => {
+    const uri = `/api/locations`;
+    return AxiosServ.getMethod(uri);
+  };
 }
 
 const httpServ = new HttpRequestService();

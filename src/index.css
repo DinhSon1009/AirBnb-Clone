@@ -141,5 +141,5 @@
 }
 
 .FlexView .swiper-pointer-events {
-  touch-action: auto;
+  touch-action: manipulation ;
 }

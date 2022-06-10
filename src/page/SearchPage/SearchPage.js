@@ -36,7 +36,7 @@ export default function SearchPage() {
     httpServ
       .layThongTinChiTietViTri(id)
       .then((res) => {
-        setLocation(`${res.data.name},${res.data.province}`);
+        setLocation(`${res.data.name}, ${res.data.province}`);
       })
       .catch((err) => console.log(err));
   }, [locationID]);
@@ -69,7 +69,6 @@ export default function SearchPage() {
                 bedRoom={item.bedRoom}
                 bath={item.bath}
                 price={item.price}
-                FlexView
               />
             ))}
           </div>

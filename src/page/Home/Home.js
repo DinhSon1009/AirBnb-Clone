@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import Banner from "../../components/Banner/Banner";
 import Header from "../../components/Header/Header";
@@ -12,10 +12,11 @@ import httpServ from "../../services/http.service";
 import { useNavigate } from "react-router";
 // import Skeleton from "react-loading-skeleton";
 import InforCard from "../../components/Card/InforCard";
+import { ArrowLeftIcon, ArrowRightIcon } from "../../assets/icons";
 
 export default function Home() {
   const [offset, setOffset] = useState(false);
-
+  const scrollRef = useRef();
   useEffect(() => {
     const onScroll = () => {
       window.pageYOffset > 0 ? setOffset(true) : setOffset(false);
@@ -36,6 +37,15 @@ export default function Home() {
       })
       .catch((err) => navigate("/notfound"));
   }, []);
+
+  const scroll = (direction) => {
+    const { current } = scrollRef;
+    direction === "left"
+      ? (current.scrollLeft -= current.clientWidth + 20)
+      : (current.scrollLeft += current.clientWidth + 20);
+  };
+
+  console.log(scrollRef.current.scrollWidth);
 
   useTitle("Airbnb homepage");
   return (
@@ -59,7 +69,7 @@ export default function Home() {
             ))}
           </div>
         </section>
-        <section>
+        <section className="relative">
           {/* <h2 className="text-2xl font-semibold pb-5">
             Khám phá trải nghiệm AirBnb
           </h2>
@@ -68,10 +78,16 @@ export default function Home() {
               <BigCard img={item.img} key={item.id} content={item.content} />
             ))}
           </div> */}
-          <h2 className="text-2xl font-semibold pb-5">
-            Khám phá trải nghiệm AirBnb tại Cầu Sông Hàn,Đà Nẵng
+          <h2 className="text-2xl font-semibold ">
+            Khám phá trải nghiệm AirBnb tại Cầu Sông Hàn, Đà Nẵng
           </h2>
-          <div className="FlexView flex gap-5 overflow-x-scroll scrollbar-hide ]">
+          <p className="m-0 pb-5 text-base text-gray-600">
+            Những giấc mơ đẹp đang chờ đợi bạn.
+          </p>
+          <div
+            ref={scrollRef}
+            className="FlexView flex gap-5 overflow-x-scroll scrollbar-hide py-6 scroll-smooth "
+          >
             {data?.map((item) => (
               <InforCard
                 key={item._id}
@@ -86,6 +102,20 @@ export default function Home() {
                 FlexView
               />
             ))}
+            <div className="absolute  top-20 sm:top-10 right-0  items-center gap-2 hidden sm:flex ">
+              <div
+                onClick={() => scroll("left")}
+                className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center cursor-pointer"
+              >
+                <ArrowLeftIcon className="text-[rgb(34,34,34)]" />
+              </div>
+              <div
+                onClick={() => scroll("right")}
+                className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center cursor-pointer "
+              >
+                <ArrowRightIcon className="text-[rgb(34,34,34)]" />
+              </div>
+            </div>
           </div>
         </section>
       </main>

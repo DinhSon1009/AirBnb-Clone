@@ -2,7 +2,7 @@
     {
     "id":1,
      "img":"https://a0.muscache.com/im/pictures/08b33515-49eb-4b9b-8e60-f962fb7e700b.jpg?im_w=240",
-     "location": "Bến Ninh Kiều,Thành phố Đà Nẵng",
+     "location": "Bến Ninh Kiều, Thành phố Đà Nẵng",
      "locationId":"616952c3efe193001c0a5b46",
      "distance": " 12 giờ lái xe"
     },
@@ -16,7 +16,7 @@
     {
         "id":3,
         "img":"https://a0.muscache.com/im/pictures/7d80bee1-a510-4950-a1a0-07a4fb25ec2e.jpg?im_w=240",
-        "location":"Hồ Hoàn Kiếm,Hà Nội",
+        "location":"Hồ Hoàn Kiếm, Hà Nội",
         "locationId":"617f80c5df826c001ce750c9",
         "distance":"16 giờ lái xe"
     },
@@ -37,7 +37,7 @@
        {
         "id":6,
            "img":"https://a0.muscache.com/im/pictures/3849e3f1-d275-43fb-8957-4c90f26e14db.jpg?im_w=240",
-           "location":"Cầu Sông Hàn,Đà Nẵng",
+           "location":"Cầu Sông Hàn, Đà Nẵng",
            "locationId":"61695437efe193001c0a5b51",
            "distance":"13 giờ lái xe"
        },

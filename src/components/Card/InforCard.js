@@ -36,8 +36,9 @@ export default function InforCard({
     <div
       onMouseEnter={() => setHoverParent(true)}
       onMouseLeave={() => setHoverParent(false)}
-      className={`border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0 ${
-        FlexView && "min-w-[250px] lg:min-w-[calc(25%_-_1.25rem)]"
+      className={`border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0 pt-0 ${
+        FlexView &&
+        "!border-t-0 min-w-[250px] lg:min-w-[calc(25%_-_0.9375rem)] md:min-w-[calc(100%/3_-_0.9375rem)]"
       }`}
     >
       <div
@@ -150,7 +151,7 @@ export default function InforCard({
           <div className="flex items-center">
             <span>4,97</span>
             <span className="ml-1">
-              <StarIcon />
+              <StarIcon className={`${FlexView && "text-primary"}`} />
             </span>
           </div>
         </div>

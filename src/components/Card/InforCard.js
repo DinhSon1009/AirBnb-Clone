@@ -1,16 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
 import { fakeDataImages } from "../../assets/images/fakeDataImage";
 // import useEventListener from "../../Hooks/useEventListener/useEventListener";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
+
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
   HeartIcon,
   StarIcon,
 } from "../../assets/icons";
+import useWindowSize from "../../Hooks/useWindowResize/useWindowResize";
 export default function InforCard({
   img,
   location,
@@ -31,6 +33,18 @@ export default function InforCard({
   const navigationNextRef = useRef();
   const [isShown, setIsShown] = useState(false);
   const [hoverParent, setHoverParent] = useState(false);
+  const [breakPoint, setBreakPoint] = useState();
+
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    width >= 1536 && setBreakPoint("2xl");
+    width >= 1280 && setBreakPoint("xl");
+    width >= 1024 && setBreakPoint("lg");
+    width >= 768 && setBreakPoint("md");
+    width >= 640 && setBreakPoint("sm");
+    width < 640 && setBreakPoint("mobile");
+  }, [width]);
 
   return (
     <div
@@ -38,7 +52,7 @@ export default function InforCard({
       onMouseLeave={() => setHoverParent(false)}
       className={`border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0 pt-0 ${
         FlexView &&
-        "!border-t-0 min-w-[250px] lg:min-w-[calc(25%_-_0.9375rem)] md:min-w-[calc(100%/3_-_0.9375rem)]"
+        "!border-t-0 min-w-[250px] lg:min-w-[calc(25%_-_0.9375rem)] md:min-w-[calc(100%/3_-_2.5rem/3)]"
       }`}
     >
       <div
@@ -76,7 +90,9 @@ export default function InforCard({
             modules={FlexView ? [] : [Pagination, Navigation]}
             className="mySwiper"
           >
-            <SwiperSlide>
+            <SwiperSlide
+              style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+            >
               <img
                 src={img || DEFAULT_IMAGE_PATH}
                 alt={`ảnh ${location}`}
@@ -88,7 +104,10 @@ export default function InforCard({
             </SwiperSlide>
             {!FlexView &&
               fakeDataImages.map((item, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide
+                  style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+                  key={index}
+                >
                   <img
                     key={item.id}
                     className="object-cover  w-full  transition-all duration-300 h-[300px]"

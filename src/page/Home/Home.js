@@ -17,6 +17,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "../../assets/icons";
 export default function Home() {
   const [offset, setOffset] = useState(false);
   const scrollRef = useRef();
+
   useEffect(() => {
     const onScroll = () => {
       window.pageYOffset > 0 ? setOffset(true) : setOffset(false);
@@ -44,8 +45,6 @@ export default function Home() {
       ? (current.scrollLeft -= current.clientWidth + 20)
       : (current.scrollLeft += current.clientWidth + 20);
   };
-
-  console.log(scrollRef.current.scrollWidth);
 
   useTitle("Airbnb homepage");
   return (

@@ -140,6 +140,6 @@
   display:none !important;
 }
 
-.FlexView .swiper-pointer-events {
+.FlexView .mySwiper  {
   touch-action: manipulation ;
 }

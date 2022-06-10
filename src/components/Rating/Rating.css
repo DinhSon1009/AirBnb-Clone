@@ -3,15 +3,16 @@
   @apply !hidden;
 }
 .ant-modal-root  .ant-modal.ratingStyle {
-    @apply top-0 md:top-10  !w-full !h-full md:!w-3/5
+    @apply top-0 md:top-10  !w-screen !h-full sm:!w-4/5 md:!w-3/5 m-0 max-w-[100vw] sm:m-auto
 }
 .ant-modal-root .ratingStyle .ant-modal-body{
-    @apply pt-4 md:pt-8 pl-6 pb-6 h-[100vh] md:h-[80vh] overflow-y-scroll scrollbar-hide
+    @apply pt-4 md:pt-8 pl-6 pb-6 h-[calc(100vh-56px)]  md:h-[80vh] overflow-y-scroll scrollbar-hide overscroll-contain
+
 }
 .ant-modal-root .ant-modal-wrap{
-    @apply overflow-hidden
+    @apply scrollbar-hide overflow-hidden
 }
 
 .ant-modal-root .ratingStyle .ant-modal-close{
-    @apply left-0 text-black text-xl sticky
+    @apply left-0  text-black text-xl sticky
 }

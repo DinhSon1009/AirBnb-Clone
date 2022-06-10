@@ -15,11 +15,13 @@ import CartInfo from "./page/CartInfo/CartInfo";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import ScrollToTop from "./components/ScrollTopTop/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
       {/* {isLoading && flag && <SpinnerLoading />} */}
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />

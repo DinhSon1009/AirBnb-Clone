@@ -9,7 +9,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import {
-  roomReducer,
   searchReducer,
   spinnerReducer,
   userReducer,

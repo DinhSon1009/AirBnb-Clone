@@ -23,6 +23,7 @@ export default function InforCard({
   bedRoom,
   guests,
   id,
+  FlexView,
 }) {
   const navigate = useNavigate();
   const scrollRef = useRef();
@@ -30,11 +31,14 @@ export default function InforCard({
   const navigationNextRef = useRef();
   const [isShown, setIsShown] = useState(false);
   const [hoverParent, setHoverParent] = useState(false);
+
   return (
     <div
       onMouseEnter={() => setHoverParent(true)}
       onMouseLeave={() => setHoverParent(false)}
-      className="border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0"
+      className={`border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0 ${
+        FlexView && "min-w-[250px] lg:min-w-[calc(25%_-_1.25rem)]"
+      }`}
     >
       <div
         onMouseEnter={() => setIsShown(true)}
@@ -46,10 +50,11 @@ export default function InforCard({
           className=" w-full overflow-y-hidden overflow-x-scroll scrollbar-hide flex rounded-xl overflow-hidden"
         >
           <Swiper
+            onClick={() => navigate(`/RoomDetail/${id}`)}
             slidesPerView={1}
             spaceBetween={0}
-            loop={true}
-            grabCursor={true}
+            loop={!FlexView && true}
+            grabCursor={!FlexView && true}
             pagination={{
               clickable: false,
               dynamicBullets: true,
@@ -60,68 +65,75 @@ export default function InforCard({
               nextEl: navigationNextRef.current,
             }}
             onInit={(swiper) => {
-              swiper.params.navigation.prevEl = navigationPrevRef.current;
-              swiper.params.navigation.nextEl = navigationNextRef.current;
-              swiper.navigation.init();
-              swiper.navigation.update();
+              if (!FlexView) {
+                swiper.params.navigation.prevEl = navigationPrevRef.current;
+                swiper.params.navigation.nextEl = navigationNextRef.current;
+                swiper.navigation.init();
+                swiper.navigation.update();
+              }
             }}
-            modules={[Pagination, Navigation]}
+            modules={FlexView ? [] : [Pagination, Navigation]}
             className="mySwiper"
           >
             <SwiperSlide>
               <img
                 src={img || DEFAULT_IMAGE_PATH}
-                onClick={() => navigate(`/RoomDetail/${id}`)}
                 alt={`ảnh ${location}`}
-                className="object-cover  w-full  transition-all duration-300 h-[300px]"
+                className={`object-cover  w-full  transition-all duration-300 h-[300px] ${
+                  FlexView && "h-[205px]"
+                }`}
                 style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
               />
             </SwiperSlide>
-            {fakeDataImages.map((item, index) => (
-              <SwiperSlide key={index}>
-                <img
-                  key={item.id}
-                  onClick={() => navigate(`/RoomDetail/${id}`)}
-                  className="object-cover  w-full  transition-all duration-300 h-[300px]"
-                  alt="hinh mo ta"
-                  src={item.img}
-                  style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
-                />
-              </SwiperSlide>
-            ))}
-            <div
-              ref={navigationPrevRef}
-              style={{
-                position: "absolute",
-                top: "50%",
-                transform: "translateY(-50%)",
-                cursor: "pointer",
-                left: 0,
-              }}
-              className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 transition ml-2
+            {!FlexView &&
+              fakeDataImages.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <img
+                    key={item.id}
+                    className="object-cover  w-full  transition-all duration-300 h-[300px]"
+                    alt="hinh mo ta"
+                    src={item.img}
+                    style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+                  />
+                </SwiperSlide>
+              ))}
+            {!FlexView && (
+              <>
+                <div
+                  ref={navigationPrevRef}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    left: 0,
+                  }}
+                  className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 transition ml-2
               ${isShown ? "opacity-90" : "opacity-0"}
               `}
-            >
-              <ArrowLeftIcon
-                className={`z-11 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4] 
+                >
+                  <ArrowLeftIcon
+                    className={`z-11 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4] 
                 `}
-              />
-            </div>
-            <div
-              ref={navigationNextRef}
-              style={{
-                position: "absolute",
-                top: "50%",
-                transform: "translateY(-50%)",
-                cursor: "pointer",
-                right: 0,
-              }}
-              className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 mr-2
+                  />
+                </div>
+                <div
+                  ref={navigationNextRef}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    right: 0,
+                  }}
+                  className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 mr-2
               ${isShown ? "opacity-90" : "opacity-0"}
               `}
-            >
-              <ArrowRightIcon className="z-50 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4]" />
-            </div>
+                >
+                  <ArrowRightIcon className="z-50 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4]" />
+                </div>
+              </>
+            )}
           </Swiper>
         </div>
         <HeartIcon

@@ -26,6 +26,7 @@ export default function DatePicker() {
     setStartDate(new Date(startDatePick));
     setEndDate(new Date(endDatePick));
   }, [startDatePick, endDatePick]);
+
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);

@@ -30,7 +30,6 @@ export default function SearchPage() {
         setRoom(res.data);
       })
       .catch((err) => navigate("/notfound"));
-    return () => window.scrollTo(0, 0);
   }, [locationID]);
 
   useEffect(() => {
@@ -59,36 +58,20 @@ export default function SearchPage() {
             <Button> More filters</Button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
-            {!isLoading
-              ? room?.map((item) => (
-                  <InforCard
-                    key={item._id}
-                    id={item._id}
-                    img={item.image}
-                    location={`${item.locationId.name}, ${item.locationId.province}`}
-                    title={item.name}
-                    guests={item.guests}
-                    bedRoom={item.bedRoom}
-                    bath={item.bath}
-                    price={item.price}
-                  />
-                ))
-              : Array(8)
-                  .fill(0)
-                  .map((item, index) => (
-                    <div
-                      key={index}
-                      className="first:border-t sm:first:border-t-0 hover:shadow-lg cursor-pointer border-b hover:opacity-80 transition duration-200 py-7 ease-out"
-                    >
-                      <Skeleton count={1} height={210} />
-                      <h4 className="text-lg font-medium mt-2">
-                        <Skeleton count={1} />
-                      </h4>
-                      <p>
-                        <Skeleton count={3} />
-                      </p>
-                    </div>
-                  ))}
+            {room?.map((item) => (
+              <InforCard
+                key={item._id}
+                id={item._id}
+                img={item.image}
+                location={`${item.locationId.name}, ${item.locationId.province}`}
+                title={item.name}
+                guests={item.guests}
+                bedRoom={item.bedRoom}
+                bath={item.bath}
+                price={item.price}
+                FlexView
+              />
+            ))}
           </div>
         </section>
         {/* <section className="min-w-[600px] ">

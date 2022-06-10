@@ -8,7 +8,7 @@
 }
 .ant-modal-root .datVe .ant-modal-body {
   box-shadow: rgb(215 217 226) 0px 2px 4px 0px;
-  @apply sm:min-w-[18rem] max-h-[80vh] min-h-[4rem] bg-white overflow-y-auto overflow-x-hidden p-6
+  @apply sm:min-w-[18rem] max-h-[80vh] min-h-[4rem] bg-white overflow-y-auto overflow-x-hidden p-6 overscroll-contain
 }
 .ant-modal-root .datVe .ant-modal-content {
   border-radius: 0.875rem;
@@ -24,7 +24,7 @@
   @apply top-0 left-0 sm:top-[15%] xl:left-[15%]  w-full
 }
 .ant-modal-root .ant-modal-mask {
-  background-color: rgba(0, 0, 0, 0);
+  @apply  sm:bg-white sm:bg-opacity-0
 }
 .ant-modal-root .rdrStartEdge + .rdrDayNumber{
   @apply bg-transparent
@@ -122,3 +122,5 @@ button.rdrDay.rdrDayHovered span:nth-child(1).rdrStartEdge.rdrEndEdge,
 button.rdrDay.rdrDayHovered .rdrDayStartPreview.rdrDayEndPreview{
   background: none;
 }
+
+

@@ -35,6 +35,19 @@ export default function InforCard({
   const [hoverParent, setHoverParent] = useState(false);
   const [breakPoint, setBreakPoint] = useState();
 
+  const handleShowNavigation = (index) => {
+    if (index === 0) {
+      navigationPrevRef.current.style.display = "none";
+      navigationNextRef.current.style.display = "flex";
+    } else if (index === 6) {
+      navigationPrevRef.current.style.display = "flex";
+      navigationNextRef.current.style.display = "none";
+    } else {
+      navigationPrevRef.current.style.display = "flex";
+      navigationNextRef.current.style.display = "flex";
+    }
+  };
+
   const { width } = useWindowSize();
 
   useEffect(() => {
@@ -68,7 +81,11 @@ export default function InforCard({
             onClick={() => navigate(`/RoomDetail/${id}`)}
             slidesPerView={1}
             spaceBetween={0}
-            loop={!FlexView && true}
+            loop={false}
+            onSlideChange={(swiper) => {
+              console.log(swiper.activeIndex);
+              handleShowNavigation(swiper.activeIndex);
+            }}
             grabCursor={!FlexView && true}
             pagination={{
               clickable: false,
@@ -83,6 +100,7 @@ export default function InforCard({
               if (!FlexView) {
                 swiper.params.navigation.prevEl = navigationPrevRef.current;
                 swiper.params.navigation.nextEl = navigationNextRef.current;
+                navigationPrevRef.current.style.display = "none";
                 swiper.navigation.init();
                 swiper.navigation.update();
               }

@@ -101,19 +101,19 @@ export default function Home() {
                 FlexView
               />
             ))}
-            <div className="absolute  top-20 sm:top-10 right-0  items-center gap-2 hidden sm:flex ">
-              <div
+            <div className="absolute  top-20 sm:top-10 right-0  items-center gap-2 hidden sm:flex">
+              <button
                 onClick={() => scroll("left")}
-                className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center cursor-pointer"
+                className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center cursor-pointer transform transition hover:scale-105 "
               >
                 <ArrowLeftIcon className="text-[rgb(34,34,34)]" />
-              </div>
-              <div
+              </button>
+              <button
                 onClick={() => scroll("right")}
-                className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center cursor-pointer "
+                className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center cursor-pointer transform transition hover:scale-105  "
               >
                 <ArrowRightIcon className="text-[rgb(34,34,34)]" />
-              </div>
+              </button>
             </div>
           </div>
         </section>

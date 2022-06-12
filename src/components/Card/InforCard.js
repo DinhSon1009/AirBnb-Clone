@@ -25,7 +25,6 @@ export default function InforCard({
   bedRoom,
   guests,
   id,
-  FlexView,
 }) {
   const navigate = useNavigate();
   const scrollRef = useRef();
@@ -61,12 +60,10 @@ export default function InforCard({
 
   return (
     <div
+      onClick={() => navigate(`/RoomDetail/${id}`)}
       onMouseEnter={() => setHoverParent(true)}
       onMouseLeave={() => setHoverParent(false)}
-      className={`border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0 pt-0 ${
-        FlexView &&
-        "!border-t-0 min-w-[250px] lg:min-w-[calc(25%_-_0.9375rem)] md:min-w-[calc(100%/3_-_2.5rem/3)]"
-      }`}
+      className="border-b cursor-pointer hover:shadow-lg transition duration-200 ease-out py-7 first:border-t sm:first:border-t-0 pt-0 "
     >
       <div
         onMouseEnter={() => setIsShown(true)}
@@ -78,15 +75,13 @@ export default function InforCard({
           className=" w-full overflow-y-hidden overflow-x-scroll scrollbar-hide flex rounded-xl overflow-hidden"
         >
           <Swiper
-            onClick={() => navigate(`/RoomDetail/${id}`)}
             slidesPerView={1}
             spaceBetween={0}
             loop={false}
             onSlideChange={(swiper) => {
-              console.log(swiper.activeIndex);
               handleShowNavigation(swiper.activeIndex);
             }}
-            grabCursor={!FlexView && true}
+            grabCursor={true}
             pagination={{
               clickable: false,
               dynamicBullets: true,
@@ -97,15 +92,13 @@ export default function InforCard({
               nextEl: navigationNextRef.current,
             }}
             onInit={(swiper) => {
-              if (!FlexView) {
-                swiper.params.navigation.prevEl = navigationPrevRef.current;
-                swiper.params.navigation.nextEl = navigationNextRef.current;
-                navigationPrevRef.current.style.display = "none";
-                swiper.navigation.init();
-                swiper.navigation.update();
-              }
+              swiper.params.navigation.prevEl = navigationPrevRef.current;
+              swiper.params.navigation.nextEl = navigationNextRef.current;
+              navigationPrevRef.current.style.display = "none";
+              swiper.navigation.init();
+              swiper.navigation.update();
             }}
-            modules={FlexView ? [] : [Pagination, Navigation]}
+            modules={[Pagination, Navigation]}
             className="mySwiper"
           >
             <SwiperSlide
@@ -114,64 +107,60 @@ export default function InforCard({
               <img
                 src={img || DEFAULT_IMAGE_PATH}
                 alt={`ảnh ${location}`}
-                className={`object-cover  w-full  transition-all duration-300 h-[300px] ${
-                  FlexView && "h-[205px]"
-                }`}
+                className="object-cover  w-full  transition-all duration-300 h-[300px]"
                 style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
               />
             </SwiperSlide>
-            {!FlexView &&
-              fakeDataImages.map((item, index) => (
-                <SwiperSlide
+            {fakeDataImages.map((item, index) => (
+              <SwiperSlide
+                style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+                key={index}
+              >
+                <img
+                  key={item.id}
+                  className="object-cover  w-full  transition-all duration-300 h-[300px]"
+                  alt="hinh mo ta"
+                  src={item.img}
                   style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
-                  key={index}
-                >
-                  <img
-                    key={item.id}
-                    className="object-cover  w-full  transition-all duration-300 h-[300px]"
-                    alt="hinh mo ta"
-                    src={item.img}
-                    style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
-                  />
-                </SwiperSlide>
-              ))}
-            {!FlexView && (
-              <>
-                <div
-                  ref={navigationPrevRef}
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    left: 0,
-                  }}
-                  className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 transition ml-2
+                />
+              </SwiperSlide>
+            ))}
+
+            <div
+              onClick={(e) => e.stopPropagation()}
+              ref={navigationPrevRef}
+              style={{
+                position: "absolute",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                left: 0,
+              }}
+              className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 transition ml-2
               ${isShown ? "opacity-90" : "opacity-0"}
               `}
-                >
-                  <ArrowLeftIcon
-                    className={`z-11 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4] 
+            >
+              <ArrowLeftIcon
+                className={`z-11 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4] 
                 `}
-                  />
-                </div>
-                <div
-                  ref={navigationNextRef}
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    right: 0,
-                  }}
-                  className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 mr-2
+              />
+            </div>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              ref={navigationNextRef}
+              style={{
+                position: "absolute",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                right: 0,
+              }}
+              className={`w-8 h-8 bg-white rounded-full z-10 flex items-center justify-center hover:opacity-100 mr-2
               ${isShown ? "opacity-90" : "opacity-0"}
               `}
-                >
-                  <ArrowRightIcon className="z-50 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4]" />
-                </div>
-              </>
-            )}
+            >
+              <ArrowRightIcon className="z-50 text-[rgb(34,34,34)] hover:opacity-100 w-3 h-3 stroke-current stroke-[4]" />
+            </div>
           </Swiper>
         </div>
         <HeartIcon
@@ -188,7 +177,7 @@ export default function InforCard({
           <div className="flex items-center">
             <span>4,97</span>
             <span className="ml-1">
-              <StarIcon className={`${FlexView && "text-primary"}`} />
+              <StarIcon />
             </span>
           </div>
         </div>

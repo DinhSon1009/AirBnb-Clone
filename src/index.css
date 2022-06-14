@@ -145,3 +145,8 @@
 .FlexView .mySwiper  {
   touch-action: manipulation ;
 }
+
+/* custom ant date picker  */
+.ant-picker{
+  display:block !important;
+}

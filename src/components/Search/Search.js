@@ -84,7 +84,7 @@ export default function Search({ searchInfo, LargeScreen }) {
           />
           <div
             ref={suggestionRef}
-            className={`absolute left-0 top-full mt-6 bg-white rounded-xl px-2 ${
+            className={`absolute left-0 top-full mt-6 bg-white rounded-xl p-2 ${
               showSuggestions ? "visible" : "invisible"
             } `}
           >
@@ -99,7 +99,14 @@ export default function Search({ searchInfo, LargeScreen }) {
                   }}
                   key={index}
                 >
-                  <LocationMarkerIcon className="h-12 p-2 w-12 min-w-[3rem] bg-gray-300 mr-5 " />{" "}
+                  <LocationMarkerIcon
+                    style={{
+                      backgroundColor: "rgba(0, 128, 0, 0.2)",
+                      color: "green",
+                      borderRadius: "5px",
+                    }}
+                    className="p-[5px] w-12 h-12 flex-shrink-0  mr-5 "
+                  />{" "}
                   {suggest.name}, {suggest.province}
                 </button>
               ))}
@@ -139,14 +146,14 @@ export default function Search({ searchInfo, LargeScreen }) {
                 />
                 <div
                   ref={suggestLargeScreenRef}
-                  className={`absolute left-0 top-full mt-6 bg-white rounded-xl px-2 ${
+                  className={`absolute left-0 top-full mt-6 bg-white rounded-xl p-2 ${
                     showSuggestions ? "visible" : "invisible"
                   } `}
                 >
                   {suggestions &&
                     suggestions.map((suggest, index) => (
                       <button
-                        className={` relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2
+                        className={` relative w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2 mr-2
                     `}
                         onClick={() => {
                           setChooseInput(`${suggest.name},${suggest.province}`);
@@ -155,7 +162,14 @@ export default function Search({ searchInfo, LargeScreen }) {
                         }}
                         key={index}
                       >
-                        <LocationMarkerIcon className="h-12 p-2 w-12 min-w-[3rem] bg-gray-300 mr-5 " />{" "}
+                        <LocationMarkerIcon
+                          style={{
+                            backgroundColor: "rgba(0, 128, 0, 0.2)",
+                            color: "green",
+                            borderRadius: "5px",
+                          }}
+                          className="p-[5px] w-12 h-12  mr-5 "
+                        />{" "}
                         {suggest.name}, {suggest.province}
                       </button>
                     ))}

@@ -27,10 +27,10 @@ function Search({ searchInfo, LargeScreen }) {
   const [chooseInput, setChooseInput] = useState(undefined);
   const [allLocation, setAllLocation] = useState(null);
   useClickOutside(suggestionRef, () => {
-    setSuggestions(null);
+    // setSuggestions(null);
     setShowSuggestions(false);
-    setInput("");
-    setChooseInput("");
+    // setInput("");
+    // setChooseInput("");
   });
   useClickOutside(suggestLargeScreenRef, () => {
     // setSuggestions(null);
@@ -89,7 +89,13 @@ function Search({ searchInfo, LargeScreen }) {
           <input
             ref={smallScreenInputRef}
             value={chooseInput || input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              setChooseInput(null);
+              setInput(e.target.value);
+            }}
+            onFocus={() => {
+              suggestions && setShowSuggestions(true);
+            }}
             className="inline-flex md:hidden w-full outline-none rounded-full pl-5 py-3 bg-white text-gray-600 flex-grow z-50"
             type="text"
             placeholder={searchInfo || "Bắt đầu tìm kiếm"}
@@ -99,17 +105,12 @@ function Search({ searchInfo, LargeScreen }) {
             className="inline-flex h-8 w-8 bg-[#ff385c] text-white rounded-full p-2 cursor-pointer mx-2 
       flex-shrink-0 "
           />
-          <div
-            ref={suggestionRef}
-            className={`absolute left-0 top-full mt-3 bg-white rounded-xl p-2 w-full
-            ${
-              showSuggestions
-                ? "visible  max-h-96 overflow-y-scroll overflow-x-hidden"
-                : "invisible"
-            } `}
-          >
-            {suggestions &&
-              suggestions.map((suggest, index) => (
+          {showSuggestions && (
+            <div
+              ref={suggestionRef}
+              className="absolute left-0 top-full mt-3 bg-white rounded-xl p-2 w-full max-h-96 overflow-y-scroll overflow-x-hidden"
+            >
+              {suggestions?.map((suggest, index) => (
                 <button
                   className=" w-full  text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2 "
                   onClick={() => {
@@ -140,7 +141,8 @@ function Search({ searchInfo, LargeScreen }) {
                   {suggest.name}, {suggest.province}
                 </button>
               ))}
-          </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="hidden md:flex md:flex-col text-center w-full transition transform ease-out duration-150 ">
@@ -183,54 +185,48 @@ function Search({ searchInfo, LargeScreen }) {
                   placeholder="Where are you going?"
                   className="outline-none placeholder-gray-400 bg-transparent text-sm lg:text-base"
                 />
-                <div
-                  ref={suggestLargeScreenRef}
-                  className={`absolute left-0 top-full mt-6 bg-white rounded-xl p-2 w-96  
-                  ${
-                    showSuggestions
-                      ? "visible max-h-80 overflow-y-scroll overflow-x-hidden"
-                      : "invisible"
-                  } `}
-                >
-                  {suggestions &&
-                    suggestions.map((suggest, index) => (
-                      <button
-                        className="w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center p-2 mr-2 text-ellipsis overflow-hidden"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setChooseInput(
-                            `${suggest.name}, ${suggest.province}`
-                          );
-                          setShowSuggestions(false);
-                          setSelect(suggest);
-                        }}
-                        key={index}
-                      >
-                        {suggest.image ? (
-                          <div className=" w-12 h-12  mr-5 rounded-[5px] overflow-hidden flex-shrink-0 ">
-                            <LazyLoadImage
-                              className="w-full h-full object-cover"
-                              src={suggest?.image}
-                              alt=""
-                              effect="blur"
-                              width="3rem"
-                              height="3rem"
+                {showSuggestions && (
+                  <div className="absolute left-0 top-full mt-6 bg-white rounded-xl p-2 w-96 max-h-80 overflow-y-scroll overflow-x-hidden">
+                    {showSuggestions &&
+                      suggestions?.map((suggest, index) => (
+                        <button
+                          className="w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center p-2 mr-2 text-ellipsis overflow-hidden "
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setChooseInput(
+                              `${suggest.name}, ${suggest.province}`
+                            );
+                            setShowSuggestions(false);
+                            setSelect(suggest);
+                          }}
+                          key={index}
+                        >
+                          {suggest.image ? (
+                            <div className=" w-12 h-12  mr-5 rounded-[5px] overflow-hidden flex-shrink-0 ">
+                              <LazyLoadImage
+                                className="w-full h-full object-cover"
+                                src={suggest?.image}
+                                alt=""
+                                effect="blur"
+                                width="3rem"
+                                height="3rem"
+                              />
+                            </div>
+                          ) : (
+                            <LocationMarkerIcon
+                              style={{
+                                backgroundColor: "rgba(0, 128, 0, 0.2)",
+                                color: "green",
+                                borderRadius: "5px",
+                              }}
+                              className="p-[5px] w-12 h-12  mr-5 flex-shrink-0 "
                             />
-                          </div>
-                        ) : (
-                          <LocationMarkerIcon
-                            style={{
-                              backgroundColor: "rgba(0, 128, 0, 0.2)",
-                              color: "green",
-                              borderRadius: "5px",
-                            }}
-                            className="p-[5px] w-12 h-12  mr-5 flex-shrink-0 "
-                          />
-                        )}{" "}
-                        {suggest.name}, {suggest.province}
-                      </button>
-                    ))}
-                </div>
+                          )}{" "}
+                          {suggest.name}, {suggest.province}
+                        </button>
+                      ))}
+                  </div>
+                )}
               </div>
             </li>
             <li className="flex relative  items-center basis-1/4 lg:basis-[20%] whitespace-nowrap text-sm cursor-pointer rounded-full hover:bg-[#EBEBEB]">

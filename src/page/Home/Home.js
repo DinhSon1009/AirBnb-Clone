@@ -66,9 +66,9 @@ export default function Home() {
             {nearByData.map((item) => (
               <SmallCard
                 key={item.id}
-                img={item.img}
+                // img={item.img}
                 distance={item.distance}
-                location={item.location}
+                // location={item.location}
                 locationId={item.locationId}
               />
             ))}

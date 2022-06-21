@@ -10,6 +10,11 @@ class HttpRequestService {
     return AxiosServ.getMethod(uri, false);
   };
 
+  layDanhSachDiaDiem = () => {
+    const uri = `/api/locations`;
+    return AxiosServ.getMethod(uri);
+  };
+
   dangNhap = (data) => {
     const uri = "/api/auth/login";
     return AxiosServ.postMethod(uri, data);

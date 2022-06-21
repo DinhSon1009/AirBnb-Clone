@@ -51,7 +51,8 @@ export default function Header({ offset, searchInfo }) {
       };
     else
       return {
-        header: `after:ds_transition  ${
+        header: `after:ds_transition  
+        ${
           searchClick
             ? "bg-white after:!opacity-100"
             : "after:!scale-y-1 md:after:!scale-y-[1.5]"
@@ -75,9 +76,9 @@ export default function Header({ offset, searchInfo }) {
   return (
     <header
       ref={searchRef}
-      className={`fixed top-0 z-50 h-20 w-full left-0 mx-auto md:before:ds_header_before ${
-        themes().header
-      }  ${searchClick && "after:!scale-y-[1] md:after:!scale-y-[2.25]"}`}
+      className={`fixed top-0 z-50 h-20 w-full left-0 mx-auto md:before:ds_header_before
+       ${themes().header} 
+       ${searchClick && "after:!scale-y-[1] md:after:!scale-y-[2.25]"}`}
     >
       <div
         className={` flex h-full relative p-3 items-center dscontainer font-semibold z-10
@@ -101,11 +102,12 @@ export default function Header({ offset, searchInfo }) {
         </div>
         {/* middle */}
         <div
-          className={` relative transition-transform transform duration-300 h-full w-full  md:absolute left-0 basis-0 ${
-            searchClick
-              ? "visible py-0 !scale-100 opacity-100 px-6"
-              : "invisible !scale-0 opacity-0"
-          } `}
+          className={` relative transition-transform transform duration-300 h-full w-full  md:absolute left-0 basis-0
+           ${
+             searchClick
+               ? "visible py-0 !scale-100 opacity-100 px-6"
+               : "invisible !scale-0 opacity-0"
+           } `}
         >
           <div className="absolute inset-0  w-full h-full m-auto  flex items-center ">
             <div className="w-full invisible md:visible max-w-[850px] absolute inset-0 m-auto ">
@@ -115,9 +117,8 @@ export default function Header({ offset, searchInfo }) {
         </div>
         <div className="w-full flex justify-center items-center">
           <div
-            className={`hidden md:block relative w-full max-w-[300px] mx-3 ${
-              searchClick && "md:hidden"
-            }`}
+            className={`hidden md:block  w-full max-w-[300px] mx-3 
+            ${searchClick && "md:hidden"}`}
             onClick={() => {
               setSearchClick(!searchClick);
             }}
@@ -125,7 +126,7 @@ export default function Header({ offset, searchInfo }) {
             <Search searchInfo={searchInfo} />
           </div>
 
-          <div className="block md:hidden relative w-full max-w-[300px] mx-3 ">
+          <div className="block md:hidden  w-full max-w-[300px] mx-3 ">
             <Search searchInfo={searchInfo} />
           </div>
         </div>
@@ -146,9 +147,8 @@ export default function Header({ offset, searchInfo }) {
           <div
             ref={toggleRef}
             onClick={userHandler}
-            className={`flex items-center border rounded-full bg-white cursor-pointer outline-none ${
-              user ? "p-0" : "p-[5px] pl-3"
-            }`}
+            className={`flex items-center border rounded-full bg-white cursor-pointer outline-none 
+            ${user ? "p-0" : "p-[5px] pl-3"}`}
           >
             {user ? (
               <div className="w-10 h-10">

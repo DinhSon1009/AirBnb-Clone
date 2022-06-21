@@ -102,18 +102,30 @@ export default function InforCard({
             className="mySwiper"
           >
             <SwiperSlide
-              style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+              style={{
+                minWidth: `${
+                  scrollRef.current?.getBoundingClientRect().width
+                }px`,
+              }}
             >
               <img
                 src={img || DEFAULT_IMAGE_PATH}
                 alt={`ảnh ${location}`}
                 className="object-cover  w-full  transition-all duration-300 h-[300px]"
-                style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+                style={{
+                  minWidth: `${
+                    scrollRef.current?.getBoundingClientRect().width
+                  }px`,
+                }}
               />
             </SwiperSlide>
             {fakeDataImages.map((item, index) => (
               <SwiperSlide
-                style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+                style={{
+                  minWidth: `${
+                    scrollRef.current?.getBoundingClientRect().width
+                  }px`,
+                }}
                 key={index}
               >
                 <img
@@ -121,7 +133,11 @@ export default function InforCard({
                   className="object-cover  w-full  transition-all duration-300 h-[300px]"
                   alt="hinh mo ta"
                   src={item.img}
-                  style={{ minWidth: `${scrollRef.current?.clientWidth}px` }}
+                  style={{
+                    minWidth: `${
+                      scrollRef.current?.getBoundingClientRect().width
+                    }px`,
+                  }}
                 />
               </SwiperSlide>
             ))}

@@ -23,9 +23,7 @@
 .ant-modal-root .ant-modal.datVe{
   @apply top-0 left-0 sm:top-[15%] xl:left-[15%]  w-full
 }
-.ant-modal-root .ant-modal-mask {
-  @apply  sm:bg-white sm:bg-opacity-0
-}
+
 .ant-modal-root .rdrStartEdge + .rdrDayNumber{
   @apply bg-transparent
 }

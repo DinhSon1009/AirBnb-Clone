@@ -21,6 +21,7 @@ export default function ProfileModal({ isModalVisible, setIsModalVisible }) {
   const dispatch = useDispatch();
 
   const handleCancel = () => {
+    document.body.classList.remove("overflowHidden");
     setIsModalVisible(false);
   };
 
@@ -40,6 +41,7 @@ export default function ProfileModal({ isModalVisible, setIsModalVisible }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    document.body.classList.remove("overflowHidden");
     file &&
       httpServ
         .capNhatAnhDaiDien(file)

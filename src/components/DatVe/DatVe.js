@@ -26,16 +26,19 @@ export default function DatVe({ room }) {
   const chooseNumberOfGuestsRef = useRef();
   const handleOk = () => {
     setIsModalVisible(false);
+    document.body.classList.remove("overflowAuto");
   };
   useClickOutside(chooseNumberOfGuestsRef, () => {
     isShow && setIsShow(false);
   });
   const handleCancel = () => {
     setIsModalVisible(false);
+    document.body.classList.remove("overflowAuto");
   };
 
   const modalDatePicker = () => {
     setIsModalVisible(true);
+    document.body.classList.add("overflowAuto");
   };
 
   useEffect(() => {

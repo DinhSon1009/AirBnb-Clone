@@ -21,11 +21,23 @@
 
     /* scroll-behavior: smooth; */
   }
-  body{
-  @apply !w-full sm:!overflow-auto
+  
+
+  .overflowHidden{
+    @apply overflow-hidden 
+  }
+
+  .overflowAuto{
+    @apply !overflow-auto !w-full
+  }
+
+  .overflowAuto .ant-modal-root .ant-modal-mask{
+    @apply  sm:bg-white sm:bg-opacity-0
 
   }
 
+
+  /* sm:!overflow-auto */
 
 .dscontainer {
     @apply max-w-[1535px] px-3 md:px-10 w-full md:w-11/12 mx-auto 

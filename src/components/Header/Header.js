@@ -45,7 +45,7 @@ export default function Header({ offset, searchInfo }) {
       };
     } else if (offset)
       return {
-        header: "bg-white shadow-md after:ds_scrollTransition ",
+        header: " bg-white shadow-md after:ds_scrollTransition ",
         text: "text-black ",
         color: "#ff385c",
       };
@@ -69,13 +69,14 @@ export default function Header({ offset, searchInfo }) {
     dispatch(removeUserFromStorage());
   };
   const showModal = () => {
+    document.body.classList.add("overflowHidden");
     setIsModalVisible(true);
   };
 
   return (
     <header
       ref={searchRef}
-      className={`fixed top-0 z-50 h-20 w-full left-0 mx-auto md:before:ds_header_before
+      className={`fixed top-0 z-50 h-20 md:w-full left-0 mx-auto md:before:ds_header_before
        ${themes().header} 
        ${searchClick && "after:!scale-y-[1] md:after:!scale-y-[2.25]"}`}
     >

@@ -187,44 +187,43 @@ function Search({ searchInfo, LargeScreen }) {
                 />
                 {showSuggestions && (
                   <div className="absolute left-0 top-full mt-6 bg-white rounded-xl p-2 w-96 max-h-80 overflow-y-scroll overflow-x-hidden">
-                    {showSuggestions &&
-                      suggestions?.map((suggest, index) => (
-                        <button
-                          className="w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center p-2 mr-2 text-ellipsis overflow-hidden "
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setChooseInput(
-                              `${suggest.name}, ${suggest.province}`
-                            );
-                            setShowSuggestions(false);
-                            setSelect(suggest);
-                          }}
-                          key={index}
-                        >
-                          {suggest.image ? (
-                            <div className=" w-12 h-12  mr-5 rounded-[5px] overflow-hidden flex-shrink-0 ">
-                              <LazyLoadImage
-                                className="w-full h-full object-cover"
-                                src={suggest?.image}
-                                alt=""
-                                effect="blur"
-                                width="3rem"
-                                height="3rem"
-                              />
-                            </div>
-                          ) : (
-                            <LocationMarkerIcon
-                              style={{
-                                backgroundColor: "rgba(0, 128, 0, 0.2)",
-                                color: "green",
-                                borderRadius: "5px",
-                              }}
-                              className="p-[5px] w-12 h-12  mr-5 flex-shrink-0 "
+                    {suggestions?.map((suggest, index) => (
+                      <button
+                        className="w-full text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center p-2 mr-2 text-ellipsis overflow-hidden "
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setChooseInput(
+                            `${suggest.name}, ${suggest.province}`
+                          );
+                          setShowSuggestions(false);
+                          setSelect(suggest);
+                        }}
+                        key={index}
+                      >
+                        {suggest.image ? (
+                          <div className=" w-12 h-12  mr-5 rounded-[5px] overflow-hidden flex-shrink-0 ">
+                            <LazyLoadImage
+                              className="w-full h-full object-cover"
+                              src={suggest?.image}
+                              alt=""
+                              effect="blur"
+                              width="3rem"
+                              height="3rem"
                             />
-                          )}{" "}
-                          {suggest.name}, {suggest.province}
-                        </button>
-                      ))}
+                          </div>
+                        ) : (
+                          <LocationMarkerIcon
+                            style={{
+                              backgroundColor: "rgba(0, 128, 0, 0.2)",
+                              color: "green",
+                              borderRadius: "5px",
+                            }}
+                            className="p-[5px] w-12 h-12  mr-5 flex-shrink-0 "
+                          />
+                        )}{" "}
+                        {suggest.name}, {suggest.province}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>

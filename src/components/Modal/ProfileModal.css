@@ -1,0 +1,18 @@
+.profileModal .ant-modal-footer,
+.profileModal .ant-modal-header {
+  @apply !hidden;
+}
+.ant-modal-root  .ant-modal.profileModal {
+    @apply top-0 md:top-10  !w-screen !h-full sm:!w-[450px] m-0 max-w-[100vw] sm:m-auto
+}
+.ant-modal-root .profileModal .ant-modal-body{
+    @apply  !p-0 h-[calc(100vh-56px)]  md:h-auto overflow-y-scroll scrollbar-hide overscroll-contain
+
+}
+.ant-modal-root .ant-modal-wrap{
+    @apply scrollbar-hide overflow-hidden
+}
+
+.ant-modal-root .profileModal .ant-modal-close{
+    @apply left-0  text-black text-xl sticky
+}

@@ -23,6 +23,7 @@ export default function Login() {
         dispatch(setUserToStorage(res.data.user));
         setTimeout(() => {
           navigation("/");
+          window.location.reload();
         }, 2000);
       })
       .catch((err) => toast.error("Tài khoản hoặc mật khẩu không đúng !"));

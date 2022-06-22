@@ -81,6 +81,10 @@ class HttpRequestService {
     const uri = `/api/locations`;
     return AxiosServ.getMethod(uri);
   };
+  capNhatNguoiDung = (id, data) => {
+    const uri = `/api/users/${id}`;
+    return AxiosServ.putMethod(uri, data);
+  };
 }
 
 const httpServ = new HttpRequestService();

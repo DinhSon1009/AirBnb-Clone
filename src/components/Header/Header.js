@@ -67,7 +67,6 @@ export default function Header({ offset, searchInfo }) {
   };
   const handleLogout = () => {
     dispatch(removeUserFromStorage());
-    window.location.reload();
   };
   const showModal = () => {
     setIsModalVisible(true);
@@ -159,7 +158,7 @@ export default function Header({ offset, searchInfo }) {
                     alt="avatar"
                   />
                 ) : (
-                  <div className="ml-3 text-[#717171]">
+                  <div className="w-full h-full text-[#717171]">
                     <UserIcon />
                   </div>
                 )}
@@ -219,7 +218,6 @@ export default function Header({ offset, searchInfo }) {
       </div> */}
       {isModalVisible && (
         <ProfileModal
-          user={user}
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
         />

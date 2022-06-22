@@ -5,7 +5,7 @@ import Header from "../../components/Header/Header";
 import httpServ from "../../services/http.service";
 import { useSelector } from "react-redux";
 import { HeartIcon } from "@heroicons/react/outline";
-import { StarIcon, UserCircleIcon, UploadIcon } from "@heroicons/react/solid";
+import { StarIcon, UploadIcon } from "@heroicons/react/solid";
 import Rating from "../../components/Rating/Rating";
 import { useParams } from "react-router";
 import { ChevronRight } from "@mui/icons-material";
@@ -28,6 +28,7 @@ import {
   KeyIcon,
   KitchenIcon,
   PoolIcon,
+  UserIcon,
   WifiIcon,
 } from "../../assets/icons";
 
@@ -344,7 +345,7 @@ export default function RoomDetail() {
           <h4 className="mb-5 text-xl">Nhận xét từ người dùng :</h4>
           {user && (
             <div className="flex mb-4">
-              <div className="w-16">
+              <div className="w-12 mr-2  ">
                 {user.avatar ? (
                   <img
                     className="rounded-full w-12 h-12 object-cover"
@@ -352,7 +353,7 @@ export default function RoomDetail() {
                     alt=""
                   />
                 ) : (
-                  <UserCircleIcon className="rounded-full w-12 h-12" />
+                  <UserIcon />
                 )}
               </div>
               <div className="flex-grow">

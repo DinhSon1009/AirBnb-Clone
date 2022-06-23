@@ -76,7 +76,7 @@ export default function Header({ offset, searchInfo }) {
   return (
     <header
       ref={searchRef}
-      className={`fixed top-0 z-50 h-20 md:w-full left-0 mx-auto md:before:ds_header_before
+      className={`fixed top-0 z-50 h-20 w-full left-0 mx-auto md:before:ds_header_before
        ${themes().header} 
        ${searchClick && "after:!scale-y-[1] md:after:!scale-y-[2.25]"}`}
     >

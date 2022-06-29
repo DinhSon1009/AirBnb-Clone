@@ -1,12 +1,37 @@
-import React from "react";
-import nearByData from "../../fixtures/nearby.json";
+import React, { useEffect, useState } from "react";
+// import nearByData from "../../fixtures/nearby.json";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { setSearchInfo } from "../../redux/searchSlice";
+import httpServ from "../../services/http.service";
 
 export default function Banner() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [locations, setLocations] = useState(null);
+
+  useEffect(() => {
+    let result = [];
+    async function layDanhSachDiaDiem() {
+      let allResult = await httpServ.layDanhSachDiaDiem();
+      await Promise.all(
+        allResult.data.map(async (diaDiem) => {
+          const response = await httpServ.layDanhSachPhongChoThueTheoViTri(
+            diaDiem._id
+          );
+          result.push({
+            ...response,
+            locationId: diaDiem._id,
+            location: `${diaDiem.name}, ${diaDiem.province}`,
+          });
+        })
+      );
+      result = result.filter((item) => item.data.length !== 0);
+      result.sort((a, b) => b.data.length - a.data.length);
+      setLocations(result);
+    }
+    layDanhSachDiaDiem();
+  }, []);
   return (
     <div className="relative h-screen max-h-[800px]   ">
       <img
@@ -23,11 +48,11 @@ export default function Banner() {
         </p>
         <button
           onClick={() => {
-            let index = Math.floor(Math.random() * 8);
-            dispatch(setSearchInfo(nearByData[index].location));
+            let index = Math.floor(Math.random() * locations.length);
+            dispatch(setSearchInfo(locations[index].location));
             navigate({
               pathname: "/search",
-              search: `?id=${nearByData[index].locationId}&&location=${nearByData[index].location}`,
+              search: `?id=${locations[index].locationId}`,
             });
           }}
           className="bg-white rounded-full mt-4 px-5 py-4 lg:px-8"

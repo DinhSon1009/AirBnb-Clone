@@ -67,10 +67,11 @@ export default function DatVe({ room }) {
     }
   };
 
-  const dayCount =
-    new Date(endDatePick).getUTCDate() -
-    new Date(startDatePick).getUTCDate() +
-    1;
+  const dayCount = () => {
+    let differenceTime =
+      new Date(endDatePick).getTime() - new Date(startDatePick).getTime();
+    return differenceTime / (1000 * 3600 * 24) + 1;
+  };
 
   return (
     <div className="border rounded-xl shadow-xl p-6 sticky top-32 z-10 ">
@@ -192,10 +193,10 @@ export default function DatVe({ room }) {
       <div className="py-2 px-0">
         <div className="flex justify-between items-center pb-3">
           <span className="underline text-base">
-            ${room?.price.toLocaleString()}x {dayCount} đêm
+            ${room?.price.toLocaleString()}x {dayCount()} đêm
           </span>
           <span className="text-base">
-            ${(room?.price * dayCount).toLocaleString()}
+            ${(room?.price * dayCount()).toLocaleString()}
           </span>
         </div>
         <div className="flex justify-between items-center pb-3">
@@ -207,7 +208,7 @@ export default function DatVe({ room }) {
         <span className="font-semibold text-base text-title">
           Tổng trước thuế
         </span>
-        <span> ${(room?.price * dayCount - 100).toLocaleString()}</span>
+        <span> ${(room?.price * dayCount() - 100).toLocaleString()}</span>
       </div>
     </div>
   );

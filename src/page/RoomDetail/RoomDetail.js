@@ -45,10 +45,12 @@ export default function RoomDetail() {
   const { startDatePick, endDatePick } = useSelector(
     (state) => state.datePickerReducer
   );
-  const dayCount =
-    new Date(endDatePick).getUTCDate() -
-    new Date(startDatePick).getUTCDate() +
-    1;
+
+  const dayCount = () => {
+    let differenceTime =
+      new Date(endDatePick).getTime() - new Date(startDatePick).getTime();
+    return differenceTime / (1000 * 3600 * 24) + 1;
+  };
 
   useTitle("Chi tiết phòng");
 
@@ -323,7 +325,7 @@ export default function RoomDetail() {
 
               <div className="border-t pt-12 pb-12">
                 <h1 className="text-2xl font-semibold pb-6">
-                  {dayCount} đêm tại {room?.name}
+                  {dayCount()} đêm tại {room?.name}
                 </h1>
                 <div>
                   <DatePicker />

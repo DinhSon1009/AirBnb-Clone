@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, Input, Button, DatePicker } from "antd";
 import { Link } from "react-router-dom";
 import httpServ from "../../services/http.service";

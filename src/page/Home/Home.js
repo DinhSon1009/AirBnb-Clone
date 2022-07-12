@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
-import { useState, useEffect } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 import Banner from "../../components/Banner/Banner";
 import SmallCard from "../../components/Card/SmallCard";
 import Footer from "../../components/Footer/Footer";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
-import httpServ from "../../services/http.service";
 import { useNavigate } from "react-router";
 // import Skeleton from "react-loading-skeleton";
 import {
@@ -40,28 +39,6 @@ export default function Home({ locations }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   let result = [];
-  //   async function layDanhSachDiaDiem() {
-  //     let allResult = await httpServ.layDanhSachDiaDiem();
-  //     await Promise.all(
-  //       allResult.data.map(async (diaDiem) => {
-  //         const response = await httpServ.layDanhSachPhongChoThueTheoViTri(
-  //           diaDiem._id
-  //         );
-  //         result.push({
-  //           ...response,
-  //           locationId: diaDiem._id,
-  //           location: `${diaDiem.name}, ${diaDiem.province}`,
-  //         });
-  //       })
-  //     );
-  //     result.sort((a, b) => b.data.length - a.data.length);
-  //     setLocations(result);
-  //   }
-  //   layDanhSachDiaDiem();
-  // }, []);
-
   const scroll = (direction) => {
     const { current } = scrollRef;
     direction === "left"
@@ -72,7 +49,6 @@ export default function Home({ locations }) {
   useTitle("Airbnb homepage");
   return (
     <>
-      {/* <Header offset={offset} /> */}
       <Banner />
       <main className="dscontainer  mx-auto py-5  space-y-6 ">
         <section>
@@ -85,7 +61,6 @@ export default function Home({ locations }) {
                 index < 8 && (
                   <SmallCard
                     key={location.locationId}
-                    // distance={item.distance}
                     locationId={location.locationId}
                   />
                 )

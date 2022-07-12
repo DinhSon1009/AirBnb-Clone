@@ -129,7 +129,6 @@ export default function RoomDetail() {
 
   return (
     <>
-      {/* <Header /> */}
       <main className="dscontainer pt-5">
         <section>
           <h1 className="text-2xl text-title w-full font-semibold lg:w-96">

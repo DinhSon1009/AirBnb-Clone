@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { Table } from "antd";
@@ -38,7 +38,6 @@ export default function CartInfo() {
   }, [cart]);
   return (
     <>
-      <Header />
       <main className="dscontainer pt-5">
         <h4 className="text-center text-xl p-2 text-primary font-bold">
           CART DETAIL

@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router";
 import Header from "../../components/Header/Header";
 import useLocations from "../../Hooks/useLocations/useLocations";

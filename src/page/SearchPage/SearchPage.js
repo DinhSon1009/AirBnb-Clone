@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import InforCard from "../../components/Card/InforCard";
 import Footer from "../../components/Footer/Footer";
@@ -9,6 +9,7 @@ import { useTitle } from "../../Hooks/useTitle/useTitle";
 import httpServ from "../../services/http.service";
 import { Button } from "../../styles/customStyle";
 import Skeleton from "react-loading-skeleton";
+import { setSearchInfo } from "../../redux/navbarSlice";
 
 export default function SearchPage() {
   let urlParams = new URLSearchParams(window.location.search);
@@ -20,6 +21,7 @@ export default function SearchPage() {
   const isLoading = useSelector(
     (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
   );
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useTitle("Kết quả tìm kiếm");
@@ -33,6 +35,10 @@ export default function SearchPage() {
   }, [locationID]);
 
   useEffect(() => {
+    dispatch(setSearchInfo(searchInfo));
+  }, []);
+
+  useEffect(() => {
     httpServ
       .layThongTinChiTietViTri(id)
       .then((res) => {
@@ -43,7 +49,7 @@ export default function SearchPage() {
 
   return (
     <div className="">
-      <Header searchInfo={searchInfo} />
+      {/* <Header searchInfo={searchInfo} /> */}
       <main className="dscontainer flex pt-5">
         <section className="flex-grow ">
           <p className="text-xs">300+ Stays for 5 numbers of guests</p>

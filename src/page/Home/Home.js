@@ -1,11 +1,8 @@
 import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import Banner from "../../components/Banner/Banner";
-import Header from "../../components/Header/Header";
 import SmallCard from "../../components/Card/SmallCard";
-// import nearByData from "../../fixtures/nearby.json";
-// import exploreData from "../../fixtures/explore.json";
-// import BigCard from "../../components/Card/BigCard";
+
 import Footer from "../../components/Footer/Footer";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import httpServ from "../../services/http.service";
@@ -18,21 +15,29 @@ import {
   StarIcon,
 } from "../../assets/icons";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
+import { useDispatch } from "react-redux";
+import { setOffset } from "../../redux/navbarSlice";
 
 export default function Home() {
-  const [offset, setOffset] = useState(false);
   const [locations, setLocations] = useState(null); //top dia diem co nhieu phong nhat
   const navigate = useNavigate();
   const scrollRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setOffset(false));
     const onScroll = () => {
-      window.pageYOffset > 0 ? setOffset(true) : setOffset(false);
+      window.pageYOffset > 0
+        ? dispatch(setOffset(true))
+        : dispatch(setOffset(false));
     };
     // clean up code
     window.removeEventListener("scroll", onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      dispatch(setOffset(undefined));
+    };
   }, []);
 
   useEffect(() => {
@@ -67,7 +72,7 @@ export default function Home() {
   useTitle("Airbnb homepage");
   return (
     <div className="">
-      <Header offset={offset} />
+      {/* <Header offset={offset} /> */}
       <Banner />
       <main className="dscontainer  mx-auto py-5  space-y-6 ">
         <section>

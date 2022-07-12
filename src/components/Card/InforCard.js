@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
 import { fakeDataImages } from "../../assets/images/fakeDataImage";
-// import useEventListener from "../../Hooks/useEventListener/useEventListener";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
 

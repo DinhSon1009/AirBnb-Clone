@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { setUserToStorage } from "../../redux/userSlice";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import { toast } from "react-toastify";
-import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 export default function Login() {
@@ -36,7 +35,7 @@ export default function Login() {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className="flex items-center justify-center h-[500px] xl:h-screen  max-h-[800px]   ">
         <div className="xl:basis-1/2 relative h-full  after:absolute after:inset-0 after:bg-gray-500 after:opacity-40 items-center justify-center flex-col hidden xl:flex  ">
           <img

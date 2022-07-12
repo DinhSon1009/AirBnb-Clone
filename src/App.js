@@ -16,6 +16,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import ScrollToTop from "./components/ScrollTopTop/ScrollToTop";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
@@ -23,14 +24,16 @@ function App() {
       {/* {isLoading && flag && <SpinnerLoading />} */}
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="RoomDetail/:id" element={<RoomDetail />} />
-        <Route path="/notfound" element={<NotFound />} />
-        <Route path="/CartDetail" element={<CartInfo />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Header />}>
+          <Route index element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="RoomDetail/:id" element={<RoomDetail />} />
+          <Route path="/notfound" element={<NotFound />} />
+          <Route path="/CartDetail" element={<CartInfo />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
       <ToastContainer autoClose={2000} pauseOnHover={false} draggable />
     </BrowserRouter>

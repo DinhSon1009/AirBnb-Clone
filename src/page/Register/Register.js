@@ -36,7 +36,7 @@ export default function Register() {
   };
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className="flex items-center justify-center xl:h-screen  max-h-[800px]  ">
         <div className="xl:basis-1/2 relative h-full after:absolute after:inset-0 after:bg-gray-500 after:opacity-40 items-center justify-center flex-col hidden xl:flex  ">
           <img

@@ -1,7 +1,6 @@
 import DatePicker from "../../components/DatePicker/DatePicker";
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header/Header";
 import httpServ from "../../services/http.service";
 import { useSelector } from "react-redux";
 import { HeartIcon } from "@heroicons/react/outline";
@@ -130,7 +129,7 @@ export default function RoomDetail() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className="dscontainer pt-5">
         <section>
           <h1 className="text-2xl text-title w-full font-semibold lg:w-96">

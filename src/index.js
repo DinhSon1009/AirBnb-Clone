@@ -14,6 +14,7 @@ import {
   userReducer,
   cartReducer,
   datePickerReducer,
+  navbarReducer,
 } from "./redux";
 
 export const store = configureStore({
@@ -23,6 +24,7 @@ export const store = configureStore({
     userReducer,
     cartReducer,
     datePickerReducer,
+    navbarReducer,
   },
   devTools: true,
 });

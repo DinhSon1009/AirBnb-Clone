@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import InforCard from "../../components/Card/InforCard";
 import Footer from "../../components/Footer/Footer";
-import Header from "../../components/Header/Header";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 // import Map from "../../components/Map/Map";
 import httpServ from "../../services/http.service";

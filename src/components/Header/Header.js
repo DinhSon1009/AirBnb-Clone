@@ -75,7 +75,7 @@ export default function Header() {
   };
 
   return (
-    <div>
+    <>
       <header
         ref={searchRef}
         className={`fixed top-0 z-50 h-20 w-full left-0 mx-auto md:before:ds_header_before
@@ -234,6 +234,6 @@ export default function Header() {
       )} */}
       </header>
       <Outlet />
-    </div>
+    </>
   );
 }

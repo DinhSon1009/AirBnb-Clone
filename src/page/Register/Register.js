@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import httpServ from "../../services/http.service";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 import {

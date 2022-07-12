@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import Banner from "../../components/Banner/Banner";
 import SmallCard from "../../components/Card/SmallCard";
-
 import Footer from "../../components/Footer/Footer";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import httpServ from "../../services/http.service";
@@ -16,16 +15,17 @@ import {
 } from "../../assets/icons";
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
 import { useDispatch } from "react-redux";
-import { setOffset } from "../../redux/navbarSlice";
+import { setOffset, setSearchInfo } from "../../redux/navbarSlice";
 
-export default function Home() {
-  const [locations, setLocations] = useState(null); //top dia diem co nhieu phong nhat
+export default function Home({ locations }) {
+  // const [locations, setLocations] = useState(null); //top dia diem co nhieu phong nhat
   const navigate = useNavigate();
   const scrollRef = useRef();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setOffset(false));
+    dispatch(setSearchInfo(null));
     const onScroll = () => {
       window.pageYOffset > 0
         ? dispatch(setOffset(true))
@@ -40,27 +40,27 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    let result = [];
-    async function layDanhSachDiaDiem() {
-      let allResult = await httpServ.layDanhSachDiaDiem();
-      await Promise.all(
-        allResult.data.map(async (diaDiem) => {
-          const response = await httpServ.layDanhSachPhongChoThueTheoViTri(
-            diaDiem._id
-          );
-          result.push({
-            ...response,
-            locationId: diaDiem._id,
-            location: `${diaDiem.name}, ${diaDiem.province}`,
-          });
-        })
-      );
-      result.sort((a, b) => b.data.length - a.data.length);
-      setLocations(result);
-    }
-    layDanhSachDiaDiem();
-  }, []);
+  // useEffect(() => {
+  //   let result = [];
+  //   async function layDanhSachDiaDiem() {
+  //     let allResult = await httpServ.layDanhSachDiaDiem();
+  //     await Promise.all(
+  //       allResult.data.map(async (diaDiem) => {
+  //         const response = await httpServ.layDanhSachPhongChoThueTheoViTri(
+  //           diaDiem._id
+  //         );
+  //         result.push({
+  //           ...response,
+  //           locationId: diaDiem._id,
+  //           location: `${diaDiem.name}, ${diaDiem.province}`,
+  //         });
+  //       })
+  //     );
+  //     result.sort((a, b) => b.data.length - a.data.length);
+  //     setLocations(result);
+  //   }
+  //   layDanhSachDiaDiem();
+  // }, []);
 
   const scroll = (direction) => {
     const { current } = scrollRef;
@@ -71,7 +71,7 @@ export default function Home() {
 
   useTitle("Airbnb homepage");
   return (
-    <div className="">
+    <>
       {/* <Header offset={offset} /> */}
       <Banner />
       <main className="dscontainer  mx-auto py-5  space-y-6 ">
@@ -170,6 +170,6 @@ export default function Home() {
         </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

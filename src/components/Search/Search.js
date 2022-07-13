@@ -41,15 +41,18 @@ function Search({ searchInfo, LargeScreen }) {
     setShowSuggestions(false);
     if (!input.trim()) {
       return setSuggestions(null);
-    } else {
-      let filterData = allLocation.filter(
-        (item) =>
-          item?.name?.toUpperCase().includes(input.toUpperCase()) ||
-          item?.province?.toUpperCase().includes(input.toUpperCase())
-      );
-      setSuggestions(filterData);
+    }
 
-      filterData.length > 0 && setShowSuggestions(true);
+    let filterData = allLocation.filter(
+      (item) =>
+        item?.name?.toUpperCase().includes(input.toUpperCase()) ||
+        item?.province?.toUpperCase().includes(input.toUpperCase())
+    );
+    if (filterData.length > 0) {
+      setSuggestions(filterData);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions(null);
     }
   }, [debounced]);
 
@@ -70,7 +73,6 @@ function Search({ searchInfo, LargeScreen }) {
       search: `?id=${select._id}`,
     });
     setShowSuggestions(false);
-    setSuggestions(null);
   };
   return (
     <>

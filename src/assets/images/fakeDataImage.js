@@ -4,7 +4,7 @@ import hinh3 from "./searchRoomImage/3.jpg";
 import hinh4 from "./searchRoomImage/4.jpg";
 import hinh5 from "./searchRoomImage/5.jpg";
 import hinh6 from "./searchRoomImage/6.jpg";
-
+import LookUpIcon from "./LookUp.svg";
 export const fakeDataImages = [
   {
     id: 1,
@@ -31,3 +31,5 @@ export const fakeDataImages = [
     img: hinh6,
   },
 ];
+
+export default LookUpIcon;

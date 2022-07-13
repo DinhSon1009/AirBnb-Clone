@@ -1,11 +1,9 @@
-import { useRef } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Banner from "../../components/Banner/Banner";
 import SmallCard from "../../components/Card/SmallCard";
 import Footer from "../../components/Footer/Footer";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import { useNavigate } from "react-router";
-// import Skeleton from "react-loading-skeleton";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -17,7 +15,6 @@ import { useDispatch } from "react-redux";
 import { setOffset, setSearchInfo } from "../../redux/navbarSlice";
 
 export default function Home({ locations }) {
-  // const [locations, setLocations] = useState(null); //top dia diem co nhieu phong nhat
   const navigate = useNavigate();
   const scrollRef = useRef();
   const dispatch = useDispatch();

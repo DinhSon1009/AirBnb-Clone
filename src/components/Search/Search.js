@@ -27,16 +27,10 @@ function Search({ searchInfo, LargeScreen }) {
   const [chooseInput, setChooseInput] = useState(undefined);
   const [allLocation, setAllLocation] = useState(null);
   useClickOutside(suggestionRef, () => {
-    // setSuggestions(null);
     setShowSuggestions(false);
-    // setInput("");
-    // setChooseInput("");
   });
   useClickOutside(suggestLargeScreenRef, () => {
-    // setSuggestions(null);
     setShowSuggestions(false);
-    // setInput("");
-    // setChooseInput("");
   });
 
   useClickOutside(liRef, () => {

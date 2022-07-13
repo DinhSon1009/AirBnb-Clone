@@ -9,9 +9,9 @@ import httpServ from "../../services/http.service";
 import { memo } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { CancelIcon } from "../../assets/icons";
 
 function Search({ searchInfo, LargeScreen }) {
-  const suggestionRef = useRef();
   const dispatch = useDispatch();
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
@@ -20,13 +20,13 @@ function Search({ searchInfo, LargeScreen }) {
   const [select, setSelect] = useState("");
   const searchLargeScreenRef = useRef();
   const suggestLargeScreenRef = useRef();
-  const smallScreenInputRef = useRef();
+  const smallScreenRef = useRef();
   const liRef = useRef();
   const debounced = useDebounce(input, 300);
   const [focus, setFocus] = useState(false);
   const [chooseInput, setChooseInput] = useState(undefined);
   const [allLocation, setAllLocation] = useState(null);
-  useClickOutside(suggestionRef, () => {
+  useClickOutside(smallScreenRef, () => {
     setShowSuggestions(false);
   });
   useClickOutside(suggestLargeScreenRef, () => {
@@ -40,7 +40,7 @@ function Search({ searchInfo, LargeScreen }) {
   useEffect(() => {
     setShowSuggestions(false);
     if (!input.trim()) {
-      return;
+      return setSuggestions(null);
     } else {
       let filterData = allLocation.filter(
         (item) =>
@@ -71,20 +71,22 @@ function Search({ searchInfo, LargeScreen }) {
     });
     setShowSuggestions(false);
     setSuggestions(null);
-    setInput("");
   };
   return (
     <>
       {!LargeScreen ? (
-        <div className="w-full mx-5 lg:mx-auto  flex items-center border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white  ">
+        <div
+          ref={smallScreenRef}
+          className="w-full mx-5 lg:mx-auto  flex items-center border-2 rounded-full  md:shadow-sm lg:basis-1/3 bg-white  "
+        >
           <div className="hidden md:inline-flex flex-grow pl-5 cursor-pointer bg-transparent outline-none text-sm text-gray-600 text-left font-semibold whitespace-nowrap overflow-hidden py-3">
             {searchInfo || "Bắt đầu tìm kiếm"}
           </div>
           <input
-            ref={smallScreenInputRef}
             value={chooseInput || input}
             onChange={(e) => {
               setChooseInput(null);
+              setSelect("");
               setInput(e.target.value);
             }}
             onFocus={() => {
@@ -100,10 +102,7 @@ function Search({ searchInfo, LargeScreen }) {
       flex-shrink-0 "
           />
           {showSuggestions && (
-            <div
-              ref={suggestionRef}
-              className="absolute left-0 top-full mt-3 bg-white rounded-xl p-2 w-full max-h-96 overflow-y-scroll overflow-x-hidden"
-            >
+            <div className="absolute left-0 top-full mt-3 bg-white rounded-xl p-2 w-full max-h-96 overflow-y-scroll overflow-x-hidden">
               {suggestions?.map((suggest, index) => (
                 <button
                   className=" w-full  text-left flex text-gray-500 hover:bg-[#EBEBEB] items-center py-2 "
@@ -135,6 +134,19 @@ function Search({ searchInfo, LargeScreen }) {
                   {suggest.name}, {suggest.province}
                 </button>
               ))}
+              {input && (
+                <div
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setInput("");
+                    setSelect("");
+                    setChooseInput(undefined);
+                  }}
+                >
+                  <CancelIcon className="w-6 h-6" />
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -169,6 +181,7 @@ function Search({ searchInfo, LargeScreen }) {
                   value={chooseInput || input}
                   onChange={(e) => {
                     setChooseInput(null);
+                    setSelect("");
                     setInput(e.target.value);
                   }}
                   onFocus={() => {
@@ -179,6 +192,20 @@ function Search({ searchInfo, LargeScreen }) {
                   placeholder="Where are you going?"
                   className="outline-none placeholder-gray-400 bg-transparent text-sm lg:text-base"
                 />
+                {input && focus && (
+                  <div
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setInput("");
+                      setSelect("");
+                      setChooseInput(undefined);
+                    }}
+                  >
+                    <CancelIcon className="w-6 h-6" />
+                  </div>
+                )}
+
                 {showSuggestions && (
                   <div className="absolute left-0 top-full mt-6 bg-white rounded-xl p-2 w-96 max-h-80 overflow-y-scroll overflow-x-hidden">
                     {suggestions?.map((suggest, index) => (

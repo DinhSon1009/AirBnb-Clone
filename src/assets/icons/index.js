@@ -19,3 +19,4 @@ export { ReactComponent as AlignIcon } from "./Align.svg";
 export { ReactComponent as UserIcon } from "./User.svg";
 export { ReactComponent as MinusIcon } from "./Minus.svg";
 export { ReactComponent as PlusIcon } from "./Plus.svg";
+export { ReactComponent as CancelIcon } from "./Cancel.svg";

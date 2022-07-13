@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { HeartIcon } from "@heroicons/react/outline";
 import { StarIcon, UploadIcon } from "@heroicons/react/solid";
 import Rating from "../../components/Rating/Rating";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { ChevronRight } from "@mui/icons-material";
 import { useTitle } from "../../Hooks/useTitle/useTitle";
 import Skeleton from "react-loading-skeleton";
@@ -38,6 +38,7 @@ export default function RoomDetail() {
   const [roomServices, setRoomSerVices] = useState();
   const [danhGia, setDanhGia] = useState();
   const [textInput, setTextInput] = useState("");
+  const navigate = useNavigate();
   const isLoading = useSelector(
     (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
   );
@@ -111,7 +112,10 @@ export default function RoomDetail() {
           },
         ]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // console.error(err);
+        navigate("/notfound");
+      });
   }, []);
 
   const handleKeyDown = (e) => {

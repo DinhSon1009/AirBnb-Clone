@@ -50,7 +50,7 @@ export default function Rating({ roomID, danhGia }) {
           // console.log(res.data);
           setData(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
   }, [roomID, danhGia]);
   return (
     <div className="flex flex-wrap flex-col md:flex-row space-y-2">

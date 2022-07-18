@@ -53,7 +53,7 @@ export default function DatVe({ room }) {
       toast.info("Vui lòng đăng nhập !");
     } else {
       const data = {
-        roomID: room._id,
+        roomId: room._id,
         checkIn: startDatePick,
         checkOut: endDatePick,
       };

@@ -30,6 +30,7 @@ import {
   UserIcon,
   WifiIcon,
 } from "../../assets/icons";
+import { toast } from "react-toastify";
 
 export default function RoomDetail() {
   const { id } = useParams();
@@ -120,6 +121,9 @@ export default function RoomDetail() {
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
+      if (!user) {
+        return toast.info("Đăng nhập để nhận xét");
+      }
       let comment = { content: e.target.value };
       httpServ
         .taoDanhGia(id, comment)
@@ -346,16 +350,20 @@ export default function RoomDetail() {
       {/* user comment  */}
       <section className="py-4 bg-gray-100">
         <div className=" p-6 shadow-sm dscontainer">
-          <h4 className="mb-5 text-xl">Nhận xét từ người dùng :</h4>
-          {user && (
+          <h4 className="mb-5 text-xl">Nhận xét từ khách hàng :</h4>
+          {
             <div className="flex mb-4">
               <div className="w-12 mr-2  ">
-                {user.avatar ? (
-                  <img
-                    className="rounded-full w-12 h-12 object-cover"
-                    src={user?.avatar}
-                    alt=""
-                  />
+                {user ? (
+                  user.avatar ? (
+                    <img
+                      className="rounded-full w-12 h-12 object-cover"
+                      src={user?.avatar}
+                      alt=""
+                    />
+                  ) : (
+                    <UserIcon />
+                  )
                 ) : (
                   <UserIcon />
                 )}
@@ -371,7 +379,7 @@ export default function RoomDetail() {
                 ></textarea>
               </div>
             </div>
-          )}
+          }
           <Rating roomID={id} danhGia={danhGia} />
         </div>
       </section>

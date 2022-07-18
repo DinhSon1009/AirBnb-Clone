@@ -13,6 +13,7 @@ import {
 import { DEFAULT_IMAGE_PATH } from "../../constants/path";
 import { useDispatch } from "react-redux";
 import { setOffset, setSearchInfo } from "../../redux/navbarSlice";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export default function Home({ locations }) {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ export default function Home({ locations }) {
         </section>
         <section className="relative">
           <h2 className="text-2xl font-semibold ">
-            Khám phá trải nghiệm AirBnb tại {locations && locations[1].location}
+            Khám phá trải nghiệm AirBnb tại {locations && locations[0].location}
           </h2>
           <p className="m-0 pb-5 text-base text-gray-600">
             Những giấc mơ đẹp đang chờ đợi bạn.
@@ -76,7 +77,7 @@ export default function Home({ locations }) {
             className="FlexView flex gap-5 overflow-x-scroll scrollbar-hide py-6 scroll-smooth "
           >
             {locations &&
-              locations[1].data.map((item, index) => (
+              locations[0].data.map((item, index) => (
                 <div
                   key={item._id}
                   onClick={() => navigate(`/RoomDetail/${item._id}`)}
@@ -85,7 +86,7 @@ export default function Home({ locations }) {
                 >
                   <div className="relative w-full">
                     <div className=" w-full overflow-y-hidden overflow-x-scroll scrollbar-hide flex rounded-xl overflow-hidden">
-                      <img
+                      <LazyLoadImage
                         src={item.image || DEFAULT_IMAGE_PATH}
                         alt={`ảnh ${`${item.locationId.name}, ${item.locationId.province}`}`}
                         className="object-cover  w-full  transition-all duration-300 

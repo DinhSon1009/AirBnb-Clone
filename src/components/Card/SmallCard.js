@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { setSearchInfo } from "../../redux/searchSlice";
@@ -29,7 +30,10 @@ export default function SmallCard({ locationId, distance }) {
     >
       {/* left */}
       <div className="relative h-16 w-16">
-        <img
+        <LazyLoadImage
+          effect="blur"
+          width="100%"
+          height="100%"
           src={location?.image}
           className="rounded-lg w-full h-full object-cover"
           alt="location"

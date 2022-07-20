@@ -32,9 +32,13 @@ function Review({ data }) {
             {data?.length} reviews
           </span>
         </div>
-        <ul className="flex flex-wrap">
+        <ul className="flex flex-wrap gap-3">
           {listTotalRating.map((item, index) => (
-            <li key={index} className="flex basis-1/2 min-w-[300px] mb-4">
+            <li
+              style={{ width: "calc(50% - 12px)" }}
+              key={index}
+              className="flex min-w-[300px] mb-4"
+            >
               <h1 className="flex-1 text-base">{item.content}</h1>
               <div className="flex flex-1 items-center">
                 <div className="relative w-32 h-1 bg-slate-400">

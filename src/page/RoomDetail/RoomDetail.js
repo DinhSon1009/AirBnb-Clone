@@ -119,20 +119,31 @@ export default function RoomDetail() {
       });
   }, []);
 
+  const addComment = () => {
+    let comment = { content: textInput };
+    httpServ
+      .taoDanhGia(id, comment)
+      .then((res) => {
+        setDanhGia(res.data.content);
+        setTextInput("");
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handleKeyDown = (e) => {
     if (e.keyCode === 13) {
       if (!user) {
         return toast.info("Đăng nhập để nhận xét");
       }
-      let comment = { content: e.target.value };
-      httpServ
-        .taoDanhGia(id, comment)
-        .then((res) => {
-          setDanhGia(res.data.content);
-          setTextInput("");
-        })
-        .catch((err) => console.log(err));
+      addComment();
     }
+  };
+
+  const handleClick = (e) => {
+    if (!user) {
+      return toast.info("Đăng nhập để nhận xét");
+    }
+    addComment();
   };
 
   return (
@@ -368,7 +379,7 @@ export default function RoomDetail() {
                   <UserIcon />
                 )}
               </div>
-              <div className="flex-grow">
+              <div className="flex flex-col flex-grow">
                 <h4>{user?.name || user?.email.split("@")[0]}</h4>
                 <textarea
                   onKeyDown={handleKeyDown}
@@ -377,6 +388,18 @@ export default function RoomDetail() {
                   className="w-full h-28 border-2 outline-1 outline-blue-300 p-4"
                   placeholder="Leave a comment here"
                 ></textarea>
+                <button
+                  disabled={!textInput}
+                  onClick={handleClick}
+                  className={`self-end px-6 py-3 text-white  rounded-lg font-semibold mt-4 
+                  ${
+                    !textInput
+                      ? "cursor-not-allowed bg-slate-400 text-opacity-40"
+                      : "bg-blue-600 cursor-pointer "
+                  }`}
+                >
+                  Đăng
+                </button>
               </div>
             </div>
           }

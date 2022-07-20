@@ -66,7 +66,7 @@ export default function Rating({ roomID, danhGia }) {
             />
           )
       )}
-      {data?.length <= 7 ? (
+      {data?.length <= 8 ? (
         <></>
       ) : (
         <>

@@ -85,27 +85,29 @@ export default function Rating({ roomID, danhGia }) {
           >
             <div className="flex flex-col xl:flex-row">
               <div className="basis-1/3 ">
-                <div className="flex items-center mb-8">
-                  <StarIcon className="w-6 inline-flex text-primary mr-2  " />
-                  <span className="font-semibold text-base ">4.97 </span>
-                  <span className="m-2 text-base font-bold">·</span>
-                  <span className="underline text-base font-medium cursor-pointer">
-                    {data?.length} reviews
-                  </span>
-                </div>
-                <ul>
-                  {listTotalRating.map((item, index) => (
-                    <li key={index} className="flex mb-4">
-                      <h1 className="flex-1 text-base">{item.content}</h1>
-                      <div className="flex flex-1 items-center">
-                        <div className="relative w-32 h-1 bg-slate-400">
-                          <div className="absolute h-full inset-0 w-[94%] bg-black"></div>
+                <div className="sticky top-0 left-0">
+                  <div className="flex items-center mb-8">
+                    <StarIcon className="w-6 inline-flex text-primary mr-2  " />
+                    <span className="font-semibold text-base ">4.97 </span>
+                    <span className="m-2 text-base font-bold">·</span>
+                    <span className="underline text-base font-medium cursor-pointer">
+                      {data?.length} reviews
+                    </span>
+                  </div>
+                  <ul>
+                    {listTotalRating.map((item, index) => (
+                      <li key={index} className="flex mb-4">
+                        <h1 className="flex-1 text-base">{item.content}</h1>
+                        <div className="flex flex-1 items-center">
+                          <div className="relative w-32 h-1 bg-slate-400">
+                            <div className="absolute h-full inset-0 w-[94%] bg-black"></div>
+                          </div>
+                          <span className="ml-3">4,7</span>
                         </div>
-                        <span className="ml-3">4,7</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
               <div className="basis-2/3 pl-0 xl:pl-[8%]">
                 <div className="flex flex-wrap flex-col space-y-2">

@@ -31,6 +31,7 @@ import {
   WifiIcon,
 } from "../../assets/icons";
 import { toast } from "react-toastify";
+import Review from "../../components/Review/Review";
 
 export default function RoomDetail() {
   const { id } = useParams();
@@ -362,47 +363,47 @@ export default function RoomDetail() {
       <section className="py-4 bg-gray-100">
         <div className=" p-6 shadow-sm dscontainer">
           <h4 className="mb-5 text-xl">Nhận xét từ khách hàng :</h4>
-          {
-            <div className="flex mb-4">
-              <div className="w-12 mr-2  ">
-                {user ? (
-                  user.avatar ? (
-                    <img
-                      className="rounded-full w-12 h-12 object-cover"
-                      src={user?.avatar}
-                      alt=""
-                    />
-                  ) : (
-                    <UserIcon />
-                  )
+
+          <div className="flex mb-4 pt-4">
+            <div className="w-12 mr-2  ">
+              {user ? (
+                user.avatar ? (
+                  <img
+                    className="rounded-full w-12 h-12 object-cover"
+                    src={user?.avatar}
+                    alt=""
+                  />
                 ) : (
                   <UserIcon />
-                )}
-              </div>
-              <div className="flex flex-col flex-grow">
-                <h4>{user?.name || user?.email.split("@")[0]}</h4>
-                <textarea
-                  onKeyDown={handleKeyDown}
-                  onChange={(e) => setTextInput(e.target.value)}
-                  value={textInput}
-                  className="w-full h-28 border-2 outline-1 outline-blue-300 p-4"
-                  placeholder="Leave a comment here"
-                ></textarea>
-                <button
-                  disabled={!textInput}
-                  onClick={handleClick}
-                  className={`self-end px-6 py-3 text-white  rounded-lg font-semibold mt-4 
+                )
+              ) : (
+                <UserIcon />
+              )}
+            </div>
+            <div className="flex flex-col flex-grow">
+              <h4>{user?.name || user?.email.split("@")[0]}</h4>
+              <textarea
+                onKeyDown={handleKeyDown}
+                onChange={(e) => setTextInput(e.target.value)}
+                value={textInput}
+                className="w-full h-28 border-2 outline-1 outline-blue-300 p-4"
+                placeholder="Leave a comment here"
+              ></textarea>
+              <button
+                disabled={!textInput}
+                onClick={handleClick}
+                className={`self-end px-6 py-3 text-white  rounded-lg font-semibold mt-4 
                   ${
                     !textInput
                       ? "cursor-not-allowed bg-slate-400 text-opacity-40"
                       : "bg-blue-600 cursor-pointer "
                   }`}
-                >
-                  Đăng
-                </button>
-              </div>
+              >
+                Đăng
+              </button>
             </div>
-          }
+          </div>
+
           <Rating roomID={id} danhGia={danhGia} />
         </div>
       </section>

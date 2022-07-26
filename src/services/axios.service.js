@@ -79,7 +79,7 @@ class AxiosService {
         .then((res) => {
           setTimeout(() => {
             store.dispatch(setSpinnerEnd());
-          }, 2000);
+          }, 1000);
           resolve({
             data: res.data,
             status: res.status,
@@ -89,7 +89,7 @@ class AxiosService {
         .catch((err) => {
           setTimeout(() => {
             store.dispatch(setSpinnerEnd());
-          }, 2000);
+          }, 1000);
           // store.dispatch(setSpinnerEnd());
           this.handleError(err);
           reject({

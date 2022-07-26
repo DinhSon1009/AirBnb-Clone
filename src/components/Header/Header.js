@@ -24,7 +24,7 @@ export default function Header() {
   const user = useSelector((state) => state.userReducer.user);
   const [toggle, setToggle] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { offset, searchInfo } = useSelector((state) => state.navbarReducer);
+  const { offset } = useSelector((state) => state.navbarReducer);
   // const [isCartModalVisible, setIsCartModalVisible] = useState(false);
 
   useClickOutside(searchRef, () => {
@@ -113,7 +113,7 @@ export default function Header() {
           >
             <div className="absolute inset-0  w-full h-full m-auto  flex items-center ">
               <div className="w-full invisible md:visible max-w-[850px] absolute inset-0 m-auto ">
-                <Search searchInfo={searchInfo} LargeScreen />
+                <Search LargeScreen />
               </div>
             </div>
           </div>
@@ -125,11 +125,11 @@ export default function Header() {
                 setSearchClick(!searchClick);
               }}
             >
-              <Search searchInfo={searchInfo} />
+              <Search />
             </div>
 
             <div className="block md:hidden  w-full max-w-[300px] mx-3 ">
-              <Search searchInfo={searchInfo} />
+              <Search />
             </div>
           </div>
 

@@ -1,17 +1,17 @@
 import { LocationMarkerIcon, SearchIcon } from "@heroicons/react/solid";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import useClickOutside from "../../Hooks/useClickOutside/useCLickOutside";
 import useDebounce from "../../Hooks/useDebounce/useDebounce";
-import { setLocationID, setSearchInfo } from "../../redux/searchSlice";
+import { setLocationID } from "../../redux/searchSlice";
 import httpServ from "../../services/http.service";
 import { memo } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { CancelIcon } from "../../assets/icons";
 
-function Search({ searchInfo, LargeScreen }) {
+function Search({ LargeScreen }) {
   const dispatch = useDispatch();
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
@@ -26,6 +26,8 @@ function Search({ searchInfo, LargeScreen }) {
   const [focus, setFocus] = useState(false);
   const [chooseInput, setChooseInput] = useState(undefined);
   const [allLocation, setAllLocation] = useState(null);
+  const { searchInfo } = useSelector((state) => state.navbarReducer);
+
   useClickOutside(smallScreenRef, () => {
     setShowSuggestions(false);
   });
@@ -67,7 +69,7 @@ function Search({ searchInfo, LargeScreen }) {
 
   const handleSearch = () => {
     dispatch(setLocationID(select._id));
-    dispatch(setSearchInfo(chooseInput));
+    // dispatch(setSearchInfo(chooseInput));
     navigate({
       pathname: "/search",
       search: `?id=${select._id}`,

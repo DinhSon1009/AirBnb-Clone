@@ -16,7 +16,6 @@ export default function SearchPage() {
   const [location, setLocation] = useState("");
   let locationID = useSelector((state) => state.searchReducer.locationID);
   const [room, setRoom] = useState([]);
-  const searchInfo = useSelector((state) => state.searchReducer.searchInfo);
   const isLoading = useSelector(
     (state) => state.spinnerReducer.spinner && state.spinnerReducer.flag
   );
@@ -34,14 +33,11 @@ export default function SearchPage() {
   }, [locationID]);
 
   useEffect(() => {
-    dispatch(setSearchInfo(searchInfo));
-  }, []);
-
-  useEffect(() => {
     httpServ
       .layThongTinChiTietViTri(id)
       .then((res) => {
         setLocation(`${res.data.name}, ${res.data.province}`);
+        dispatch(setSearchInfo(`${res.data.name}, ${res.data.province}`));
       })
       .catch((err) => console.log(err));
   }, [locationID]);

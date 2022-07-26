@@ -74,12 +74,18 @@ class AxiosService {
 
   handleFlow(method, loading = true) {
     store.dispatch(setSpinnerStart());
+    let timeStart = Date.now();
     return new Promise((resolve, reject) => {
       method
         .then((res) => {
-          setTimeout(() => {
+          let time = Date.now() - timeStart;
+          if (time < 2000) {
+            setTimeout(() => {
+              store.dispatch(setSpinnerEnd());
+            }, 2000 - time);
+          } else {
             store.dispatch(setSpinnerEnd());
-          }, 1000);
+          }
           resolve({
             data: res.data,
             status: res.status,
@@ -87,9 +93,15 @@ class AxiosService {
           });
         })
         .catch((err) => {
-          setTimeout(() => {
+          let time = Date.now() - timeStart;
+          if (time < 2000) {
+            setTimeout(() => {
+              store.dispatch(setSpinnerEnd());
+            }, 2000 - time);
+          } else {
             store.dispatch(setSpinnerEnd());
-          }, 1000);
+          }
+
           // store.dispatch(setSpinnerEnd());
           this.handleError(err);
           reject({

@@ -180,7 +180,7 @@ export default function RoomDetail() {
 
           {/* photos grid  */}
 
-          <div className="md:grid block md:grid-cols-[1fr_0.5fr_0.5fr] h-[500px] max-h-[calc(60vh_-_64px)] grid-rows-2 gap-2 relative pt-6">
+          <div className="md:grid block md:grid-cols-[1fr_0.5fr_0.5fr] min-h-[300px] h-[calc(60vh_-_64px)] grid-rows-2 gap-2 relative pt-6">
             <div className="md:row-span-2 w-full h-full cursor-pointer relative after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(0,0,0,1)] after:opacity-0 hover:after:opacity-20 after:transition-all after:duration-300 rounded-lg md:rounded-l-lg md:rounded-r-none overflow-hidden ">
               <img
                 className="w-full h-full object-cover "
